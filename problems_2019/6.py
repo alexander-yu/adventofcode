@@ -5,7 +5,7 @@ import utils
 
 
 def get_graph():
-    edges = utils.get_input(delimiter=')', cast=str)
+    edges = utils.get_input(__file__, delimiter=')', cast=str)
     graph = nx.Graph()
     graph.add_edges_from(edges)
     return graph

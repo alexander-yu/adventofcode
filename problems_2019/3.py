@@ -59,7 +59,7 @@ def cli():
 
 @cli.command()
 def part_1():
-    path_1, path_2 = utils.get_input(cast=str)
+    path_1, path_2 = utils.get_input(__file__, cast=str)
     print(min(
         manhattan(intersection)
         for intersection in get_intersections(points(path_1), points(path_2))
@@ -68,7 +68,7 @@ def part_1():
 
 @cli.command()
 def part_2():
-    path_1, path_2 = utils.get_input(cast=str)
+    path_1, path_2 = utils.get_input(__file__, cast=str)
     points_1, points_2 = points(path_1), points(path_2)
     intersections = get_intersections(points_1, points_2)
 

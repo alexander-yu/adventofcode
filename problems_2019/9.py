@@ -12,13 +12,13 @@ def cli():
 
 @cli.command()
 def part_1():
-    memory = utils.get_input()[0]
+    memory = utils.get_input(__file__)[0]
     intcode.Program(memory).run(1)
 
 
 @cli.command()
 def part_2():
-    memory = utils.get_input()[0]
+    memory = utils.get_input(__file__)[0]
     intcode.Program(memory).run(2)
 
 

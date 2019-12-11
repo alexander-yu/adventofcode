@@ -41,7 +41,7 @@ def cli():
 
 @cli.command()
 def part_1():
-    start, end = utils.get_input(delimiter='-')[0]
+    start, end = utils.get_input(__file__, delimiter='-')[0]
 
     print(len([
         num
@@ -52,7 +52,7 @@ def part_1():
 
 @cli.command()
 def part_2():
-    start, end = utils.get_input(delimiter='-')[0]
+    start, end = utils.get_input(__file__, delimiter='-')[0]
 
     print(len([
         num

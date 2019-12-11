@@ -6,7 +6,7 @@ from problems_2019 import intcode
 
 
 def run_program(noun, verb):
-    memory = utils.get_input()[0]
+    memory = utils.get_input(__file__)[0]
     memory[1] = noun
     memory[2] = verb
     program = intcode.Program(memory)
