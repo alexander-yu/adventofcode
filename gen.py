@@ -1,5 +1,6 @@
 import datetime
 import os
+import subprocess
 
 import click
 
@@ -43,6 +44,9 @@ def cli(problem, year):
 
     with open(path, 'w') as f:
         f.write(TEMPLATE)
+
+    # Open new file in vscode
+    subprocess.call(['code.cmd', path])
 
 
 if __name__ == '__main__':
