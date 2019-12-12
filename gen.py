@@ -43,7 +43,7 @@ def cli(problem, year):
         raise Exception(f'File {path} already exists')
 
     with open(path, 'w') as f:
-        f.write(TEMPLATE)
+        f.write(TEMPLATE.lstrip())
 
     # Open new file in vscode
     subprocess.call(['code.cmd', path])
