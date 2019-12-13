@@ -28,6 +28,17 @@ if __name__ == '__main__':
 """
 
 
+def gen_file(path, content):
+    if os.path.exists(path):
+        raise Exception(f'File {path} already exists')
+
+    with open(path, 'w') as f:
+        f.write(content)
+
+    # Open new files in vscode
+    subprocess.call(['code.cmd', path])
+
+
 @click.command()
 @click.argument('problem', nargs=1)
 @click.option('-y', '--year', type=int)
@@ -35,18 +46,14 @@ def cli(problem, year):
     year = year if year else datetime.datetime.now().year
 
     directory = os.path.join(os.getcwd(), f'problems_{year}')
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+    os.makedirs(directory, exist_ok=True)
 
-    path = os.path.join(directory, f'{problem}.py')
-    if os.path.exists(path):
-        raise Exception(f'File {path} already exists')
+    gen_file(os.path.join(directory, f'{problem}.py'), TEMPLATE.lstrip())
 
-    with open(path, 'w') as f:
-        f.write(TEMPLATE.lstrip())
+    input_directory = os.path.join(directory, 'inputs')
+    os.makedirs(input_directory, exist_ok=True)
 
-    # Open new file in vscode
-    subprocess.call(['code.cmd', path])
+    gen_file(os.path.join(input_directory, f'{problem}.txt'), '')
 
 
 if __name__ == '__main__':
