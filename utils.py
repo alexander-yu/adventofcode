@@ -4,7 +4,11 @@ import sys
 
 
 def _split_line(line, delimiter):
-    return line.split(delimiter) if delimiter else list(line)
+    if delimiter == '':
+        return list(line)
+    elif delimiter is None:
+        return [line]
+    return line.split(delimiter)
 
 
 def get_input(problem_file, test=False, delimiter=',', cast=int):
