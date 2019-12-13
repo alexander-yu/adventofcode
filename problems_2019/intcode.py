@@ -20,16 +20,22 @@ class ReturnSignal(enum.Enum):
     JUMPED = 1
     RETURN_AND_WAIT = 2
     RETURN_AND_HALT = 3
+    AWAITING_INPUT = 4
 
 
 class OutputMode(enum.Enum):
     PRINT = 0
     PIPE = 1
+    BUFFER = 2
 
 
 BINOP_ARG_TYPES = (ArgType.READ, ArgType.READ, ArgType.WRITE)
 JUMP_ARG_TYPES = (ArgType.READ, ArgType.READ)
-EXIT_SIGNALS = frozenset([ReturnSignal.RETURN_AND_HALT, ReturnSignal.RETURN_AND_WAIT])
+EXIT_SIGNALS = frozenset([
+    ReturnSignal.RETURN_AND_HALT,
+    ReturnSignal.RETURN_AND_WAIT,
+    ReturnSignal.AWAITING_INPUT,
+])
 
 
 class Instruction:
@@ -59,8 +65,8 @@ class Program:
     def __init__(self, memory, initial_inputs=None, output_mode=OutputMode.PRINT):
         self.memory = Memory(memory)
         self.pointer = 0
-        self.inputs = initial_inputs or []
-        self.inputs_iter = iter(self.inputs)
+        self.inputs = collections.deque(initial_inputs or [])
+        self.outputs = collections.deque([])
         self.output_mode = output_mode
         self.last_output = None
         self.relative_base = 0
@@ -112,7 +118,9 @@ class Program:
         return ReturnSignal.NONE
 
     def input(self, pointer):
-        return self.write(pointer, next(self.inputs_iter))
+        if self.inputs:
+            return self.write(pointer, self.inputs.popleft())
+        return ReturnSignal.AWAITING_INPUT
 
     def output(self, val):
         self.last_output = val
@@ -120,8 +128,11 @@ class Program:
         if self.output_mode == OutputMode.PRINT:
             print(self.last_output)
             return ReturnSignal.NONE
+        elif self.output_mode == OutputMode.PIPE:
+            return ReturnSignal.RETURN_AND_WAIT
 
-        return ReturnSignal.RETURN_AND_WAIT
+        self.outputs.append(val)
+        return ReturnSignal.NONE
 
     def jump(self, condition, pointer):
         if condition:
@@ -165,7 +176,7 @@ class Program:
         return instruction.method(*args)
 
     def add_inputs(self, *inputs):
-        self.inputs += inputs
+        self.inputs.extend(inputs)
 
     def run(self, *inputs):
         self.add_inputs(*inputs)
