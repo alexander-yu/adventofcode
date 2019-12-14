@@ -68,7 +68,6 @@ class Program:
         self.inputs = collections.deque(initial_inputs or [])
         self.outputs = collections.deque([])
         self.output_mode = output_mode
-        self.last_output = None
         self.relative_base = 0
         self.instructions = {
             1: Instruction(
@@ -123,15 +122,14 @@ class Program:
         return ReturnSignal.AWAITING_INPUT
 
     def output(self, val):
-        self.last_output = val
+        self.outputs.append(val)
 
-        if self.output_mode == OutputMode.PRINT:
-            print(self.last_output)
-            return ReturnSignal.NONE
-        elif self.output_mode == OutputMode.PIPE:
+        if self.output_mode == OutputMode.PIPE:
             return ReturnSignal.RETURN_AND_WAIT
 
-        self.outputs.append(val)
+        if self.output_mode == OutputMode.PRINT:
+            print(val)
+
         return ReturnSignal.NONE
 
     def jump(self, condition, pointer):
@@ -146,16 +144,12 @@ class Program:
 
     def get_next_instruction(self):
         instruction_code = '{:0>5d}'.format(self.memory[self.pointer])
-        self.pointer += 1
-
         opcode = int(instruction_code[-2:])
         arg_modes = [ArgMode(int(x)) for x in list(instruction_code[-3::-1])]
-
         return self.instructions[opcode], arg_modes
 
-    def get_next_arg(self, arg_type, arg_mode):
-        arg = self.memory[self.pointer]
-        self.pointer += 1
+    def get_arg(self, pointer, arg_type, arg_mode):
+        arg = self.memory[pointer]
 
         if arg_mode == ArgMode.RELATIVE:
             arg += self.relative_base
@@ -167,20 +161,30 @@ class Program:
         else:
             return arg
 
-    def run_next_instruction(self):
-        instruction, arg_modes = self.get_next_instruction()
+    def run_instruction(self, instruction, arg_modes):
         args = [
-            self.get_next_arg(arg_type, arg_mode)
-            for arg_type, arg_mode in zip(instruction.arg_types, arg_modes)
+            self.get_arg(self.pointer + i + 1, arg_type, arg_mode)
+            for i, (arg_type, arg_mode) in enumerate(zip(instruction.arg_types, arg_modes))
         ]
         return instruction.method(*args)
 
     def add_inputs(self, *inputs):
         self.inputs.extend(inputs)
 
+    def get_next_output(self):
+        if self.outputs:
+            return self.outputs.popleft()
+        return None
+
     def run(self, *inputs):
         self.add_inputs(*inputs)
         while True:
-            return_signal = self.run_next_instruction()
+            instruction, arg_modes = self.get_next_instruction()
+            return_signal = self.run_instruction(instruction, arg_modes)
+
+            if return_signal not in [ReturnSignal.JUMPED, ReturnSignal.AWAITING_INPUT]:
+                self.pointer += len(instruction.arg_types) + 1
+
             if return_signal in EXIT_SIGNALS:
-                return self.last_output, return_signal
+                last_output = self.outputs[-1] if self.outputs else None
+                return last_output, return_signal

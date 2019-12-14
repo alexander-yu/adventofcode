@@ -5,8 +5,6 @@ import numpy as np
 
 import utils
 
-from problems_2019 import intcode
-
 
 class Direction(enum.Enum):
     UP = 'U'
