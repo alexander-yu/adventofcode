@@ -48,7 +48,13 @@ class Instruction:
 class Memory:
     def __init__(self, memory):
         self.memory = collections.defaultdict(int)
-        self.memory.update({i: val for i, val in enumerate(memory)})
+
+        if isinstance(memory, list):
+            self.memory.update({i: val for i, val in enumerate(memory)})
+        elif isinstance(memory, dict):
+            self.memory.update(memory)
+        else:
+            raise Exception(f'Expected list or dict, got {type(memory)}')
 
     def __getitem__(self, i):
         if i < 0:
@@ -66,7 +72,7 @@ class Program:
         self.memory = Memory(memory)
         self.pointer = 0
         self.inputs = collections.deque(initial_inputs or [])
-        self.outputs = collections.deque([])
+        self.outputs = collections.deque()
         self.output_mode = output_mode
         self.relative_base = 0
         self.instructions = {
@@ -175,6 +181,15 @@ class Program:
         if self.outputs:
             return self.outputs.popleft()
         return None
+
+    def copy(self):
+        program = Program(self.memory.memory.copy())
+        program.pointer = self.pointer
+        program.inputs = self.inputs.copy()
+        program.outputs = self.outputs.copy()
+        program.output_mode = self.output_mode
+        program.relative_base = self.relative_base
+        return program
 
     def run(self, *inputs):
         self.add_inputs(*inputs)

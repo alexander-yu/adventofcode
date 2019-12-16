@@ -20,7 +20,7 @@ def cli():
 def part_1():
     graph = get_graph()
     source = 'COM'
-    print(sum(nx.algorithms.single_source_shortest_path_length(graph, source=source).values()))
+    print(sum(nx.shortest_path_length(graph, source=source).values()))
 
 
 @cli.command()
@@ -30,7 +30,7 @@ def part_2():
     # is to the object they are each orbiting
     source = next(iter(graph['YOU']))
     target = next(iter(graph['SAN']))
-    print(nx.algorithms.shortest_path_length(graph, source=source, target=target))
+    print(nx.shortest_path_length(graph, source=source, target=target))
 
 
 if __name__ == '__main__':
