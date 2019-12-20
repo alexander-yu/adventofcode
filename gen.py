@@ -1,11 +1,14 @@
 import datetime
 import os
 import subprocess
+import sys
 
 import click
 
 TEMPLATE = """
 import click
+
+import utils
 
 
 @click.group()
@@ -36,7 +39,10 @@ def gen_file(path, content):
         f.write(content)
 
     # Open new files in vscode
-    subprocess.call(['code.cmd', path])
+    if sys.platform == 'win32':
+        subprocess.call(['code.cmd', path])
+    else:
+        subprocess.call(['code', path])
 
 
 @click.command()
