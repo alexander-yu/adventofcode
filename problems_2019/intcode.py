@@ -38,6 +38,14 @@ EXIT_SIGNALS = frozenset([
 ])
 
 
+def commands_to_input(commands):
+    return [
+        ord(ch)
+        for ch in
+        ''.join(command + '\n' for command in commands)
+    ]
+
+
 class Instruction:
     def __init__(self, method, arg_types):
         self.method = method
@@ -177,10 +185,13 @@ class Program:
     def add_inputs(self, *inputs):
         self.inputs.extend(inputs)
 
-    def get_next_output(self):
-        if self.outputs:
-            return self.outputs.popleft()
-        return None
+    def yield_outputs(self, stop_when_finished=True):
+        while self.outputs:
+            yield self.outputs.popleft()
+
+        if not stop_when_finished:
+            while True:
+                yield None
 
     def copy(self):
         program = Program(self.memory.memory.copy())
@@ -203,3 +214,8 @@ class Program:
             if return_signal in EXIT_SIGNALS:
                 last_output = self.outputs[-1] if self.outputs else None
                 return last_output, return_signal
+
+    def run_until_halt(self, *inputs):
+        output, return_signal = self.run(*inputs)
+        assert return_signal == ReturnSignal.RETURN_AND_HALT
+        return output

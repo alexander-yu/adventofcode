@@ -1,4 +1,5 @@
 import enum
+import itertools
 
 import click
 
@@ -57,9 +58,7 @@ class Game:
         _, return_signal = self.program.run()
 
         while return_signal != intcode.ReturnSignal.RETURN_AND_HALT or self.program.outputs:
-            x = self.program.get_next_output()
-            y = self.program.get_next_output()
-            output = self.program.get_next_output()
+            x, y, output = itertools.islice(self.program.yield_outputs(stop_when_finished=False), 3)
 
             if (x, y) == SCORE_FLAG:
                 self.score = output

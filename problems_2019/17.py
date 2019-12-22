@@ -23,12 +23,6 @@ VECTORS = [
 ]
 
 
-class Function(enum.Enum):
-    A = 'A'
-    B = 'B'
-    C = 'C'
-
-
 class Rotation(enum.Enum):
     LEFT = 'L'
     RIGHT = 'R'
@@ -57,36 +51,12 @@ def get_alignment(point):
     return abs(point[0]) * abs(point[1])
 
 
-def get_main_routine(functions):
-    routine = [
-        ord(ch)
-        for ch in
-        ','.join(function.value for function in functions) + '\n'
-    ]
-    assert len(routine) <= MAX_ROUTINE_SIZE + 1  # Add 1 to account for newline
-    return routine
-
-
-def get_function(movements):
-    function = [
-        ord(ch)
-        for ch in
-        ','.join(
-            movement.value if isinstance(movement, Rotation) else str(movement)
-            for movement in movements
-        ) + '\n'
-    ]
-    assert len(function) <= MAX_ROUTINE_SIZE + 1  # Add 1 to account for newline
-    return function
-
-
-def get_view(outputs):
+def get_view(program):
     view = View()
     x = 0
     y = 0
 
-    while outputs:
-        output = outputs.popleft()
+    for output in program.yield_outputs():
         output = chr(output)
         view.points[(x, y)] = output
 
@@ -113,10 +83,8 @@ def cli():
 def part_1():
     memory = utils.get_input(__file__)[0]
     program = intcode.Program(memory, output_mode=intcode.OutputMode.BUFFER)
-    _, return_signal = program.run()
-    assert return_signal == intcode.ReturnSignal.RETURN_AND_HALT
-
-    view = get_view(program.outputs)
+    program.run_until_halt()
+    view = get_view(program)
     view.display()
 
     alignment = 0
@@ -134,61 +102,25 @@ def part_2():
     # generate the entire path (as long as the paths are short enough so that their
     # function length with commas is < 20); there's likely some compression algorithm
     # that can do this automatically but I don't know anything about those
-    main_routine = get_main_routine([
-        Function.A,
-        Function.B,
-        Function.A,
-        Function.C,
-        Function.A,
-        Function.B,
-        Function.C,
-        Function.B,
-        Function.C,
-        Function.B,
-    ])
-    function_a = get_function([
-        Rotation.RIGHT,
-        8,
-        Rotation.LEFT,
-        10,
-        Rotation.LEFT,
-        12,
-        Rotation.RIGHT,
-        4,
-    ])
-    function_b = get_function([
-        Rotation.RIGHT,
-        8,
-        Rotation.LEFT,
-        12,
-        Rotation.RIGHT,
-        4,
-        Rotation.RIGHT,
-        4,
-    ])
-    function_c = get_function([
-        Rotation.RIGHT,
-        8,
-        Rotation.LEFT,
-        10,
-        Rotation.RIGHT,
-        8,
-    ])
+    main_routine = ['A,B,A,C,A,B,C,B,C,B']
+    function_a = ['R,8,L,10,L,12,R,4']
+    function_b = ['R,8,L,12,R,4,R,4']
+    function_c = ['R,8,L,10,R,8']
+    print_output = ['n']
 
-    function_inputs = main_routine + function_a + function_b + function_c
+    commands = main_routine + function_a + function_b + function_c + print_output
+    assert max(len(command) for command in commands) <= MAX_ROUTINE_SIZE
 
     memory = utils.get_input(__file__)[0]
     memory[0] = 2
     program = intcode.Program(
         memory,
-        initial_inputs=function_inputs + [ord('n'), ord('\n')],
+        initial_inputs=intcode.commands_to_input(commands),
         output_mode=intcode.OutputMode.BUFFER,
     )
 
-    output, return_signal = program.run()
-    assert return_signal == intcode.ReturnSignal.RETURN_AND_HALT
-
-    view = get_view(program.outputs)
+    output = program.run_until_halt()
+    view = get_view(program)
     view.display()
 
     print(output)

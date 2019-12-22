@@ -7,8 +7,7 @@ from problems_2019 import intcode
 
 def get_output(memory, x, y):
     program = intcode.Program(memory, initial_inputs=[x, y], output_mode=intcode.OutputMode.BUFFER)
-    output, return_signal = program.run()
-    assert return_signal == intcode.ReturnSignal.RETURN_AND_HALT
+    output = program.run_until_halt()
     return output
 
 
@@ -25,8 +24,7 @@ def part_1():
     for x in range(50):
         for y in range(50):
             program = intcode.Program(memory, initial_inputs=[x, y], output_mode=intcode.OutputMode.BUFFER)
-            output, return_signal = program.run()
-            assert return_signal == intcode.ReturnSignal.RETURN_AND_HALT
+            output = program.run_until_halt()
             points[(x, y)] = output
             beam += output
 

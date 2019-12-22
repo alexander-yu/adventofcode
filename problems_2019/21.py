@@ -5,24 +5,15 @@ import utils
 from problems_2019 import intcode
 
 
-def commands_to_input(commands):
-    return [
-        ord(ch)
-        for ch in
-        ''.join(command + '\n' for command in commands)
-    ]
-
-
 def run_commands(commands):
     memory = utils.get_input(__file__)[0]
     program = intcode.Program(
         memory,
-        initial_inputs=commands_to_input(commands),
+        initial_inputs=intcode.commands_to_input(commands),
         output_mode=intcode.OutputMode.BUFFER,
     )
-    _, return_signal = program.run()
-    assert return_signal == intcode.ReturnSignal.RETURN_AND_HALT
-    for output in program.outputs:
+    program.run_until_halt()
+    for output in program.yield_outputs():
         try:
             print(chr(output), end='')
         except ValueError:
