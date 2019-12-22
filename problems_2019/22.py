@@ -36,8 +36,8 @@ INV_COEFFS = {
 }
 
 
-def get_coeffs(n, techniques, inverse=False):
-    if inverse:
+def get_coeffs(n, techniques, reverse=False):
+    if reverse:
         techniques = techniques[::-1]
         coeff_map = INV_COEFFS
     else:
@@ -57,8 +57,9 @@ def get_coeffs(n, techniques, inverse=False):
     return coeffs
 
 
-def shuffle(n, card, coeffs, rounds=1):
-    a, b = coeffs
+def shuffle(n, card, rounds=1, reverse=False):
+    techniques = utils.get_input(__file__, delimiter=None, cast=str)
+    a, b = get_coeffs(n, techniques, reverse=reverse)
     return (
         pow(a, rounds, n) * card +
         b * (pow(a, rounds, n) - 1) * inverse(n, a - 1)
@@ -72,17 +73,11 @@ def cli():
 
 @cli.command()
 def part_1():
-    lines = utils.get_input(__file__, delimiter=None, cast=str, test=False)
-    n = 10007
-    coeffs = get_coeffs(n, [line[0] for line in lines])
-    print(shuffle(n, 2019, coeffs))
+    print(shuffle(10007, 2019))
 
 @cli.command()
 def part_2():
-    lines = utils.get_input(__file__, delimiter=None, cast=str, test=False)
-    n = 119315717514047
-    coeffs = get_coeffs(n, [line[0] for line in lines], inverse=True)
-    print(shuffle(n, 2020, coeffs, rounds=101741582076661))
+    print(shuffle(119315717514047, 2020, rounds=101741582076661, reverse=True))
 
 
 if __name__ == '__main__':

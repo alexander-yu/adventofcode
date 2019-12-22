@@ -46,7 +46,7 @@ def part_1():
 
 @cli.command()
 def part_2():
-    signal = utils.get_input(__file__, delimiter=None, cast=str)[0][0]
+    signal = utils.get_input(__file__, delimiter=None, cast=str)[0]
     signal *= 10000
     offset = int(signal[:7])
     signal = [int(c) for c in signal]
@@ -63,8 +63,8 @@ def part_2():
         # requires only computing the slice sums for ranges that are multiplied by 1 or -1.
         # At each offset the computations required are N, N/2, N/3, etc. leading to a total
         # O(n log n) complexity for each phase.
-        #signal = (np.cumsum(signal[::-1]) % 10)[::-1]
-        signal = interpolate(signal, offset=offset)
+        signal = (np.cumsum(signal[::-1]) % 10)[::-1]
+        #signal = interpolate(signal, offset=offset)
         print(i)
 
     print(''.join(str(digit) for digit in signal[:8]))

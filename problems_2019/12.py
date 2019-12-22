@@ -82,9 +82,8 @@ def simulate_motion(moons, steps, axis=None):
 def get_moons(test=False):
     return [
         parse_moon(moon)
-        for moon in itertools.chain.from_iterable(
-            utils.get_input(__file__, delimiter=None, cast=str, test=test)
-        )
+        for moon in
+        utils.get_input(__file__, delimiter=None, cast=str, test=test)
     ]
 
 

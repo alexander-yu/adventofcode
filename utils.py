@@ -6,12 +6,12 @@ import sys
 import numpy as np
 
 
-def _split_line(line, delimiter):
+def _split_line(line, delimiter, cast):
     if delimiter == '':
-        return list(line)
+        return list(cast(ch) for ch in line)
     elif delimiter is None:
-        return [line]
-    return line.split(delimiter)
+        return cast(line)
+    return [cast(item) for item in line.split(delimiter)]
 
 
 def get_input(problem_file, test=False, delimiter=',', cast=int):
@@ -24,7 +24,7 @@ def get_input(problem_file, test=False, delimiter=',', cast=int):
         lines = f.read().rstrip().split('\n')
 
     return [
-        [cast(x) for x in _split_line(line, delimiter)]
+        _split_line(line, delimiter, cast)
         for line in lines
     ]
 
