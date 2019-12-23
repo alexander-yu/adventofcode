@@ -219,3 +219,8 @@ class Program:
         output, return_signal = self.run(*inputs)
         assert return_signal == ReturnSignal.RETURN_AND_HALT
         return output
+
+    def run_until_wait(self, *inputs):
+        output, return_signal = self.run(*inputs)
+        assert return_signal == ReturnSignal.RETURN_AND_WAIT
+        return output
