@@ -58,8 +58,6 @@ class Grid:
         neighbors = []
         for vector in VECTORS:
             neighbor = utils.add_vector(coordinate, vector)
-            if self.recursive and neighbor[:2] == CENTER:
-                continue
             val = self.get(neighbor)
             if val is not None:
                 neighbors.append(val)
@@ -89,7 +87,7 @@ class Grid:
                 more_neighbors.append((2, 3, k - 1))
 
         for neighbor in more_neighbors:
-            val = self.get(*neighbor)
+            val = self.get(neighbor)
             if val is not None:
                 neighbors.append(val)
 
@@ -119,7 +117,7 @@ def new_layer():
 
 def biodiversity(grid, k):
     bugs = [tile == Tile.BUG.value for tile in grid.values(k)]
-    return sum(map(operator.mul, [1 << i for i in range(25)], bugs))
+    return sum((1 << i) * is_bug for i, is_bug in enumerate(bugs))
 
 
 def bugs(grid):
