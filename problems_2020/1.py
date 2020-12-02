@@ -1,17 +1,15 @@
-import itertools
-
 import click
 
 import utils
 
 
 def get_expenses():
-    return set(itertools.chain.from_iterable(utils.get_input(__file__, delimiter=None)))
+    return set(utils.get_input(__file__, delimiter=None))
 
 
 def get_expense_sum_pair(expenses, total):
     for expense in expenses:
-        if (total - expense) in expenses:
+        if total - expense in expenses:
             return expense, total - expense
 
     raise ValueError(f'Could not find two entries that sum to {total}')
