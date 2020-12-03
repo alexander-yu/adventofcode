@@ -17,8 +17,8 @@ class PasswordPolicy:
     def __init__(self, policy_type, letter, x, y):
         self.policy_type = policy_type
         self.letter = letter
-        self.x = int(x)
-        self.y = int(y)
+        self.x = x
+        self.y = y
 
     @staticmethod
     def parse(policy_type, string):
@@ -29,8 +29,8 @@ class PasswordPolicy:
         return PasswordPolicy(
             policy_type,
             match.group('letter'),
-            match.group('x'),
-            match.group('y'),
+            int(match.group('x')),
+            int(match.group('y')),
         )
 
     def is_valid(self, password):
