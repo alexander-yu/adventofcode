@@ -1,7 +1,6 @@
 import collections
 import enum
 import inspect
-import itertools
 
 
 class ArgMode(enum.Enum):
@@ -93,11 +92,11 @@ class Program:
                 BINOP_ARG_TYPES,
             ),
             3: Instruction(
-                lambda pos: self.input(pos),
+                self.input,
                 [ArgType.WRITE],
             ),
             4: Instruction(
-                lambda arg: self.output(arg),
+                self.output,
                 [ArgType.READ],
             ),
             5: Instruction(
@@ -117,7 +116,7 @@ class Program:
                 BINOP_ARG_TYPES,
             ),
             9: Instruction(
-                lambda arg: self.adjust_relative_base(arg),
+                self.adjust_relative_base,
                 [ArgType.READ],
             ),
             99: Instruction(
