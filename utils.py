@@ -1,7 +1,6 @@
 import enum
 import os
 import pathlib
-import sys
 
 import numpy as np
 
@@ -30,7 +29,7 @@ def get_input(problem_file, test=False, delimiter=',', cast=int):
 
 
 def add_vector(position, vector):
-    return tuple(np.array(position) + vector)
+    return tuple(np.array(position) + np.array(vector))
 
 
 class MultiValueEnum(enum.Enum):
