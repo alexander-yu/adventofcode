@@ -1,6 +1,7 @@
 import enum
 import os
 import pathlib
+import re
 
 import numpy as np
 
@@ -8,19 +9,26 @@ import numpy as np
 def _split_line(line, delimiter, cast):
     if delimiter == '':
         return list(cast(ch) for ch in line)
-    elif delimiter is None:
+    if delimiter is None:
         return cast(line)
-    return [cast(item) for item in line.split(delimiter)]
+
+    if isinstance(delimiter, list):
+        items = re.split('|'.join(delimiter), line)
+    else:
+        assert isinstance(delimiter, str)
+        items = line.split(delimiter)
+
+    return [cast(item) for item in items]
 
 
-def get_input(problem_file, test=False, delimiter=',', cast=int):
+def get_input(problem_file, test=False, delimiter=',', cast=int, line_delimiter='\n'):
     problem_path = pathlib.Path(problem_file).resolve()
     problem_number = problem_path.stem
     test_prefix = '_test' if test else ''
     input_file_name = f'{problem_number}{test_prefix}.txt'
 
     with open(os.path.join(problem_path.parent, 'inputs', input_file_name), 'r') as f:
-        lines = f.read().rstrip().split('\n')
+        lines = f.read().rstrip().split(line_delimiter)
 
     return [
         _split_line(line, delimiter, cast)
