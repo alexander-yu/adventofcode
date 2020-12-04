@@ -10,16 +10,14 @@ from marshmallow.exceptions import ValidationError
 import utils
 
 
-YEAR_REGEX = r'^\d{4}$'
 HEIGHT_REGEX = r'^(?P<value>\d+)(?P<unit>cm|in)$'
 HAIR_COLOR_REGEX = r'^#[a-f0-9]{6}$'
 PASSPORT_ID_REGEX = r'^\d{9}$'
 
 
 def year_in_range(min_year, max_year, year):
-    match = re.match(YEAR_REGEX, year)
-    if not match:
-        raise ValidationError(f'Not a valid year: must match {YEAR_REGEX}')
+    if not year.isnumeric():
+        raise ValidationError('Not a valid year: must be a number')
 
     if not min_year <= int(year) <= max_year:
         raise ValidationError(f'Must be a year in the range [{min_year}, {max_year}]')
