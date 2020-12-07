@@ -21,7 +21,8 @@ def _split_line(line, delimiter, cast):
     return [cast(item) for item in items]
 
 
-def get_input(problem_file, test=False, delimiter=',', cast=int, line_delimiter='\n'):
+# pylint: disable=too-many-arguments
+def get_input(problem_file, test=False, delimiter=',', cast=int, line_delimiter='\n', rstrip=None):
     problem_path = pathlib.Path(problem_file).resolve()
     problem_number = problem_path.stem
     test_prefix = '_test' if test else ''
@@ -29,6 +30,9 @@ def get_input(problem_file, test=False, delimiter=',', cast=int, line_delimiter=
 
     with open(os.path.join(problem_path.parent, 'inputs', input_file_name), 'r') as f:
         lines = f.read().rstrip().split(line_delimiter)
+
+    if rstrip:
+        lines = [line.rstrip(rstrip) for line in lines]
 
     return [
         _split_line(line, delimiter, cast)
