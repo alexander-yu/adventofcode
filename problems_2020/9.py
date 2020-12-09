@@ -16,6 +16,9 @@ class Queue:
             item = self.items.popleft()
             self.counts[item] -= 1
 
+            if not self.counts[item]:
+                self.counts.pop(item)
+
         self.items.append(x)
         self.counts[x] += 1
 
@@ -24,7 +27,7 @@ class Queue:
             yield item
 
     def __contains__(self, x):
-        return self.counts[x] > 0
+        return x in self.counts and self.counts[x] > 0
 
 
 def get_subarray_sum(arr, target_sum):
