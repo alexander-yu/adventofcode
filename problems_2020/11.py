@@ -50,17 +50,16 @@ class Grid:
 
         for i in [-1, 0, 1]:
             for j in [-1, 0, 1]:
-                direction = (i, j)
-                if direction != (0, 0):
-                    magnitude = 1
-                    visible_point = utils.add_vector(point, (magnitude * i, magnitude * j))
+                vector = (i, j)
+                if vector != (0, 0):
+                    visible_point = utils.add_vector(point, vector)
 
                     while self.points.get(visible_point) == PointType.FLOOR:
-                        magnitude += 1
-                        visible_point = utils.add_vector(point, (magnitude * i, magnitude * j))
+                        visible_point = utils.add_vector(visible_point, vector)
 
                     if self.points.get(visible_point) == PointType.OCCUPIED_SEAT:
                         visible_occupied_seats.append(visible_point)
+
         return visible_occupied_seats
 
     def get_occupied_seats(self):

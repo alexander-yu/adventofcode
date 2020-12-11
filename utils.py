@@ -3,8 +3,6 @@ import os
 import pathlib
 import re
 
-import numpy as np
-
 
 def _split_line(line, delimiter, cast):
     if delimiter == '':
@@ -41,7 +39,7 @@ def get_input(problem_file, test=False, delimiter=',', cast=int, line_delimiter=
 
 
 def add_vector(position, vector):
-    return tuple(np.array(position) + np.array(vector))
+    return tuple(x + y for x, y in zip(position, vector))
 
 
 class MultiValueEnum(enum.Enum):
