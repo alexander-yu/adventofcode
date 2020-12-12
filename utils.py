@@ -92,6 +92,10 @@ def get_input(problem_file, test=False, delimiter=',', cast=int, line_delimiter=
     ]
 
 
+def to_vector(tup):
+    return np.reshape(np.array(tup), (-1, 1))
+
+
 def add_vector(position, vector):
     return tuple(x + y for x, y in zip(position, vector))
 
