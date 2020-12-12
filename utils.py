@@ -3,6 +3,60 @@ import os
 import pathlib
 import re
 
+import numpy as np
+
+
+ORIGIN = np.array([
+    [0],
+    [0],
+])
+
+
+class Direction(enum.Enum):
+    NORTH = 0
+    EAST = 1
+    SOUTH = 2
+    WEST = 3
+
+
+DIRECTIONS = {
+    Direction.NORTH: np.array([
+        [0],
+        [1],
+    ]),
+    Direction.EAST: np.array([
+        [1],
+        [0],
+    ]),
+    Direction.SOUTH: np.array([
+        [0],
+        [-1],
+    ]),
+    Direction.WEST: np.array([
+        [-1],
+        [0],
+    ]),
+}
+
+ROTATIONS = [
+    np.array(
+        [[1, 0],
+         [0, 1]]
+    ),
+    np.array(
+        [[0, -1],
+         [1, 0]]
+    ),
+    np.array(
+        [[-1, 0],
+         [0, -1]]
+    ),
+    np.array(
+        [[0, 1],
+         [-1, 0]]
+    ),
+]
+
 
 def _split_line(line, delimiter, cast):
     if delimiter == '':
