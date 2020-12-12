@@ -72,6 +72,14 @@ def manhattan_distance(x, y):
     return np.abs(x - y).sum()
 
 
+def navigate_ship(ship):
+    for instruction in utils.get_input(__file__, delimiter=None, cast=str):
+        action, value = parse_instruction(instruction)
+        ship.execute(action, value)
+
+    return ship.position
+
+
 @click.group()
 def cli():
     pass
@@ -80,23 +88,15 @@ def cli():
 @cli.command()
 def part_1():
     ship = Ship()
-
-    for instruction in utils.get_input(__file__, delimiter=None, cast=str):
-        action, value = parse_instruction(instruction)
-        ship.execute(action, value)
-
-    print(manhattan_distance(utils.ORIGIN, ship.position))
+    position = navigate_ship(ship)
+    print(manhattan_distance(utils.ORIGIN, position))
 
 
 @cli.command()
 def part_2():
     ship = Ship(waypoint=True)
-
-    for instruction in utils.get_input(__file__, delimiter=None, cast=str):
-        action, value = parse_instruction(instruction)
-        ship.execute(action, value)
-
-    print(manhattan_distance(utils.ORIGIN, ship.position))
+    position = navigate_ship(ship)
+    print(manhattan_distance(utils.ORIGIN, position))
 
 
 if __name__ == '__main__':
