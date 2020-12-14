@@ -9,6 +9,27 @@ import utils
 WRITE_REGEX = r'mem\[(?P<address>\d+)\]'
 
 
+def set_bit(value, index, bit):
+    if bit:
+        return value | (1 << index)
+    return value & ~(1 << index)
+
+
+def resolve_floating_bits(initial_address, floating_bits):
+    addresses = []
+    bit_combinations = itertools.product([0, 1], repeat=len(floating_bits))
+
+    for bits in bit_combinations:
+        address = initial_address
+
+        for i, bit in zip(floating_bits, bits):
+            address = set_bit(address, i, bit)
+
+        addresses.append(address)
+
+    return addresses
+
+
 class Mask:
     def __init__(self, bits, version):
         self.bits = dict(enumerate(reversed(bits)))
@@ -22,16 +43,10 @@ class Mask:
             )
         self.version_handler = self.version_handlers[version]
 
-    @staticmethod
-    def _set_bit(value, index, bit):
-        if bit:
-            return value | (1 << index)
-        return value & ~(1 << index)
-
     def _apply_v1(self, memory, address, value):
         for i, bit in self.bits.items():
             if bit != 'X':
-                value = self._set_bit(value, i, int(bit))
+                value = set_bit(value, i, int(bit))
             else:
                 continue
 
@@ -42,32 +57,18 @@ class Mask:
 
         for i, bit in self.bits.items():
             if bit == '1':
-                address = self._set_bit(address, i, 1)
+                address = set_bit(address, i, 1)
             elif bit == '0':
                 continue
             else:
                 floating_bits.append(i)
 
         if floating_bits:
-            floating_addresses = self._resolve_floating_bits(address, floating_bits)
+            floating_addresses = resolve_floating_bits(address, floating_bits)
             for floating_address in floating_addresses:
                 memory[floating_address] = value
         else:
             memory[address] = value
-
-    def _resolve_floating_bits(self, floating_address, floating_bits):
-        addresses = []
-        bit_combinations = itertools.product([0, 1], repeat=len(floating_bits))
-
-        for bits in bit_combinations:
-            address = floating_address
-
-            for i, bit in zip(floating_bits, bits):
-                address = self._set_bit(address, i, bit)
-
-            addresses.append(address)
-
-        return addresses
 
     def apply(self, memory, address, value):
         return self.version_handler(memory, address, value)
