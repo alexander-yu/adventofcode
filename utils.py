@@ -6,8 +6,6 @@ import re
 
 import numpy as np
 
-from sympy.core import numbers
-
 
 ORIGIN = np.array([
     [0],
@@ -101,17 +99,6 @@ def to_vector(tup):
 
 def add_vector(position, vector):
     return tuple(x + y for x, y in zip(position, vector))
-
-
-def chinese_remainder(residues, mods):
-    solution = 0
-    prod = math.prod(mods)
-
-    for residue, mod in zip(residues, mods):
-        p = prod // mod
-        solution += residue * numbers.mod_inverse(p, mod) * p
-
-    return solution % prod
 
 
 class MultiValueEnum(enum.Enum):

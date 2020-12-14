@@ -2,6 +2,8 @@ import math
 
 import click
 
+from sympy.ntheory.modular import crt
+
 import utils
 
 
@@ -36,7 +38,7 @@ def part_2():
         if bus != 'x'
     ])
 
-    print(utils.chinese_remainder(offsets, buses))
+    print(crt(buses, offsets)[0])
 
 
 if __name__ == '__main__':
