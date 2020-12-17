@@ -1,18 +1,8 @@
 import collections
-import itertools
 
 import click
 
 import utils
-
-
-def get_neighbors(point):
-    dims = len(point)
-    zero = tuple(0 for _ in range(dims))
-
-    for vector in itertools.product([-1, 0, 1], repeat=dims):
-        if vector != zero:
-            yield utils.add_vector(point, vector)
 
 
 class PocketDimension:
@@ -24,7 +14,7 @@ class PocketDimension:
         active_neighbor_count = collections.defaultdict(int)
 
         for point in self.active_points:
-            for neighbor in get_neighbors(point):
+            for neighbor in utils.get_neighbors(point):
                 active_neighbor_count[neighbor] += 1
 
         for point, active_neighbors in active_neighbor_count.items():

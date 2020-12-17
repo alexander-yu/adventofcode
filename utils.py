@@ -1,5 +1,5 @@
 import enum
-import math
+import itertools
 import os
 import pathlib
 import re
@@ -99,6 +99,15 @@ def to_vector(tup):
 
 def add_vector(position, vector):
     return tuple(x + y for x, y in zip(position, vector))
+
+
+def get_neighbors(point):
+    dims = len(point)
+    zero = tuple(0 for _ in range(dims))
+
+    for vector in itertools.product([-1, 0, 1], repeat=dims):
+        if vector != zero:
+            yield add_vector(point, vector)
 
 
 class MultiValueEnum(enum.Enum):
