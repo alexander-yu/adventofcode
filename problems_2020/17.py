@@ -1,3 +1,4 @@
+import collections
 import itertools
 
 import click
@@ -18,27 +19,15 @@ class PocketDimension:
     def __init__(self, active_points):
         self.active_points = set(active_points)
 
-    def _get_potential_changes(self):
-        potential_changes = set()
-
-        for point in self.active_points:
-            potential_changes.add(point)
-
-            for neighbor in get_neighbors(point):
-                potential_changes.add(neighbor)
-
-        return potential_changes
-
     def _run_cycle(self):
         new_active_points = set()
+        active_neighbor_count = collections.defaultdict(int)
 
-        for point in self._get_potential_changes():
-            active_neighbors = len([
-                neighbor
-                for neighbor in get_neighbors(point)
-                if neighbor in self.active_points
-            ])
+        for point in self.active_points:
+            for neighbor in get_neighbors(point):
+                active_neighbor_count[neighbor] += 1
 
+        for point, active_neighbors in active_neighbor_count.items():
             if point in self.active_points and active_neighbors in [2, 3]:
                 new_active_points.add(point)
             elif point not in self.active_points and active_neighbors == 3:
