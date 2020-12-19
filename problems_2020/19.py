@@ -10,7 +10,7 @@ import utils
 def add_rule(graph, rule, skip=None):
     number, rule = rule.split(':')
 
-    if number in skip:
+    if skip and number in skip:
         return graph
 
     rule = rule.strip().split(' ')
@@ -76,15 +76,10 @@ def part_2():
 
     rule_31 = graph.nodes['31']['rule']
     rule_42 = graph.nodes['42']['rule']
-    rule_0 = fr'(?P<rule_42>{rule_42})+(?P<rule_31>{rule_31})+'
 
-    valid = 0
-    for message in messages:
-        match = regex.fullmatch(rule_0, message)
-        if match and len(match.captures('rule_42')) > len(match.captures('rule_31')):
-            valid += 1
-
-    print(valid)
+    # Use a recursive regex here
+    rule_0 = fr'(?:{rule_42})+((?:{rule_42})(|(?1))(?:{rule_31}))'
+    print(len([message for message in messages if regex.fullmatch(rule_0, message)]))
 
 
 if __name__ == '__main__':
