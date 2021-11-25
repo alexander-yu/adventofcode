@@ -13,6 +13,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     groups = get_group_answers()
     counts = sum(
@@ -25,6 +26,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     groups = get_group_answers()
     counts = sum(

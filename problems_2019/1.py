@@ -24,12 +24,14 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     module_masses = itertools.chain.from_iterable(utils.get_input(__file__))
     print(sum(fuel(module_mass) for module_mass in module_masses))
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     module_masses = itertools.chain.from_iterable(utils.get_input(__file__))
     print(sum(fuel_total(module_mass) for module_mass in module_masses))

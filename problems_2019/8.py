@@ -12,6 +12,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     image = np.array(utils.get_input(__file__, delimiter='')[0]).reshape((-1, 6, 25))
     layer = min(image, key=lambda layer: np.sum(layer == 0))
@@ -23,6 +24,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     image = np.array(utils.get_input(__file__, delimiter='')[0]).reshape((-1, 6, 25))
     decode = np.vectorize(lambda a, b: a if a != 2 else b)

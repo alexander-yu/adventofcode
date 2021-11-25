@@ -86,6 +86,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     ship = Ship()
     position = navigate_ship(ship)
@@ -93,6 +94,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     ship = Ship(waypoint=True)
     position = navigate_ship(ship)

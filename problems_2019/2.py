@@ -20,11 +20,13 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     print(run_program(12, 2))
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     for noun in range(100):
         for verb in range(100):

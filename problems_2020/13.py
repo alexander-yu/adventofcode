@@ -17,6 +17,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     min_timestamp, buses = utils.get_input(__file__, delimiter=None, cast=str)
     min_timestamp = int(min_timestamp)
@@ -29,6 +30,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     _, buses = utils.get_input(__file__, delimiter=None, cast=str)
 

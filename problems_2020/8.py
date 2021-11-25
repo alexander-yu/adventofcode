@@ -76,6 +76,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     program = Program(get_instructions())
     try:
@@ -85,6 +86,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     instructions = get_instructions()
 

@@ -106,6 +106,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     cups = utils.get_input(__file__, delimiter='')[0]
     cups = play(cups, 100)
@@ -113,6 +114,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     cups = utils.get_input(__file__, delimiter='')[0]
     cups += list(range(max(cups) + 1, 1_000_001))

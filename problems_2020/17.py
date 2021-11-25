@@ -49,6 +49,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     pocket_dimension = get_pocket_dimension(3)
     pocket_dimension.boot_up()
@@ -56,6 +57,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     pocket_dimension = get_pocket_dimension(4)
     pocket_dimension.boot_up()

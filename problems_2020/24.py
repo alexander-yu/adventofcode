@@ -61,12 +61,14 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     floor = get_initial_floor()
     print(list(floor.values()).count(Color.BLACK))
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     floor = get_initial_floor()
 

@@ -33,6 +33,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     commands = [
         'south',

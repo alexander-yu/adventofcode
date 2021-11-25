@@ -17,6 +17,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     graph = get_graph()
     source = 'COM'
@@ -24,6 +25,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     graph = get_graph()
     # YOU and SAN are not orbited by any other object, meaning that their only edge for each of them

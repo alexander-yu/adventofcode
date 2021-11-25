@@ -80,6 +80,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     memory = utils.get_input(__file__)[0]
     program = intcode.Program(memory, output_mode=intcode.OutputMode.BUFFER)
@@ -96,6 +97,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     # Designed by inspection; look at the full path (or at least what seems like the
     # reasonable full path), and do substring matching to try and get 3 substrings that

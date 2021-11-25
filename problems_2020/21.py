@@ -58,6 +58,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     foods = get_foods()
     hypoallergenic = get_hypoallergenic_ingredients(foods)
@@ -69,6 +70,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     foods = get_foods()
     hypoallergenic = get_hypoallergenic_ingredients(foods)

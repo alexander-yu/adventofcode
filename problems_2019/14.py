@@ -81,11 +81,13 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     print(get_ore_required(1))
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     print(argmax(get_ore_required, ONE_TRILLION))
 

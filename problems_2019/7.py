@@ -32,6 +32,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     memory = utils.get_input(__file__)[0]
     print(max(
@@ -42,6 +43,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     memory = utils.get_input(__file__)[0]
     print(max(

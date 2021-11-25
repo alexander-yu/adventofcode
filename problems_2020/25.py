@@ -23,6 +23,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     card_key, door_key = utils.get_input(__file__, delimiter=None)
     subject, mod = 7, 20201227

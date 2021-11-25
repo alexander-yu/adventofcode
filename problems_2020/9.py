@@ -53,6 +53,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     numbers = utils.get_input(__file__, delimiter=None)
     queue = Queue(25)
@@ -67,6 +68,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     numbers = utils.get_input(__file__, delimiter=None)
     subarray = get_subarray_sum(numbers, 104054607)

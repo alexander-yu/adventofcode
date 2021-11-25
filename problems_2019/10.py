@@ -78,6 +78,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     asteroid_map = utils.get_input(__file__, delimiter='', cast=str)
     asteroids = get_asteroids(asteroid_map)
@@ -85,6 +86,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     asteroid_map = utils.get_input(__file__, delimiter='', cast=str)
     asteroids = get_asteroids(asteroid_map)

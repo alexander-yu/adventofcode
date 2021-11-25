@@ -22,11 +22,13 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     print(max(get_seat_ids()))
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     seat_ids = get_seat_ids()
 

@@ -63,6 +63,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     decks = get_decks()
     winner = play(decks)
@@ -70,6 +71,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     decks = get_decks()
     winner = play(decks, recursive=True)

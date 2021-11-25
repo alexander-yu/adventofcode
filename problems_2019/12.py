@@ -116,6 +116,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     moons = get_moons()
     simulate_motion(moons, 1000)
@@ -123,6 +124,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     print(functools.reduce(lcm, [get_axis_cycle(axis) for axis in [0, 1, 2]]))
 

@@ -17,7 +17,7 @@ The `--year` flag is optional; by default the current year will be chosen. The n
 To run the script for a particular solution part, run:
 
 ```commandline
-python run.py <problem_number> <part_1|part_2> [--year <desired_year>]
+python run.py <problem_number> <part_number> [--year <desired_year>]
 ```
 
 As before, the `--year` flag is optional and by default the current year will be chosen.

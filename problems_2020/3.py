@@ -33,12 +33,14 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     grid = Grid()
     print(get_trees_encountered(grid, (1, 3)))
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     slopes = [
         (1, 1),

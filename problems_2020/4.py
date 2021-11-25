@@ -80,11 +80,13 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     print(get_valid_passports())
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     print(get_valid_passports(strict=True))
 

@@ -117,6 +117,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     grid = get_grid()
     while True:
@@ -127,6 +128,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     grid = get_grid()
     while True:

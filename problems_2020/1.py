@@ -21,6 +21,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     expenses = get_expenses()
     expense_1, expense_2 = get_expense_sum_pair(expenses, 2020)
@@ -28,6 +29,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     expenses = get_expenses()
     for expense_1 in expenses:

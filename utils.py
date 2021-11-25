@@ -1,4 +1,6 @@
+import collections
 import enum
+import functools
 import itertools
 import os
 import pathlib
@@ -7,6 +9,7 @@ import re
 import numpy as np
 
 
+PART_REGISTRY = collections.defaultdict(dict)
 ORIGIN = np.array([
     [0],
     [0],
@@ -123,3 +126,15 @@ class MultiValueEnum(enum.Enum):
     def values(self):
         cls = type(self)
         return [value for value in cls._value2member_map_ if cls._value2member_map_[value] == self]
+
+
+def part(path, part_number):
+    def wrapper(wrapped):
+        PART_REGISTRY[path][part_number] = wrapped
+
+        @functools.wraps(wrapped)
+        def inner(*args, **kwargs):
+            return wrapped(*args, **kwargs)
+
+        return inner
+    return wrapper

@@ -11,6 +11,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     adapters = sorted(utils.get_input(__file__, delimiter=None))
     inputs = [0] + adapters
@@ -21,6 +22,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     adapters = sorted(utils.get_input(__file__, delimiter=None))
 

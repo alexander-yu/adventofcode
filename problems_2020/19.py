@@ -50,6 +50,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     rules, messages = utils.get_input(__file__, cast=str, delimiter='\n', line_delimiter='\n\n')
     graph = nx.DiGraph()
@@ -64,6 +65,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     rules, messages = utils.get_input(__file__, cast=str, delimiter='\n', line_delimiter='\n\n')
     graph = nx.DiGraph()

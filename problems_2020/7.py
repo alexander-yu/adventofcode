@@ -46,12 +46,14 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     graph = get_graph()
     print(len(nx.single_target_shortest_path(graph, 'shiny gold')) - 1)
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     graph = get_graph()
     print(get_size(graph, 'shiny gold'))

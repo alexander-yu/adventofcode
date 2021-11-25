@@ -134,6 +134,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     grid = Grid(utils.get_input(__file__, delimiter='', cast=str, test=False), recursive=False)
     hashes = set([grid.hash(0)])
@@ -153,6 +154,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     grid = Grid(utils.get_input(__file__, delimiter='', cast=str, test=False))
 

@@ -35,6 +35,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     signal = utils.get_input(__file__, delimiter='', cast=int)[0]
 
@@ -45,6 +46,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     signal = utils.get_input(__file__, delimiter=None, cast=str)[0]
     signal *= 10000

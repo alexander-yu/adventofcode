@@ -139,12 +139,14 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     graph, entrances = get_graph()
     print(get_distance(graph, entrances))
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     graph, entrances = get_graph(single_bot=False)
     print(get_distance(graph, entrances, bots=4))

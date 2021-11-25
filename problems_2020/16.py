@@ -55,6 +55,7 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     rules, _, nearby_tickets = parse_notes()
     error_rate = 0
@@ -66,6 +67,7 @@ def part_1():
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     rules, my_ticket, nearby_tickets = parse_notes()
     field_candidates = {

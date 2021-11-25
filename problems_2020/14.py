@@ -96,12 +96,14 @@ def cli():
 
 
 @cli.command()
+@utils.part(__name__, 1)
 def part_1():
     memory = run_program(1)
     print(sum(memory.values()))
 
 
 @cli.command()
+@utils.part(__name__, 2)
 def part_2():
     memory = run_program(2)
     print(sum(memory.values()))
