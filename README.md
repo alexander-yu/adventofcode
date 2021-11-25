@@ -7,7 +7,7 @@ These are my solutions for [Advent of Code](https://adventofcode.com/).
 To generate a script for a new problem, run:
 
 ```commandline
-python gen.py <problem_number> [--year <desired_year>]
+./gen.py <problem_number> [--year <desired_year>]
 ```
 
 The `--year` flag is optional; by default the current year will be chosen. The new problem script will be placed in `problems_{desired_year}/{problem_number}.py`.
@@ -17,7 +17,7 @@ The `--year` flag is optional; by default the current year will be chosen. The n
 To run the script for a particular solution part, run:
 
 ```commandline
-python run.py <problem_number> <part_number> [--year <desired_year>]
+./run.py <problem_number> [-p/--part <part_number>] [-y/--year <desired_year>]
 ```
 
-As before, the `--year` flag is optional and by default the current year will be chosen.
+As before, the `--year` flag is optional and by default the current year will be chosen. The `--part` flag is optional, and by default the script will run all parts.
