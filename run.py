@@ -24,12 +24,13 @@ def cli(context, problem, part, year):
             )
 
         context.invoke(part_cmd)
-        print()
     else:
-        for part, part_cmd in sorted(parts.items()):
+        for i, (part, part_cmd) in enumerate(sorted(parts.items())):
             print(f'=== PART {part} ===')
             context.invoke(part_cmd)
-            print()
+            
+            if i != len(parts) - 1:
+                print()
 
 
 if __name__ == '__main__':
