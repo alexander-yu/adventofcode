@@ -9,10 +9,9 @@ import utils
 @click.command()
 @click.argument('problem', nargs=1)
 @click.option('-p', 'part', nargs=1, type=int)
-@click.option('-y', '--year', nargs=1, type=int)
+@click.option('-y', '--year', nargs=1, type=int, default=datetime.datetime.now().year, show_default=True)
 @click.pass_context
 def cli(context, problem, part, year):
-    year = year if year else datetime.datetime.now().year
     module = importlib.import_module(f'problems_{year}.{problem}')
     parts = utils.PART_REGISTRY[module.__name__]
 
