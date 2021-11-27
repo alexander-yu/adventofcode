@@ -1,4 +1,3 @@
-import copy
 import enum
 
 import click
@@ -12,19 +11,7 @@ class PointType(enum.Enum):
     OCCUPIED_SEAT = '#'
 
 
-class Grid:
-    def __init__(self, points):
-        self.points = points
-
-    def __getitem__(self, point):
-        return self.points[point]
-
-    def __setitem__(self, point, point_type):
-        self.points[point] = point_type
-
-    def clone(self):
-        return Grid(copy.deepcopy(self.points))
-
+class Grid(utils.Grid):
     def get_seats(self):
         seats = []
         for point, point_type in self.points.items():
@@ -102,15 +89,6 @@ def apply_visibility_rules(grid):
     return new_grid, changes
 
 
-def get_grid():
-    points = {
-        (i, j): PointType(point_type)
-        for i, row in enumerate(utils.get_input(__file__, delimiter='', cast=str))
-        for j, point_type in enumerate(row)
-    }
-    return Grid(points)
-
-
 @click.group()
 def cli():
     pass
@@ -119,7 +97,7 @@ def cli():
 @cli.command()
 @utils.part(__name__, 1)
 def part_1():
-    grid = get_grid()
+    grid = utils.get_grid(__file__, grid_cls=Grid, value_transformer=PointType, delimiter='', cast=str)
     while True:
         grid, changes = apply_adjacency_rules(grid)
         if not changes:
@@ -130,7 +108,7 @@ def part_1():
 @cli.command()
 @utils.part(__name__, 2)
 def part_2():
-    grid = get_grid()
+    grid = utils.get_grid(__file__, grid_cls=Grid, value_transformer=PointType, delimiter='', cast=str)
     while True:
         grid, changes = apply_visibility_rules(grid)
         if not changes:

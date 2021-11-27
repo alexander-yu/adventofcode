@@ -1,7 +1,6 @@
 import collections
 import enum
 import itertools
-import operator
 
 import click
 import numpy as np

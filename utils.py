@@ -1,10 +1,12 @@
 import collections
+import copy
 import enum
 import functools
 import itertools
 import os
 import pathlib
 import re
+import typing
 
 import numpy as np
 
@@ -62,7 +64,11 @@ ROTATIONS = [
 ]
 
 
-def _split_line(line, delimiter, cast):
+def _split_line(
+    line: str,
+    delimiter: typing.Union[str, None],
+    cast: typing.Callable[[str], typing.Any],
+):
     if delimiter == '':
         return list(cast(ch) for ch in line)
     if delimiter is None:
@@ -78,7 +84,14 @@ def _split_line(line, delimiter, cast):
 
 
 # pylint: disable=too-many-arguments
-def get_input(problem_file, test=False, delimiter=',', cast=int, line_delimiter='\n', rstrip=None):
+def get_input(
+    problem_file: str,
+    test: bool = False,
+    delimiter: typing.Union[str, None] = ',',
+    cast: typing.Callable[[str], typing.Any] = int,
+    line_delimiter: str = '\n',
+    rstrip: typing.Union[str, None] = None,
+):
     problem_path = pathlib.Path(problem_file).resolve()
     problem_number = problem_path.stem
     test_prefix = '_test' if test else ''
@@ -96,15 +109,11 @@ def get_input(problem_file, test=False, delimiter=',', cast=int, line_delimiter=
     ]
 
 
-def to_vector(tup):
-    return np.reshape(np.array(tup), (-1, 1))
-
-
-def add_vector(position, vector):
+def add_vector(position: tuple, vector: tuple):
     return tuple(x + y for x, y in zip(position, vector))
 
 
-def get_neighbors(point):
+def get_neighbors(point: tuple):
     dims = len(point)
     zero = tuple(0 for _ in range(dims))
 
@@ -128,7 +137,47 @@ class MultiValueEnum(enum.Enum):
         return [value for value in cls._value2member_map_ if cls._value2member_map_[value] == self]
 
 
-def part(path, part_number):
+class Grid:
+    def __init__(
+        self,
+        points: typing.Dict[typing.Tuple[int, int], typing.Any],
+        rows: int,
+        columns: int,
+    ):
+        self.points = points
+        self.rows = rows
+        self.columns = columns
+
+    def __getitem__(self, point: typing.Tuple[int, int]):
+        return self.points[point]
+
+    def __setitem__(self, point: typing.Tuple[int, int], value):
+        self.points[point] = value
+
+    def clone(self):
+        return type(self)(copy.deepcopy(self.points), self.rows, self.columns)
+
+
+def get_grid(
+    problem_file: str,
+    grid_cls: typing.Type[Grid] = Grid,
+    value_transformer: typing.Callable[[typing.Any], typing.Any] = lambda x: x,
+    **get_input_kwargs
+):
+    points = {}
+    rows = 0
+    columns = 0
+
+    for i, row in enumerate(get_input(problem_file, **get_input_kwargs)):
+        rows = i + 1
+        for j, value in enumerate(row):
+            columns = j + 1
+            points[(i, j)] = value_transformer(value)
+
+    return grid_cls(points, rows, columns)
+
+
+def part(path: str, part_number: int):
     def wrapper(wrapped):
         PART_REGISTRY[path][part_number] = wrapped
 

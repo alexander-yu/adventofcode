@@ -5,15 +5,10 @@ import click
 import utils
 
 
-class Grid:
-    def __init__(self):
-        self.points = utils.get_input(__file__, delimiter='', cast=str)
-        self.rows = len(self.points)
-        self.columns = len(self.points[0])
-
+class Grid(utils.Grid):
     def __getitem__(self, position):
         i, j = position
-        return self.points[i][j % self.columns]
+        return super().__getitem__((i, j % self.columns))
 
 
 def get_trees_encountered(grid, slope):
@@ -35,7 +30,7 @@ def cli():
 @cli.command()
 @utils.part(__name__, 1)
 def part_1():
-    grid = Grid()
+    grid = utils.get_grid(__file__, grid_cls=Grid, delimiter='', cast=str)
     print(get_trees_encountered(grid, (1, 3)))
 
 
@@ -49,7 +44,7 @@ def part_2():
         (1, 7),
         (2, 1),
     ]
-    grid = Grid()
+    grid = utils.get_grid(__file__, grid_cls=Grid, delimiter='', cast=str)
     print(math.prod(get_trees_encountered(grid, slope) for slope in slopes))
 
 
