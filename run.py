@@ -26,7 +26,7 @@ def cli(context, problem, part, year):
         context.invoke(part_cmd)
         print()
     else:
-        for i, (part, part_cmd) in enumerate(sorted(parts.items())):
+        for _, part_cmd in sorted(parts.items()):
             print(f'=== PART {part} ===')
             context.invoke(part_cmd)
             print()
