@@ -109,6 +109,7 @@ def part_2():
 
 
 @cli.command()
+@utils.part(__name__, 'z3')
 def part_2_z3():
     foods = get_foods()
     hypoallergenic = get_hypoallergenic_ingredients(foods)

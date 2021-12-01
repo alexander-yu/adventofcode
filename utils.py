@@ -177,9 +177,9 @@ def get_grid(
     return grid_cls(points, rows, columns)
 
 
-def part(path: str, part_number: int):
+def part(path: str, part_id: typing.Any):
     def wrapper(wrapped):
-        PART_REGISTRY[path][part_number] = wrapped
+        PART_REGISTRY[path][str(part_id)] = wrapped
 
         @functools.wraps(wrapped)
         def inner(*args, **kwargs):
