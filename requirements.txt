@@ -1,0 +1,9 @@
+boltons
+cachetools
+click
+marshmallow
+networkx
+numpy
+sly
+sympy
+z3-solver
