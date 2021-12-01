@@ -35,8 +35,10 @@ if __name__ == '__main__':
 """
 
 
-def gen_file(path, content):
+def gen_file(path, content, exists_ok=False):
     if os.path.exists(path):
+        if exists_ok:
+            return
         raise Exception(f'File {path} already exists')
 
     with open(path, 'w') as f:
@@ -65,6 +67,7 @@ def cli(problem, year):
     directory = os.path.join(os.getcwd(), f'problems_{year}')
     os.makedirs(directory, exist_ok=True)
 
+    gen_file(os.path.join(directory, '__init__.py'), '', exists_ok=True)
     gen_file(os.path.join(directory, f'{problem}.py'), get_template(problem))
 
     input_directory = os.path.join(directory, 'inputs')
