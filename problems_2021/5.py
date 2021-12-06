@@ -31,7 +31,7 @@ def get_intersections(straight_only=False):
             tuple(int(val) for val in end.split(',')),
         )
         for begin, end in
-        utils.get_input(__file__, test=False, delimiter=' -> ', cast=str)
+        utils.get_input(__file__, delimiter=' -> ', cast=str)
     ]
 
     if straight_only:
