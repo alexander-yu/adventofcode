@@ -1,3 +1,5 @@
+import statistics
+
 import click
 
 import utils
@@ -20,6 +22,20 @@ def part_1():
         )
         for alignment in range(min(positions), max(positions) + 1)
     ))
+
+
+@cli.command()
+@utils.part(__name__, '1_median')
+def part_1_median():
+    # For a given list of numbers x_1, ..., x_n, the median is the value y
+    # that minimizes |x_1 - y| + ... + |x_n - y|. You can prove this by seeing
+    # what happens if you shift y by some epsilon, and how the sum changes depending
+    # on the number of values to the left and right of y.
+    positions = utils.get_input(__file__)[0]
+    alignment = statistics.median(positions)
+    assert alignment.is_integer()
+    alignment = int(alignment)
+    print(sum(abs(position - alignment) for position in positions))
 
 
 @cli.command()
