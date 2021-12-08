@@ -8,6 +8,8 @@ import pathlib
 import re
 import typing
 
+from boltons import iterutils
+
 import numpy as np
 
 
@@ -175,6 +177,12 @@ def get_grid(
             points[(i, j)] = value_transformer(value)
 
     return grid_cls(points, rows, columns)
+
+
+def assert_one(iterable, key=None):
+    item = iterutils.one(iterable, key=key)
+    assert item is not None
+    return item
 
 
 def part(path: str, part_id: typing.Any):
