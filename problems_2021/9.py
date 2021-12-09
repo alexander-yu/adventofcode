@@ -33,22 +33,14 @@ def part_1():
 def part_2():
     grid = utils.get_grid(__file__, delimiter='')
 
-    # We form a basin graph where nodes that are connected are part of the same basin.
-    # Nodes with maximum height are not part of any basin. Moreover, since we can assume
-    # that every node not maximum height is only part of 1 basin, then all of its neighbors
-    # should be part of the same basin too, since any higher neighbors will flow to that node,
-    # and that node will flow to any of its lower neighbors.
-    basin_graph = nx.Graph()
-
+    # We remove all nodes of maximal height from the original graph. This will partition
+    # the grid into connected components, where the connected components are precisely
+    # the basins.
     for point, value in grid.items():
         if value == 9:
-            continue
+            grid.graph.remove_node(point)
 
-        for neighbor in grid.neighbors(point):
-            if grid[neighbor] != 9:
-                basin_graph.add_edge(point, neighbor)
-
-    basins = nx.connected_components(basin_graph)
+    basins = nx.connected_components(grid.graph)
     top_3 = sorted(basins, key=len, reverse=True)[:3]
     print(math.prod(len(basin) for basin in top_3))
 
