@@ -10,6 +10,7 @@ import typing
 
 from boltons import iterutils
 
+import networkx as nx
 import numpy as np
 
 
@@ -115,12 +116,12 @@ def add_vector(position: tuple, vector: tuple):
     return tuple(x + y for x, y in zip(position, vector))
 
 
-def get_neighbors(point: tuple):
+def get_neighbors(point: tuple, include_diagonals: bool = False):
     dims = len(point)
     zero = tuple(0 for _ in range(dims))
 
     for vector in itertools.product([-1, 0, 1], repeat=dims):
-        if vector != zero:
+        if vector != zero and (include_diagonals or sum(vector) == 1):
             yield add_vector(point, vector)
 
 
@@ -149,6 +150,7 @@ class Grid:
         self.points = points
         self.rows = rows
         self.columns = columns
+        self.graph = self._to_graph()
 
     def __getitem__(self, point: typing.Tuple[int, int]):
         return self.points[point]
@@ -156,8 +158,32 @@ class Grid:
     def __setitem__(self, point: typing.Tuple[int, int], value):
         self.points[point] = value
 
+    def __iter__(self):
+        for point in self.points:
+            yield point
+
+    def items(self):
+        for point, value in self.points.items():
+            yield point, value
+
+    def neighbors(self, point: typing.Tuple[int, int]):
+        for neighbor in self.graph.neighbors(point):
+            yield neighbor
+
     def clone(self):
         return type(self)(copy.deepcopy(self.points), self.rows, self.columns)
+
+    def _to_graph(self):
+        graph = nx.Graph()
+        for point, value in self.points.items():
+            graph.add_node(point, value=value)
+
+        for point in self.points:
+            for neighbor in get_neighbors(point):
+                if neighbor in self.points:
+                    graph.add_edge(point, neighbor)
+
+        return graph
 
 
 def get_grid(

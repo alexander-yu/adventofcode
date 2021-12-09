@@ -1,0 +1,119 @@
+import collections
+import math
+
+import click
+import networkx as nx
+
+import utils
+
+
+def get_low_points(grid):
+    for point, value in grid.items():
+        if all(
+            grid[neighbor] > value
+            for neighbor in grid.neighbors(point)
+        ):
+            yield point
+
+
+@click.group()
+def cli():
+    pass
+
+
+@cli.command()
+@utils.part(__name__, 1)
+def part_1():
+    grid = utils.get_grid(__file__, delimiter='')
+    print(sum(grid[point] + 1 for point in get_low_points(grid)))
+
+
+@cli.command()
+@utils.part(__name__, 2)
+def part_2():
+    grid = utils.get_grid(__file__, delimiter='')
+
+    # We form a basin graph where nodes that are connected are part of the same basin.
+    # Nodes with maximum height are not part of any basin. Moreover, since we can assume
+    # that every node not maximum height is only part of 1 basin, then all of its neighbors
+    # should be part of the same basin too, since any higher neighbors will flow to that node,
+    # and that node will flow to any of its lower neighbors.
+    basin_graph = nx.Graph()
+
+    for point, value in grid.items():
+        if value == 9:
+            continue
+
+        for neighbor in grid.neighbors(point):
+            if grid[neighbor] != 9:
+                basin_graph.add_edge(point, neighbor)
+
+    basins = nx.connected_components(basin_graph)
+    top_3 = sorted(basins, key=len, reverse=True)[:3]
+    print(math.prod(len(basin) for basin in top_3))
+
+
+@cli.command()
+@utils.part(__name__, '2_bfs')
+def part_2_bfs():
+    grid = utils.get_grid(__file__, delimiter='')
+
+    # We find all low points like in part 1, but perform a classic flood fill algorithm
+    # via BFS starting from low points, and filling it upwards.
+    #
+    # Each fill from a low point will be guaranteed to consist of a single basin,
+    # since we can assume that every node not maximum height is only part of 1 basin.
+    basins = []
+    for low_point in get_low_points(grid):
+        queue = collections.deque([low_point])
+        basin = set([low_point])
+        visited = set([low_point])
+
+        while queue:
+            point = queue.popleft()
+
+            for neighbor in grid.neighbors(point):
+                if neighbor not in visited:
+                    visited.add(neighbor)
+
+                    if grid[neighbor] != 9:
+                        basin.add(neighbor)
+                        queue.append(neighbor)
+
+        basins.append(basin)
+
+    top_3 = sorted(basins, key=len, reverse=True)[:3]
+    print(math.prod(len(basin) for basin in top_3))
+
+
+@cli.command()
+@utils.part(__name__, '2_dag')
+def part_2_dag():
+    grid = utils.get_grid(__file__, delimiter='')
+
+    # We find all low points like in part 1, but create a directed downflow graph,
+    # where u -> v is a directed edge if there is downwards flow from u to v, and u
+    # is not a node of maximal height.
+    #
+    # For a given low point, it will be a part of a DAG such that the low point
+    # will be the singular leaf node of the DAG. Thus, the corresponding basin
+    # will simply be all nodes in the DAG that can reach the low point as well as
+    # the low point itself.
+    downflow_graph = nx.DiGraph()
+
+    for point in grid:
+        for neighbor in grid.neighbors(point):
+            if grid[point] != 9 and grid[point] > grid[neighbor]:
+                downflow_graph.add_edge(point, neighbor)
+
+    basins = []
+    for low_point in get_low_points(grid):
+        basin = set([low_point]) | nx.ancestors(downflow_graph, low_point)
+        basins.append(basin)
+
+    top_3 = sorted(basins, key=len, reverse=True)[:3]
+    print(math.prod(len(basin) for basin in top_3))
+
+
+if __name__ == '__main__':
+    cli()

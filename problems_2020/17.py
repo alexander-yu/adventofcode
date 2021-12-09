@@ -14,7 +14,7 @@ class PocketDimension:
         active_neighbor_count = collections.defaultdict(int)
 
         for point in self.active_points:
-            for neighbor in utils.get_neighbors(point):
+            for neighbor in utils.get_neighbors(point, include_diagonals=True):
                 active_neighbor_count[neighbor] += 1
 
         for point, active_neighbors in active_neighbor_count.items():
