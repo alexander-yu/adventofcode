@@ -74,6 +74,7 @@ def cli(problem, year):
     os.makedirs(input_directory, exist_ok=True)
 
     gen_file(os.path.join(input_directory, f'{problem}.txt'), '')
+    gen_file(os.path.join(input_directory, f'{problem}_test.txt'), '')
 
 
 if __name__ == '__main__':
