@@ -150,7 +150,7 @@ class Grid:
         self.points = points
         self.rows = rows
         self.columns = columns
-        self.graph = self._to_graph()
+        self.graph = self.to_graph()
 
     def __getitem__(self, point: typing.Tuple[int, int]):
         return self.points[point]
@@ -161,6 +161,9 @@ class Grid:
     def __iter__(self):
         for point in self.points:
             yield point
+
+    def __len__(self):
+        return len(self.points)
 
     def items(self):
         for point, value in self.points.items():
@@ -173,13 +176,27 @@ class Grid:
     def clone(self):
         return type(self)(copy.deepcopy(self.points), self.rows, self.columns)
 
-    def _to_graph(self):
+    def to_graph(self):
         graph = nx.Graph()
         for point, value in self.points.items():
             graph.add_node(point, value=value)
 
         for point in self.points:
             for neighbor in get_neighbors(point):
+                if neighbor in self.points:
+                    graph.add_edge(point, neighbor)
+
+        return graph
+
+
+class DiagonalGrid(Grid):
+    def to_graph(self):
+        graph = nx.Graph()
+        for point, value in self.points.items():
+            graph.add_node(point, value=value)
+
+        for point in self.points:
+            for neighbor in get_neighbors(point, include_diagonals=True):
                 if neighbor in self.points:
                     graph.add_edge(point, neighbor)
 
