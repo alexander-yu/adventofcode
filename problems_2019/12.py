@@ -79,11 +79,11 @@ def simulate_motion(moons, steps, axis=None):
             moon.apply_velocity(axis=axis)
 
 
-def get_moons(test=False):
+def get_moons():
     return [
         parse_moon(moon)
         for moon in
-        utils.get_input(__file__, delimiter=None, cast=str, test=test)
+        utils.get_input(__file__, delimiter=None, cast=str)
     ]
 
 

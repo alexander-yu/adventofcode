@@ -59,7 +59,7 @@ def cli():
 @cli.command()
 @utils.part(__name__, 1)
 def part_1():
-    lines = utils.get_input(__file__, test=False, delimiter='', cast=str)
+    lines = utils.get_input(__file__, delimiter='', cast=str)
     score_map = {
         ')': 3,
         ']': 57,
@@ -79,7 +79,7 @@ def part_1():
 @cli.command()
 @utils.part(__name__, 2)
 def part_2():
-    lines = utils.get_input(__file__, test=False, delimiter='', cast=str)
+    lines = utils.get_input(__file__, delimiter='', cast=str)
     score_map = {
         ')': 1,
         ']': 2,

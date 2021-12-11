@@ -62,6 +62,7 @@ class Graph:
 
                     queue.append((neighbor, moves + 1))
 
+
 def get_graph(single_bot=True):
     graph = nx.Graph()
 
@@ -70,7 +71,7 @@ def get_graph(single_bot=True):
     entrance = None
     x, y = 0, 0
 
-    for line in utils.get_input(__file__, delimiter='', cast=str, test=False):
+    for line in utils.get_input(__file__, delimiter='', cast=str):
         for point in line:
             points[(x, y)] = point
 

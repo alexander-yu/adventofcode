@@ -33,7 +33,7 @@ def get_ore_required(fuel_required):
 def get_graph():
     graph = nx.DiGraph()
 
-    for reaction in utils.get_input(__file__, delimiter=' => ', cast=str, test=False):
+    for reaction in utils.get_input(__file__, delimiter=' => ', cast=str):
         reactants, product = reaction
         product_quantity, product = product.split()
 

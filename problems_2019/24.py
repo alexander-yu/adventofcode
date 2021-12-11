@@ -135,7 +135,7 @@ def cli():
 @cli.command()
 @utils.part(__name__, 1)
 def part_1():
-    grid = Grid(utils.get_input(__file__, delimiter='', cast=str, test=False), recursive=False)
+    grid = Grid(utils.get_input(__file__, delimiter='', cast=str), recursive=False)
     hashes = set([grid.hash(0)])
 
     while True:
@@ -155,7 +155,7 @@ def part_1():
 @cli.command()
 @utils.part(__name__, 2)
 def part_2():
-    grid = Grid(utils.get_input(__file__, delimiter='', cast=str, test=False))
+    grid = Grid(utils.get_input(__file__, delimiter='', cast=str))
 
     for i in range(200):
         new_grid = Grid(recursive=True)
