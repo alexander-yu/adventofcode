@@ -10,8 +10,9 @@ import utils
 @click.argument('problem', nargs=1)
 @click.option('-p', 'part', nargs=1)
 @click.option('-y', '--year', nargs=1, type=int, default=datetime.datetime.now().year, show_default=True)
+@click.option('-t/-r', '--test/--real', default=False, show_default=True)
 @click.pass_context
-def cli(context, problem, part, year):
+def cli(context, problem, part, year, test):
     if '.' in problem:
         problem, part_id = problem.split('.', maxsplit=1)
         if part_id and part:
@@ -21,6 +22,7 @@ def cli(context, problem, part, year):
 
     module = importlib.import_module(f'problems_{year}.{problem}')
     parts = utils.PART_REGISTRY[module.__name__]
+    utils.IS_TEST = test
 
     if part:
         part_cmd = parts.get(part)

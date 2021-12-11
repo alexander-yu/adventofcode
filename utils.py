@@ -19,6 +19,7 @@ ORIGIN = np.array([
     [0],
     [0],
 ])
+IS_TEST = False
 
 
 class Direction(enum.Enum):
@@ -89,7 +90,6 @@ def _split_line(
 # pylint: disable=too-many-arguments
 def get_input(
     problem_file: str,
-    test: bool = False,
     delimiter: typing.Union[str, None] = ',',
     cast: typing.Callable[[str], typing.Any] = int,
     line_delimiter: str = '\n',
@@ -97,7 +97,7 @@ def get_input(
 ):
     problem_path = pathlib.Path(problem_file).resolve()
     problem_number = problem_path.stem
-    test_prefix = '_test' if test else ''
+    test_prefix = '_test' if IS_TEST else ''
     input_file_name = f'{problem_number}{test_prefix}.txt'
 
     with open(os.path.join(problem_path.parent, 'inputs', input_file_name), 'r') as f:
