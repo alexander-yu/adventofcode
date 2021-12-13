@@ -88,6 +88,31 @@ def _split_line(
 
 
 # pylint: disable=too-many-arguments
+def parse(
+    content: str,
+    delimiter: typing.Union[str, None] = ',',
+    cast: typing.Callable[[str], typing.Any] = int,
+    line_delimiter: str = '\n',
+    rstrip: str = '',
+    removesuffix: str = '',
+    removeprefix: str = '',
+):
+    lines = content.rstrip().split(line_delimiter)
+    lines = [
+        line
+        .rstrip(rstrip)
+        .removeprefix(removeprefix)
+        .removesuffix(removesuffix)
+        for line in lines
+    ]
+
+    return [
+        _split_line(line, delimiter, cast)
+        for line in lines
+    ]
+
+
+# pylint: disable=too-many-arguments
 def get_input(
     problem_file: str,
     delimiter: typing.Union[str, None] = ',',
@@ -101,15 +126,13 @@ def get_input(
     input_file_name = f'{problem_number}{test_prefix}.txt'
 
     with open(os.path.join(problem_path.parent, 'inputs', input_file_name), 'r') as f:
-        lines = f.read().rstrip().split(line_delimiter)
-
-    if rstrip:
-        lines = [line.rstrip(rstrip) for line in lines]
-
-    return [
-        _split_line(line, delimiter, cast)
-        for line in lines
-    ]
+        return parse(
+            f.read(),
+            delimiter=delimiter,
+            cast=cast,
+            line_delimiter=line_delimiter,
+            rstrip=rstrip,
+        )
 
 
 def add_vector(position: tuple, vector: tuple):
