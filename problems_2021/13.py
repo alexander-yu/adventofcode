@@ -65,9 +65,9 @@ def part_2():
             point = (i, j)
 
             if point in dots:
-                print('#', end='')
+                print('█', end='')
             else:
-                print('.', end='')
+                print(' ', end='')
 
         print('\n')
 
