@@ -4,6 +4,7 @@ click
 marshmallow
 networkx
 numpy
+regex
 sly
 sympy
 z3-solver
