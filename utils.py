@@ -70,7 +70,7 @@ ROTATIONS = [
 
 def _split_line(
     line: str,
-    delimiter: typing.Union[str, None],
+    delimiter: typing.Optional[str],
     cast: typing.Callable[[str], typing.Any],
 ):
     if delimiter == '':
@@ -90,7 +90,7 @@ def _split_line(
 # pylint: disable=too-many-arguments
 def parse(
     content: str,
-    delimiter: typing.Union[str, None] = ',',
+    delimiter: typing.Optional[str] = ',',
     cast: typing.Callable[[str], typing.Any] = int,
     line_delimiter: str = '\n',
     rstrip: str = '',
@@ -115,10 +115,10 @@ def parse(
 # pylint: disable=too-many-arguments
 def get_input(
     problem_file: str,
-    delimiter: typing.Union[str, None] = ',',
+    delimiter: typing.Optional[str] = ',',
     cast: typing.Callable[[str], typing.Any] = int,
     line_delimiter: str = '\n',
-    rstrip: typing.Union[str, None] = None,
+    rstrip: typing.Optional[str] = None,
 ):
     problem_path = pathlib.Path(problem_file).resolve()
     problem_number = problem_path.stem
@@ -226,8 +226,24 @@ class DiagonalGrid(Grid):
         return graph
 
 
+class DirectedGrid(Grid):
+    def to_graph(self):
+        graph = nx.DiGraph()
+        for point, value in self.points.items():
+            graph.add_node(point, value=value)
+
+        for point in self.points:
+            for neighbor in get_neighbors(point):
+                if neighbor in self.points:
+                    graph.add_edge(point, neighbor)
+                    graph.add_edge(neighbor, point)
+
+        return graph
+
+
 def get_grid(
     problem_file: str,
+    input_transformer: typing.Callable[[typing.Any], typing.Any] = lambda x: x,
     grid_cls: typing.Type[Grid] = Grid,
     value_transformer: typing.Callable[[typing.Any], typing.Any] = lambda x: x,
     **get_input_kwargs
@@ -236,7 +252,7 @@ def get_grid(
     rows = 0
     columns = 0
 
-    for i, row in enumerate(get_input(problem_file, **get_input_kwargs)):
+    for i, row in enumerate(input_transformer(get_input(problem_file, **get_input_kwargs))):
         rows = i + 1
         for j, value in enumerate(row):
             columns = j + 1
