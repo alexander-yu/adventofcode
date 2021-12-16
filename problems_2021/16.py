@@ -63,41 +63,58 @@ def parse_header(data):
     return Header(version_id, PacketType(type_id)), data
 
 
+def parse_literal(data):
+    value = 0
+    group_bit, data = shift(data, 1)
+
+    while group_bit == 1:
+        group, data = shift(data, 4)
+        value = 16 * value + group
+        group_bit, data = shift(data, 1)
+
+    group, data = shift(data, 4)
+    value = 16 * value + group
+    return value, data
+
+
+def parse_subpackets_by_length(data):
+    total_length, data = shift(data, 15)
+    subpacket_data, data = shift(data, total_length, binary=True)      
+    subpackets = []
+
+    while subpacket_data:
+        subpacket, subpacket_data = parse_packet(subpacket_data)
+        subpackets.append(subpacket)
+
+    return subpackets, data
+
+
+def parse_subpackets_by_count(data):
+    total_subpackets, data = shift(data, 11)
+    subpackets = []
+
+    for _ in range(total_subpackets):
+        subpacket, data = parse_packet(data)
+        subpackets.append(subpacket)
+
+    return subpackets, data
+
+
 def parse_packet(data):
     header, data = parse_header(data)
 
     if header.type == PacketType.LITERAL:
-        value = 0
-        group_bit, data = shift(data, 1)
-
-        while group_bit == 1:
-            group, data = shift(data, 4)
-            value = 16 * value + group
-            group_bit, data = shift(data, 1)
-
-        group, data = shift(data, 4)
-        value = 16 * value + group
+        value, data = parse_literal(data)
         return Packet(header, value=value), data
+        
+    length_type_id, data = shift(data, 1)
+
+    if length_type_id == 0:
+        subpackets, data = parse_subpackets_by_length(data)
     else:
-        length_type_id, data = shift(data, 1)
+        subpackets, data = parse_subpackets_by_count(data)
 
-        if length_type_id == 0:
-            total_length, data = shift(data, 15)
-            subpacket_data, data = shift(data, total_length, binary=True)      
-            subpackets = []
-
-            while subpacket_data:
-                subpacket, subpacket_data = parse_packet(subpacket_data)
-                subpackets.append(subpacket)
-        else:
-            total_subpackets, data = shift(data, 11)
-            subpackets = []
-
-            for _ in range(total_subpackets):
-                subpacket, data = parse_packet(data)
-                subpackets.append(subpacket)
-
-        return Packet(header, subpackets=subpackets), data
+    return Packet(header, subpackets=subpackets), data
 
 
 def hex_to_bin(hex_string):
