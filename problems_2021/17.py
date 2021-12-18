@@ -1,4 +1,6 @@
 import collections
+import itertools
+import math
 import re
 
 import click
@@ -81,7 +83,7 @@ def part_2():
     # within trench boundaries, we can add infinitely many steps (since the x value doesn't change).
     #
     # We also keep a set of step numbers where this scenario is possible.
-    xs_by_k = collections.defaultdict(list)
+    xs_by_steps = collections.defaultdict(list)
     verticals = set()
 
     for i in range(x_1 + 1):
@@ -95,22 +97,109 @@ def part_2():
             # Note if x - k - 1 = j = 0, then this corresponds to a flight path where the probe has
             # started falling vertically. Keep track of this scenario.
             if x_0 <= t_i - t_j and t_i - t_j <= x_1:
-                xs_by_k[i - j - 1].append(i)
+                xs_by_steps[i - j - 1].append(i)
                 if j == 0:
                     verticals.add(i)
 
     # For each valid (y, k), find all valid x for that k. If k >= min(verticals), we encounter a scenario
-    # where it could actually just be falling vertically. xs_by_k does not automatically track this,
+    # where it could actually just be falling vertically. xs_by_steps does not automatically track this,
     # so we need to manually check and add these scenarios.
     velocities = set()
-    for y, k in ys:
-        for x in xs_by_k[k]:
+    for y, steps in ys:
+        for x in xs_by_steps[steps]:
             velocities.add((x, y))
-        if k >= min(verticals):
+        if steps >= min(verticals):
             for vertical in verticals:
                 velocities.add((vertical, y))
 
     print(len(velocities))
+
+
+def get_int_range(a, b):
+    return range(math.ceil(a), math.floor(b) + 1)
+
+
+def get_valid_y(steps, y_0, y_1):
+    # Note that for a given y and steps k, the net gain will be
+    # y + (y - 1) + ... + (y - k) = (k + 1) * y - k * (k + 1)/2, which we'll call f_k(y).
+    #
+    # Solving the inequality y_0 <= f_k(y) <= y_1, where y_0 < y_1 < 0 <= k yields
+    # y_0/(k + 1) + k/2 <= y <= y_1/(k + 1) + k/2.
+    return get_int_range(
+        y_0/(steps + 1) + steps/2,
+        y_1/(steps + 1) + steps/2,
+    )
+
+
+def inverse_triangular(n):
+    return (math.sqrt(8 * n + 1) - 1) / 2
+
+
+def get_valid_x(steps, x_0, x_1):
+    # Note that for a given x and steps k, the net gain will be
+    # x + x - 1 + ... + x - k = (k + 1) * x - k * (k + 1)/2 if k <= x
+    # else T_x = x * (x + 1) / 2. We'll call the former expression f_k(x).
+    #
+    # Now let S(x) be the inverse of T_x = x * (x + 1) / 2, which can be written as
+    # (sqrt(8x + 1) - 1)/2.
+    #
+    # Solving the inequality x_0 <= f_k(x) <= x_1, where 0 < x_0 < x_1 and 0 < k <= x yields:
+    #
+    #     - x_0/(k + 1) + k/2 <= x <= x_1/(k + 1) + k/2
+    #         if k <= S(x_0) (or equivalently if T_k <= x_0)
+    #
+    #     - k <= x <= x_1/(k + 1) + k/2
+    #         if S(x_0) < k < S(x_1) (or equivalently if x_0 <= T_k <= x_1) and k <= x.
+    #
+    # If k <= S(x_0), then it implies T_k <= x_0. Any valid x will have x_0 <= T_x, which implies
+    # T_k <= T_x implies k <= x, and so the first situation applies.
+    #
+    # If k >= S(x_1), then any valid x will have x_1 >= T_x, which implies T_k >= T_x implies
+    # k >= x, and so the net gain is T_x. Then the range of valid x will simply be:
+    #
+    #     - S(x_0) <= x <= S(x_1)
+    #         if S(x_1) <= k
+    #
+    # The final situation, slightly trickier, is if S(x_0) < k < S(x_1). If k <= x then the second
+    # situation from above applies, but if k > x, then similarly to above we must have S(x_0) <= x < k.
+    # Thus, the set of valid x for the final situation is the union of [S(x_0), k) and [k, x_1/(k + 1) + k/2],
+    # or in other words:
+    #
+    #     - S(x_0) <= x <= x_1/(k + 1) + k/2
+    #         if S(x_0) < k < S(x_1).
+    t_steps = triangular(steps)
+
+    if t_steps <= x_0:
+        lower = x_0/(steps + 1) + steps/2
+        upper = x_1/(steps + 1) + steps/2
+    elif t_steps >= x_1:
+        lower = inverse_triangular(x_0)
+        upper = inverse_triangular(x_1)
+    else:
+        lower = inverse_triangular(x_0)
+        upper = x_1/(steps + 1) + steps/2
+
+    return get_int_range(lower, upper)
+
+
+@cli.command()
+@utils.part(__name__, '2_algebraic')
+def part_2_algebraic():
+    x_0, x_1, y_0, y_1 = get_trench()
+
+    solutions = set()
+    # Note that we can bound steps above by -2 * y_0. For k > -2 * y_0, we can actually
+    # see that get_valid_y will actually return an empty list. For even k, the interval
+    # will be strictly contained in (k/2 - 1, k/2), and for odd k, the interval will be
+    # strictly contained in ((k - 1)/2, (k - 1)/2 + 1).
+    for steps in range(2 * -y_0):
+        for (x, y) in itertools.product(
+            get_valid_x(steps, x_0, x_1),
+            get_valid_y(steps, y_0, y_1),
+        ):
+            solutions.add((x, y))
+
+    print(len(solutions))
 
 
 if __name__ == '__main__':
