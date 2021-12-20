@@ -41,7 +41,7 @@ class Ship:
             self.position += vector
 
     def _rotate(self, degrees, waypoint=False):
-        rotation = utils.ROTATIONS[(degrees // 90) % 4]
+        rotation = utils.ROTATIONS_2D[(degrees // 90) % 4]
 
         if waypoint:
             self.waypoint_delta = np.dot(rotation, self.waypoint_delta)

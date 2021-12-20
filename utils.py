@@ -48,7 +48,8 @@ DIRECTIONS = {
     ]),
 }
 
-ROTATIONS = [
+
+ROTATIONS_2D = [
     np.array(
         [[1, 0],
          [0, 1]]
@@ -65,6 +66,22 @@ ROTATIONS = [
         [[0, 1],
          [-1, 0]]
     ),
+]
+
+
+ROTATIONS_3D = [
+    permutation * signs
+    for permutation, signs in itertools.product(
+        [
+            np.array(permutation)
+            for permutation in itertools.permutations(np.identity(3, dtype=int))
+        ],
+        [
+            np.array(signs)
+            for signs in itertools.product([-1, 1], repeat=3)
+        ],
+    )
+    if np.linalg.det(permutation * signs) == 1
 ]
 
 
