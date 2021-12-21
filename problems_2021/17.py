@@ -75,7 +75,7 @@ def part_2():
             t_i = triangular(i)
             t_j = triangular(j)
 
-            if y_0 <= t_i - t_j and t_i - t_j <= y_1:
+            if y_0 <= t_i - t_j <= y_1:
                 ys.add((i, i + j))
                 ys.add((-i - 1, j - i - 1))
 
@@ -97,7 +97,7 @@ def part_2():
             # Setting i = x and j = x - k - 1 yields k = i - j - 1 and x = i.
             # Note if x - k - 1 = j = 0, then this corresponds to a flight path where the probe has
             # started falling vertically. Keep track of this scenario.
-            if x_0 <= t_i - t_j and t_i - t_j <= x_1:
+            if x_0 <= t_i - t_j <= x_1:
                 xs_by_steps[i - j - 1].append(i)
                 if j == 0:
                     verticals.add(i)
