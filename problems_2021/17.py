@@ -37,7 +37,8 @@ def part_1():
     # Note that if y is the initial vertical velocity, and we assume trench is in 3rd quadrant,
     # meaning that we must have k > y, then the total gain will be
     # y + y - 1 + ... + 0 - 1 - ... - (k - y) = T_y - T_{k - y},
-    # where k is the number of steps.  We also assume for this part that y > 0.
+    # where k is the number of steps and T_n represents the nth triangular number.
+    # We also assume for this part that y > 0.
     #
     # The max height will be T_y, and since T_y is monotonically increasing in y,
     # we really just need to find the max y satisfying y_0 <= T_y - T_{k - y} <= y_1
