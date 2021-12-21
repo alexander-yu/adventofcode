@@ -1,0 +1,102 @@
+import collections
+import dataclasses
+import functools
+import itertools
+import re
+
+import click
+
+import utils
+
+
+PLAYER_REGEX = r'Player \d starting position: (?P<position>\d+)'
+
+
+class Die:
+    def __init__(self):
+        self.value = 1
+        self.rolls = 0
+
+    def roll(self, iterations=3):
+        if iterations == 1:
+            value = self.value
+            self.value = self.value + 1 if self.value < 100 else 1
+            self.rolls += 1
+            return value
+
+        return sum(self.roll(iterations=1) for _ in range(iterations))
+
+
+@dataclasses.dataclass(frozen=True)
+class Player:
+    position: int
+    score: int = 0
+
+    def move(self, value):
+        position = self.position + value
+        position = (position % 10) + 10 * (position % 10 == 0)
+        score = self.score + position
+        return Player(position, score=score)
+
+
+@functools.cache
+def quantum_wins(player_1, player_2, current_player):
+    win_counts = collections.Counter()
+
+    for rolls in itertools.product([1, 2, 3], repeat=3):
+        roll = sum(rolls)
+
+        players = {1: player_1, 2: player_2}
+        player = players[current_player].move(roll)
+        players[current_player] = player
+
+        if player.score >= 21:
+            win_counts[current_player] += 1
+        else:
+            next_player = 3 - current_player
+            win_counts.update(quantum_wins(players[1], players[2], next_player))
+
+    return win_counts
+
+
+def get_players():
+    players = utils.get_input(__file__, delimiter=None, cast=str)
+    return [
+        Player(int(re.match(PLAYER_REGEX, player).group('position')))
+        for player in players
+    ]
+
+
+@click.group()
+def cli():
+    pass
+
+
+@cli.command()
+@utils.part(__name__, 1)
+def part_1():
+    player_1, player_2 = get_players()
+    die = Die()
+
+    while True:
+        player_1 = player_1.move(die.roll())
+        if player_1.score >= 1000:
+            print(player_2.score * die.rolls)
+            break
+
+        player_2 = player_2.move(die.roll())
+        if player_2.score >= 1000:
+            print(player_1.score * die.rolls)
+            break
+
+
+@cli.command()
+@utils.part(__name__, 2)
+def part_2():
+    player_1, player_2 = get_players()
+    win_counts = quantum_wins(player_1, player_2, 1)
+    print(win_counts.most_common()[0][1])
+
+
+if __name__ == '__main__':
+    cli()
