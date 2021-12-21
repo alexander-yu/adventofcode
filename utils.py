@@ -136,6 +136,8 @@ def get_input(
     cast: typing.Callable[[str], typing.Any] = int,
     line_delimiter: str = '\n',
     rstrip: typing.Optional[str] = None,
+    removesuffix: str = '',
+    removeprefix: str = '',
 ):
     problem_path = pathlib.Path(problem_file).resolve()
     problem_number = problem_path.stem
@@ -149,6 +151,8 @@ def get_input(
             cast=cast,
             line_delimiter=line_delimiter,
             rstrip=rstrip,
+            removesuffix=removesuffix,
+            removeprefix=removeprefix,
         )
 
 
