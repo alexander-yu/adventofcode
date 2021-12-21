@@ -193,11 +193,10 @@ def part_2_algebraic():
     # will be strictly contained in (k/2 - 1, k/2), and for odd k, the interval will be
     # strictly contained in ((k - 1)/2, (k - 1)/2 + 1).
     for steps in range(2 * -y_0):
-        for (x, y) in itertools.product(
+        solutions.update(itertools.product(
             get_valid_x(steps, x_0, x_1),
             get_valid_y(steps, y_0, y_1),
-        ):
-            solutions.add((x, y))
+        ))
 
     print(len(solutions))
 
