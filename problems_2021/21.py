@@ -14,17 +14,12 @@ PLAYER_REGEX = r'Player \d starting position: (?P<position>\d+)'
 
 class Die:
     def __init__(self):
-        self.value = 1
+        self.generator = itertools.cycle(range(1, 101))
         self.rolls = 0
 
-    def roll(self, iterations=3):
-        if iterations == 1:
-            value = self.value
-            self.value = self.value + 1 if self.value < 100 else 1
-            self.rolls += 1
-            return value
-
-        return sum(self.roll(iterations=1) for _ in range(iterations))
+    def roll(self):
+        self.rolls += 3
+        return sum(next(self.generator) for _ in range(3))
 
 
 @dataclasses.dataclass(frozen=True)
