@@ -3,39 +3,9 @@ import itertools
 import typing
 
 import click
+import numpy as np
 
 import utils
-
-
-ROTATIONS = [
-	lambda a, b, c: (+a, +b, +c),
-	lambda a, b, c: (+b, +c, +a),
-	lambda a, b, c: (+c, +a, +b),
-	lambda a, b, c: (+c, +b, -a),
-	lambda a, b, c: (+b, +a, -c),
-	lambda a, b, c: (+a, +c, -b),
-
-	lambda a, b, c: (+a, -b, -c),
-	lambda a, b, c: (+b, -c, -a),
-	lambda a, b, c: (+c, -a, -b),
-	lambda a, b, c: (+c, -b, +a),
-	lambda a, b, c: (+b, -a, +c),
-	lambda a, b, c: (+a, -c, +b),
-
-	lambda a, b, c: (-a, +b, -c),
-	lambda a, b, c: (-b, +c, -a),
-	lambda a, b, c: (-c, +a, -b),
-	lambda a, b, c: (-c, +b, +a),
-	lambda a, b, c: (-b, +a, +c),
-	lambda a, b, c: (-a, +c, +b),
-
-	lambda a, b, c: (-a, -b, +c),
-	lambda a, b, c: (-b, -c, +a),
-	lambda a, b, c: (-c, -a, +b),
-	lambda a, b, c: (-c, -b, -a),
-	lambda a, b, c: (-b, -a, -c),
-	lambda a, b, c: (-a, -c, -b),
-]
 
 
 @dataclasses.dataclass(frozen=True)
@@ -61,10 +31,10 @@ def rotated_match(scanner_1, scanner_2):
 
 
 def match(scanner_1, scanner_2):
-    for i, rotation in enumerate(ROTATIONS):
+    for rotation in utils.ROTATIONS_3D:
         rotated_scanner_2 = Scanner(
             scanner_2.id,
-            frozenset(rotation(*point) for point in scanner_2),
+            frozenset(tuple(np.dot(rotation, point)) for point in scanner_2),
         )
         result = rotated_match(scanner_1, rotated_scanner_2)
         if result:
