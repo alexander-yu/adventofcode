@@ -1,6 +1,7 @@
 import itertools
 
 import click
+import z3
 
 import utils
 
@@ -60,6 +61,23 @@ def valid_numbers():
     return valid_numbers
 
 
+def valid_numbers_z3(optimize_method):
+    digits = z3.IntVector('digits', 14)
+    optimizer = z3.Optimize()
+    number = 0
+
+    for i in range(14):
+        optimizer.add(1 <= digits[i], digits[i] <= 9)
+        number = 10 * number + digits[i]
+
+    for (i, j), delta in RULES.items():
+        optimizer.add(digits[i] - digits[j] == delta)
+
+    getattr(optimizer, optimize_method)(number)
+    assert optimizer.check() == z3.sat
+    return optimizer.model().eval(number)
+
+
 @click.group()
 def cli():
     pass
@@ -75,6 +93,18 @@ def part_1():
 @utils.part(__name__, 2)
 def part_2():
     print(min(valid_numbers()))
+
+
+@cli.command()
+@utils.part(__name__, '1_z3')
+def part_1_z3():
+    print(valid_numbers_z3('maximize'))
+
+
+@cli.command()
+@utils.part(__name__, '2_z3')
+def part_2_z3():
+    print(valid_numbers_z3('minimize'))
 
 
 if __name__ == '__main__':
