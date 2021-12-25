@@ -3,36 +3,36 @@ import click
 import utils
 
 
-def move_east(grid):
-    points = [point for point, value in grid.items() if value == '>']
+def move_herd(grid, herd, new_point_func):
+    points = [point for point, value in grid.items() if value == herd]
     moves = []
 
     for point in points:
-        new_point = (point[0], (point[1] + 1) % grid.columns)
+        new_point = new_point_func(point)
         if grid[new_point] == '.':
             moves.append((point, new_point))
 
     for point, new_point in moves:
         grid[point] = '.'
-        grid[new_point] = '>'
+        grid[new_point] = herd
 
     return len(moves)
+
+
+def move_east(grid):
+    return move_herd(
+        grid,
+        '>',
+        lambda point: (point[0], (point[1] + 1) % grid.columns),
+    )
 
 
 def move_south(grid):
-    points = [point for point, value in grid.items() if value == 'v']
-    moves = []
-
-    for point in points:
-        new_point = ((point[0] + 1) % grid.rows, point[1])
-        if grid[new_point] == '.':
-            moves.append((point, new_point))
-
-    for point, new_point in moves:
-        grid[point] = '.'
-        grid[new_point] = 'v'
-
-    return len(moves)
+    return move_herd(
+        grid,
+        'v',
+        lambda point: ((point[0] + 1) % grid.rows, point[1]),
+    )
 
 
 @click.group()
