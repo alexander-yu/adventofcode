@@ -15,11 +15,12 @@ import utils
 # z, and the condition is always based on a comparison between two inputs (e.g. w_2 - w_3 = 8).
 #
 # Note that there are 7 sections that always increase z by roughly a factor of 26, and 7 sections
-# that conditionally decrease or increase z by a factor of 26.
+# that conditionally decrease or increase z by a factor of 26. Another way to think of it is that
+# z is acting as a base-26 stack of w_i + offset_i expressions.
 #
-# In order for a number to be valid, z must be 0 at the end, meaning that we must always satisfy
-# every condition that causes a conditional decrease. Below, we have a derived list of the conditions
-# that must be satisfied.
+# In order for a number to be valid, z must be 0 at the end (i.e. the stack must be empty), meaning
+# that we must always satisfy every condition that causes a conditional decrease. Below, we have a
+# derived list of the conditions that must be satisfied.
 RULES = {
     # (w_2, w_3): w_2 - w_3 = -8
     (2, 3): -8,
