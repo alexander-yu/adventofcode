@@ -31,7 +31,7 @@ def get_manual():
     folds = [
         Fold(axis, int(value))
         for axis, value in
-        utils.parse(folds, delimiter='=', removeprefix='fold along ', cast=str)
+        utils.parse(folds, delimiter='=', remove_prefix='fold along ', cast=str)
     ]
     return dots, folds
 

@@ -111,15 +111,15 @@ def parse(
     cast: typing.Callable[[str], typing.Any] = int,
     line_delimiter: str = '\n',
     rstrip: str = '',
-    removesuffix: str = '',
-    removeprefix: str = '',
+    remove_suffix: str = '',
+    remove_prefix: str = '',
 ):
     lines = content.rstrip().split(line_delimiter)
     lines = [
         line
         .rstrip(rstrip)
-        .removeprefix(removeprefix)
-        .removesuffix(removesuffix)
+        .removeprefix(remove_prefix)
+        .removesuffix(remove_suffix)
         for line in lines
     ]
 
@@ -136,8 +136,8 @@ def get_input(
     cast: typing.Callable[[str], typing.Any] = int,
     line_delimiter: str = '\n',
     rstrip: typing.Optional[str] = None,
-    removesuffix: str = '',
-    removeprefix: str = '',
+    remove_suffix: str = '',
+    remove_prefix: str = '',
 ):
     problem_path = pathlib.Path(problem_file).resolve()
     problem_number = problem_path.stem
@@ -151,8 +151,8 @@ def get_input(
             cast=cast,
             line_delimiter=line_delimiter,
             rstrip=rstrip,
-            removesuffix=removesuffix,
-            removeprefix=removeprefix,
+            remove_suffix=remove_suffix,
+            remove_prefix=remove_prefix,
         )
 
 
