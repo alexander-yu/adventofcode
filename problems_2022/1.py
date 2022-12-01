@@ -24,7 +24,8 @@ def part_1():
 @utils.part(__name__, 2)
 def part_2():
     calories = get_calories_by_elf()
-    print(sum(sorted(calories, reverse=True)[:3]))
+    top_3 = sorted(calories, reverse=True)[:3]
+    print(sum(top_3))
 
 
 if __name__ == '__main__':
