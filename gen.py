@@ -11,6 +11,10 @@ import click
 import utils
 
 
+def get_data():
+    return utils.get_input(__file__, cast=int, delimiter=',', line_delimiter='\\n')
+
+
 @click.group()
 def cli():
     pass
@@ -19,14 +23,14 @@ def cli():
 @cli.command()
 @utils.part(__name__, 1)
 def part_1():
-    pass
+    data = get_data()
 """
 
 PART_2 = """
 @cli.command()
 @utils.part(__name__, 2)
 def part_2():
-    pass
+    data = get_data()
 """
 
 MAIN = """
