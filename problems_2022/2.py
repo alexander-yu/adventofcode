@@ -43,14 +43,8 @@ HAND_FROM_OUTCOME = {
 }
 
 
-def score(a, b):
-    a, b = HANDS[a], HANDS[b]
-    return OUTCOMES[(a, b)] + VALUES[b]
-
-
-def score_from_outcome(a, b):
-    a, b = HANDS[a], HAND_FROM_OUTCOME[(a, b)]
-    return OUTCOMES[(a, b)] + VALUES[b]
+def score(hand_1, hand_2):
+    return OUTCOMES[(hand_1, hand_2)] + VALUES[hand_2]
 
 
 def get_data():
@@ -66,14 +60,14 @@ def cli():
 @utils.part(__name__, 1)
 def part_1():
     data = get_data()
-    print(sum(score(a, b) for a, b in data))
+    print(sum(score(HANDS[a], HANDS[b]) for a, b in data))
 
 
 @cli.command()
 @utils.part(__name__, 2)
 def part_2():
     data = get_data()
-    print(sum(score_from_outcome(a, b) for a, b in data))
+    print(sum(score(HANDS[a], HAND_FROM_OUTCOME[(a, b)]) for a, b in data))
 
 
 if __name__ == '__main__':
