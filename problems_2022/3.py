@@ -1,8 +1,18 @@
+import string
+
 from boltons import iterutils
 
 import click
 
 import utils
+
+
+PRIORITIES = {
+    letter: i + 1
+    for i, letter in enumerate(
+        string.ascii_lowercase + string.ascii_uppercase
+    )
+}
 
 
 def get_data():
@@ -13,12 +23,6 @@ def get_duplicate(sack):
     compartment_1 = set(sack[:len(sack)//2])
     compartment_2 = set(sack[len(sack)//2:])
     return (compartment_1 & compartment_2).pop()
-
-
-def priority(item):
-    if item.islower():
-        return ord(item) - 96
-    return ord(item) - 38
 
 
 def get_badge(sacks):
@@ -36,7 +40,7 @@ def part_1():
     data = get_data()
 
     print(sum(
-        priority(get_duplicate(sack))
+        PRIORITIES[get_duplicate(sack)]
         for sack in data
     ))
 
@@ -47,7 +51,7 @@ def part_2():
     data = get_data()
 
     print(sum(
-        priority(get_badge(sacks))
+        PRIORITIES[get_badge(sacks)]
         for sacks in iterutils.chunked(data, 3)
     ))
 
