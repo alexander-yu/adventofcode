@@ -43,8 +43,8 @@ HAND_FROM_OUTCOME = {
 }
 
 
-def score(hand_1, hand_2):
-    return OUTCOMES[(hand_1, hand_2)] + VALUES[hand_2]
+def score(opponent, me):
+    return OUTCOMES[(opponent, me)] + VALUES[me]
 
 
 def get_data():
@@ -60,14 +60,20 @@ def cli():
 @utils.part(__name__, 1)
 def part_1():
     data = get_data()
-    print(sum(score(HANDS[a], HANDS[b]) for a, b in data))
+    print(sum(
+        score(HANDS[opponent], HANDS[me])
+        for opponent, me in data
+    ))
 
 
 @cli.command()
 @utils.part(__name__, 2)
 def part_2():
     data = get_data()
-    print(sum(score(HANDS[a], HAND_FROM_OUTCOME[(a, b)]) for a, b in data))
+    print(sum(
+        score(HANDS[opponent], HAND_FROM_OUTCOME[(opponent, me)])
+        for opponent, me in data
+    ))
 
 
 if __name__ == '__main__':
