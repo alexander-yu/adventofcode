@@ -1,44 +1,81 @@
+import collections
 import datetime
 import importlib
+import os
+import re
 
+import cachetools
 import click
 
 import utils
 
 
+@cachetools.cached({})
+def get_module(year, day):
+    return importlib.import_module(f'problems_{year}.{day}')
+
+
+def get_all_available_days(year):
+    return [
+        file.removesuffix('.py')
+        for file in os.listdir(f'problems_{year}')
+        if re.match(r'[0-9]+\.py', file)
+    ]
+
+
+def get_parts_by_day(year, problems):
+    parts_by_day = collections.defaultdict(set)
+
+    for problem in problems:
+        if '.' in problem:
+            day, part_id = problem.split('.', maxsplit=1)
+
+            module = get_module(year, day)
+            parts = utils.PART_REGISTRY[module.__name__]
+            part = parts.get(part_id)
+
+            if not part:
+                raise click.ClickException(
+                    f'Part {part_id} of {module} is not registered. Registered parts: {list(parts.keys())}'
+                )
+
+            parts_by_day[int(day)].add(part)
+        else:
+            day = problem
+            module = get_module(year, day)
+            parts_by_day[int(day)] = set(utils.PART_REGISTRY[module.__name__].values())
+
+    return parts_by_day
+
+
+def execute_day(context, parts):
+    for part in sorted(parts, key=lambda part: part.id):
+        print(f'--- PART {part.id} ---')
+        context.invoke(part.cmd)
+        print()
+
+
 @click.command()
-@click.argument('problem', nargs=1)
-@click.option('-p', 'part', nargs=1)
+@click.argument('problems', nargs=-1)
 @click.option('-y', '--year', nargs=1, type=int, default=datetime.datetime.now().year, show_default=True)
-@click.option('-t/-r', '--test/--real', default=False, show_default=True)
+@click.option('-t', '--test', is_flag=True, default=False)
+@click.option('-a', '--all', 'run_all', is_flag=True, default=False)
 @click.pass_context
-def cli(context, problem, part, year, test):
-    if '.' in problem:
-        problem, part_id = problem.split('.', maxsplit=1)
-        if part_id and part:
-            raise ValueError(f'Part is defined twice, once as {part_id} and once as {part}')
-
-        part = part_id or part
-
-    module = importlib.import_module(f'problems_{year}.{problem}')
-    parts = utils.PART_REGISTRY[module.__name__]
+def cli(context, problems, year, test, run_all):
     utils.IS_TEST = test
 
-    if part:
-        part_cmd = parts.get(part)
+    if run_all:
+        if problems:
+            raise click.ClickException('Cannot both specify problems and have -a/-all enabled')
+        problems = get_all_available_days(year)
 
-        if not part_cmd:
-            raise ValueError(
-                f'Part {part} of {module} is not registered. Registered parts: {list(parts.keys())}'
-            )
+    parts_by_day = get_parts_by_day(year, problems)
 
-        context.invoke(part_cmd)
-        print()
-    else:
-        for part_id, part_cmd in sorted(parts.items()):
-            print(f'=== PART {part_id} ===')
-            context.invoke(part_cmd)
-            print()
+    for day, parts in sorted(parts_by_day.items()):
+        if len(parts_by_day) > 1:
+            print(f'========== DAY {day} ==========\n')
+
+        execute_day(context, parts)
 
 
 if __name__ == '__main__':

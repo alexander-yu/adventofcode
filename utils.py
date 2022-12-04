@@ -2,6 +2,7 @@ from typing import Any, Callable, Dict, Optional, Tuple, Type
 
 import collections
 import copy
+import dataclasses
 import enum
 import inspect
 import itertools
@@ -289,6 +290,12 @@ def assert_one(iterable, key=None):
     return item
 
 
+@dataclasses.dataclass(frozen=True)
+class Part:
+    id: str
+    cmd: Callable
+
+
 def part(func: Callable):
     calling_frame = inspect.currentframe().f_back
     calling_module = inspect.getmodule(calling_frame)
@@ -296,5 +303,5 @@ def part(func: Callable):
     path = calling_module.__name__
     part_id = func.__name__.removeprefix('part_')
 
-    PART_REGISTRY[path][str(part_id)] = func
+    PART_REGISTRY[path][str(part_id)] = Part(part_id, func)
     return func
