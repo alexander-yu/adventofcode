@@ -31,8 +31,8 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     memory = utils.get_input(__file__)[0]
     print(max(
@@ -42,8 +42,8 @@ def part_1():
     ))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     memory = utils.get_input(__file__)[0]
     print(max(

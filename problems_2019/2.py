@@ -19,14 +19,14 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     print(run_program(12, 2))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     for noun in range(100):
         for verb in range(100):

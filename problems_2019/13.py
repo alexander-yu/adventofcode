@@ -96,15 +96,15 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     game = play()
     print(len([tile_id for tile_id in game.tiles.values() if tile_id == TileID.BLOCK]))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     game = play(quarters=2)
     print(game.score)

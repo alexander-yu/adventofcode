@@ -55,8 +55,8 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     path_1, path_2 = utils.get_input(__file__, cast=str)
     print(min(
@@ -65,8 +65,8 @@ def part_1():
     ))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     path_1, path_2 = utils.get_input(__file__, cast=str)
     points_1, points_2 = points(path_1), points(path_2)

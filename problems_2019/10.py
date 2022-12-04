@@ -77,16 +77,16 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     asteroid_map = utils.get_input(__file__, delimiter='', cast=str)
     asteroids = get_asteroids(asteroid_map)
     print(max(len(list(get_sightlines(station, asteroids).keys())) for station in asteroids))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     asteroid_map = utils.get_input(__file__, delimiter='', cast=str)
     asteroids = get_asteroids(asteroid_map)

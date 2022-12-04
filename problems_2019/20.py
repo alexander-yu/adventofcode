@@ -158,15 +158,15 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     graph, start, end = get_graph()
     print(nx.shortest_path_length(graph, source=start, target=end))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     max_recursion_depth = 30
     graph, start, end = get_graph(levels=max_recursion_depth)

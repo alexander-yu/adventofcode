@@ -16,8 +16,8 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     memory = utils.get_input(__file__)[0]
     beam = 0
@@ -32,8 +32,8 @@ def part_1():
     print(beam)
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     memory = utils.get_input(__file__)[0]
     # Start from here because there is an empty initial stem of the beam
