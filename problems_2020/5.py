@@ -21,14 +21,12 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     print(max(get_seat_ids()))
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     seat_ids = get_seat_ids()
 

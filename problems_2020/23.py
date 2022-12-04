@@ -105,16 +105,14 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     cups = utils.get_input(__file__, delimiter='')[0]
     cups = play(cups, 100)
     print(''.join(str(value) for value in cups.values(1)[1:]))
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     cups = utils.get_input(__file__, delimiter='')[0]
     cups += list(range(max(cups) + 1, 1_000_001))

@@ -85,16 +85,14 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     ship = Ship()
     position = navigate_ship(ship)
     print(manhattan_distance(utils.ORIGIN, position))
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     ship = Ship(waypoint=True)
     position = navigate_ship(ship)

@@ -31,14 +31,12 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     play(2020)
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     play(30000000)
 

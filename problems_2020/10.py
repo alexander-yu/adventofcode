@@ -10,8 +10,7 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     adapters = sorted(utils.get_input(__file__, delimiter=None))
     inputs = [0] + adapters
@@ -21,8 +20,7 @@ def part_1():
     print(counts[1] * counts[3])
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     adapters = sorted(utils.get_input(__file__, delimiter=None))
 
