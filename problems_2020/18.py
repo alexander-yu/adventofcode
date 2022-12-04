@@ -77,15 +77,15 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     expressions = utils.get_input(__file__, delimiter='', cast=str)
     print(sum([eval_expression(expression) for expression in expressions]))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     expressions = utils.get_input(__file__, delimiter='', cast=str)
     print(sum([eval_expression(expression, advanced=True) for expression in expressions]))

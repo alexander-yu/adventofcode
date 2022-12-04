@@ -62,16 +62,16 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     decks = get_decks()
     winner = play(decks)
     print(get_score(decks[winner]))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     decks = get_decks()
     winner = play(decks, recursive=True)

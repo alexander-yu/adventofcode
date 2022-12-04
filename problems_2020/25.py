@@ -22,8 +22,8 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     card_key, door_key = utils.get_input(__file__, delimiter=None)
     subject, mod = 7, 20201227

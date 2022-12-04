@@ -75,8 +75,8 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     program = Program(get_instructions())
     try:
@@ -85,8 +85,8 @@ def part_1():
         print(exc.program.accumulator)
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     instructions = get_instructions()
 

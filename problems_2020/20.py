@@ -194,16 +194,16 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     graph = get_tile_graph(get_tiles())
     corners = [node for node in graph.nodes if graph.degree(node) == 2]
     print(math.prod(corners))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     graph = get_tile_graph(get_tiles())
     image = assemble_tiles(graph)

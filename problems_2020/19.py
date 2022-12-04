@@ -49,8 +49,8 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     rules, messages = utils.get_input(__file__, cast=str, delimiter='\n', line_delimiter='\n\n')
     graph = nx.DiGraph()
@@ -64,8 +64,8 @@ def part_1():
     print(len([message for message in messages if re.fullmatch(rule_0, message)]))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     rules, messages = utils.get_input(__file__, cast=str, delimiter='\n', line_delimiter='\n\n')
     graph = nx.DiGraph()

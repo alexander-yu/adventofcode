@@ -60,15 +60,15 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     floor = get_initial_floor()
     print(list(floor.values()).count(Color.BLACK))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     floor = get_initial_floor()
 

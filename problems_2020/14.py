@@ -95,15 +95,15 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     memory = run_program(1)
     print(sum(memory.values()))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     memory = run_program(2)
     print(sum(memory.values()))

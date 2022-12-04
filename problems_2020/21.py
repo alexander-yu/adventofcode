@@ -58,8 +58,8 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     foods = get_foods()
     hypoallergenic = get_hypoallergenic_ingredients(foods)
@@ -70,8 +70,8 @@ def part_1():
     print(hypoallergenic_occurrences)
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     foods = get_foods()
     hypoallergenic = get_hypoallergenic_ingredients(foods)
@@ -108,8 +108,8 @@ def part_2():
     print(','.join(allergen_map[allergen] for allergen in allergens))
 
 
-@cli.command()
-@utils.part(__name__, 'z3')
+@cli.command
+@utils.part
 def part_2_z3():
     foods = get_foods()
     hypoallergenic = get_hypoallergenic_ingredients(foods)

@@ -57,14 +57,14 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     print(get_valid_passwords(PasswordPolicyType.FREQUENCY))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     print(get_valid_passwords(PasswordPolicyType.POSITION))
 

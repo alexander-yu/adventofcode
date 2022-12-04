@@ -27,15 +27,15 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     grid = utils.get_grid(__file__, grid_cls=Grid, delimiter='', cast=str)
     print(get_trees_encountered(grid, (1, 3)))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     slopes = [
         (1, 1),

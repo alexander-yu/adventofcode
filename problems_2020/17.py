@@ -48,16 +48,16 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     pocket_dimension = get_pocket_dimension(3)
     pocket_dimension.boot_up()
     print(len(pocket_dimension.active_points))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     pocket_dimension = get_pocket_dimension(4)
     pocket_dimension.boot_up()

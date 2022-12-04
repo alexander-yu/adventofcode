@@ -12,8 +12,8 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     groups = get_group_answers()
     counts = sum(
@@ -25,8 +25,8 @@ def part_1():
     print(counts)
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     groups = get_group_answers()
     counts = sum(
