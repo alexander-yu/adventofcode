@@ -35,7 +35,7 @@ def cli():
 
 
 @cli.command()
-@utils.part(__name__, 1)
+@utils.part
 def part_1():
     data = get_data()
     count = 0
@@ -48,7 +48,7 @@ def part_1():
 
 
 @cli.command()
-@utils.part(__name__, 2)
+@utils.part
 def part_2():
     data = get_data()
     count = 0
@@ -61,7 +61,7 @@ def part_2():
 
 
 @cli.command()
-@utils.part(__name__, '1_interval')
+@utils.part
 def part_1_interval():
     data = get_data()
     count = 0
@@ -74,7 +74,7 @@ def part_1_interval():
 
 
 @cli.command()
-@utils.part(__name__, '2_interval')
+@utils.part
 def part_2_interval():
     data = get_data()
     count = 0

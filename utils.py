@@ -1,12 +1,13 @@
+from typing import Any, Callable, Dict, Optional, Tuple, Type
+
 import collections
 import copy
 import enum
-import functools
+import inspect
 import itertools
 import os
 import pathlib
 import re
-import typing
 
 from boltons import iterutils
 
@@ -87,8 +88,8 @@ ROTATIONS_3D = [
 
 def _split_line(
     line: str,
-    delimiter: typing.Optional[str],
-    cast: typing.Callable[[str], typing.Any],
+    delimiter: Optional[str],
+    cast: Callable[[str], Any],
 ):
     if delimiter == '':
         return list(cast(ch) for ch in line)
@@ -107,8 +108,8 @@ def _split_line(
 # pylint: disable=too-many-arguments
 def parse(
     content: str,
-    delimiter: typing.Optional[str] = ',',
-    cast: typing.Callable[[str], typing.Any] = int,
+    delimiter: Optional[str] = ',',
+    cast: Callable[[str], Any] = int,
     line_delimiter: str = '\n',
     rstrip: str = '',
     remove_suffix: str = '',
@@ -132,10 +133,10 @@ def parse(
 # pylint: disable=too-many-arguments
 def get_input(
     problem_file: str,
-    delimiter: typing.Optional[str] = ',',
-    cast: typing.Callable[[str], typing.Any] = int,
+    delimiter: Optional[str] = ',',
+    cast: Callable[[str], Any] = int,
     line_delimiter: str = '\n',
-    rstrip: typing.Optional[str] = None,
+    rstrip: Optional[str] = None,
     remove_suffix: str = '',
     remove_prefix: str = '',
 ):
@@ -187,7 +188,7 @@ class MultiValueEnum(enum.Enum):
 class Grid:
     def __init__(
         self,
-        points: typing.Dict[typing.Tuple[int, int], typing.Any],
+        points: Dict[Tuple[int, int], Any],
         rows: int,
         columns: int,
     ):
@@ -196,10 +197,10 @@ class Grid:
         self.columns = columns
         self.graph = self.to_graph()
 
-    def __getitem__(self, point: typing.Tuple[int, int]):
+    def __getitem__(self, point: Tuple[int, int]):
         return self.points[point]
 
-    def __setitem__(self, point: typing.Tuple[int, int], value):
+    def __setitem__(self, point: Tuple[int, int], value):
         self.points[point] = value
 
     def __iter__(self):
@@ -213,7 +214,7 @@ class Grid:
         for point, value in self.points.items():
             yield point, value
 
-    def neighbors(self, point: typing.Tuple[int, int]):
+    def neighbors(self, point: Tuple[int, int]):
         for neighbor in self.graph.neighbors(point):
             yield neighbor
 
@@ -264,9 +265,9 @@ class DirectedGrid(Grid):
 
 def get_grid(
     problem_file: str,
-    input_transformer: typing.Callable[[typing.Any], typing.Any] = lambda x: x,
-    grid_cls: typing.Type[Grid] = Grid,
-    value_transformer: typing.Callable[[typing.Any], typing.Any] = lambda x: x,
+    input_transformer: Callable[[Any], Any] = lambda x: x,
+    grid_cls: Type[Grid] = Grid,
+    value_transformer: Callable[[Any], Any] = lambda x: x,
     **get_input_kwargs
 ):
     points = {}
@@ -288,13 +289,12 @@ def assert_one(iterable, key=None):
     return item
 
 
-def part(path: str, part_id: typing.Any):
-    def wrapper(wrapped):
-        PART_REGISTRY[path][str(part_id)] = wrapped
+def part(func: Callable):
+    calling_frame = inspect.currentframe().f_back
+    calling_module = inspect.getmodule(calling_frame)
 
-        @functools.wraps(wrapped)
-        def inner(*args, **kwargs):
-            return wrapped(*args, **kwargs)
+    path = calling_module.__name__
+    part_id = func.__name__.removeprefix('part_')
 
-        return inner
-    return wrapper
+    PART_REGISTRY[path][str(part_id)] = func
+    return func
