@@ -34,15 +34,15 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     image = enhance_image(2)
     print(image.sum())
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     image = enhance_image(50)
     print(image.sum())

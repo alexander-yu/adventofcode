@@ -28,8 +28,8 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     numbers = utils.get_input(__file__, delimiter=None, cast=str)
     bit_length = len(numbers[0])
@@ -46,8 +46,8 @@ def part_1():
     print(gamma * epsilon)
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     numbers = utils.get_input(__file__, delimiter=None, cast=str)
     oxygen = get_rating(numbers, 0)

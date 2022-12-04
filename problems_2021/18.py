@@ -149,15 +149,15 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     numbers = get_numbers()
     print(abs(sum(numbers, start=Node())))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     numbers = get_numbers()
     print(max(

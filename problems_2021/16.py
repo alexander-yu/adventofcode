@@ -46,7 +46,7 @@ class Packet:
     def eval(self):
         if self.header.type == PacketType.LITERAL:
             return self.value
-        
+
         return self.EVAL_HANDLERS[self.header.type]([
             subpacket.eval() for subpacket in self.subpackets
         ])
@@ -79,7 +79,7 @@ def parse_literal(data):
 
 def parse_subpackets_by_length(data):
     total_length, data = shift(data, 15)
-    subpacket_data, data = shift(data, total_length, binary=True)      
+    subpacket_data, data = shift(data, total_length, binary=True)
     subpackets = []
 
     while subpacket_data:
@@ -106,7 +106,7 @@ def parse_packet(data):
     if header.type == PacketType.LITERAL:
         value, data = parse_literal(data)
         return Packet(header, value=value), data
-        
+
     length_type_id, data = shift(data, 1)
 
     if length_type_id == 0:
@@ -132,15 +132,15 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     transmission = parse_transmission()
     print(transmission.version_sum())
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     transmission = parse_transmission()
     print(transmission.eval())

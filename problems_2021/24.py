@@ -84,26 +84,26 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     print(max(valid_numbers()))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     print(min(valid_numbers()))
 
 
-@cli.command()
-@utils.part(__name__, '1_z3')
+@cli.command
+@utils.part
 def part_1_z3():
     print(valid_numbers_z3('maximize'))
 
 
-@cli.command()
-@utils.part(__name__, '2_z3')
+@cli.command
+@utils.part
 def part_2_z3():
     print(valid_numbers_z3('minimize'))
 

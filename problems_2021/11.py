@@ -32,8 +32,8 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     grid = utils.get_grid(__file__, grid_cls=utils.DiagonalGrid, delimiter='')
     flash_count = 0
@@ -45,8 +45,8 @@ def part_1():
     print(flash_count)
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     grid = utils.get_grid(__file__, grid_cls=utils.DiagonalGrid, delimiter='')
     step = 0

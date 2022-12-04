@@ -8,8 +8,8 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     depths = utils.get_input(__file__, delimiter=None)
 
@@ -21,8 +21,8 @@ def part_1():
     print(increases)
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     depths = utils.get_input(__file__, delimiter=None)
 

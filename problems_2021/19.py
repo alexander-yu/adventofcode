@@ -96,16 +96,16 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     scanners = get_scanners()
     oriented, _ = orient(scanners)
     print(len(set(itertools.chain.from_iterable(oriented))))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     scanners = get_scanners()
     _, positions = orient(scanners)

@@ -44,8 +44,8 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     instructions = utils.get_input(__file__, delimiter=' ', cast=str)
     position = Position(1)
@@ -56,8 +56,8 @@ def part_1():
     print(position.horizontal_position * position.depth)
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     instructions = utils.get_input(__file__, delimiter=' ', cast=str)
     position = Position(2)

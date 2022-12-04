@@ -60,8 +60,8 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     numbers, boards = get_initial_state()
 
@@ -73,8 +73,8 @@ def part_1():
                 return
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     numbers, boards = get_initial_state()
     won_boards = []

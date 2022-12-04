@@ -21,15 +21,15 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     grid = utils.get_grid(__file__, delimiter='')
     print(sum(grid[point] + 1 for point in get_low_points(grid)))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     grid = utils.get_grid(__file__, delimiter='')
 
@@ -45,8 +45,8 @@ def part_2():
     print(math.prod(len(basin) for basin in top_3))
 
 
-@cli.command()
-@utils.part(__name__, '2_bfs')
+@cli.command
+@utils.part
 def part_2_bfs():
     grid = utils.get_grid(__file__, delimiter='')
 
@@ -78,8 +78,8 @@ def part_2_bfs():
     print(math.prod(len(basin) for basin in top_3))
 
 
-@cli.command()
-@utils.part(__name__, '2_dag')
+@cli.command
+@utils.part
 def part_2_dag():
     grid = utils.get_grid(__file__, delimiter='')
 

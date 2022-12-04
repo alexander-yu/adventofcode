@@ -165,8 +165,8 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     energy = get_best_path(State(
         0,
@@ -181,8 +181,8 @@ def part_1():
     print(energy)
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     energy = get_best_path(State(
         0,
