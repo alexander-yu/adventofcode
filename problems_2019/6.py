@@ -16,16 +16,14 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     graph = get_graph()
     source = 'COM'
     print(sum(nx.shortest_path_length(graph, source=source).values()))
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     graph = get_graph()
     # YOU and SAN are not orbited by any other object, meaning that their only edge for each of them

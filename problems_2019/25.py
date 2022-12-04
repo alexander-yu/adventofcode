@@ -32,8 +32,7 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     commands = [
         'south',

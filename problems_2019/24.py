@@ -132,8 +132,7 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     grid = Grid(utils.get_input(__file__, delimiter='', cast=str), recursive=False)
     hashes = set([grid.hash(0)])
@@ -152,8 +151,7 @@ def part_1():
         grid = new_grid
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     grid = Grid(utils.get_input(__file__, delimiter='', cast=str))
 

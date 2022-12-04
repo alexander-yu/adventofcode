@@ -34,8 +34,7 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     signal = utils.get_input(__file__, delimiter='', cast=int)[0]
 
@@ -45,8 +44,7 @@ def part_1():
     print(''.join(str(digit) for digit in signal))
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     signal = utils.get_input(__file__, delimiter=None, cast=str)[0]
     signal *= 10000

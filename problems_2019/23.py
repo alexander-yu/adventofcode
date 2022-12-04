@@ -55,15 +55,13 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     computers = [get_computer(i) for i in range(50)]
     print(run(computers, return_first_nat=True)[1])
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     computers = [get_computer(i) for i in range(50)]
     print(run(computers)[1])

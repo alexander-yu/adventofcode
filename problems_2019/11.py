@@ -124,15 +124,13 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     program_memory = utils.get_input(__file__)[0]
     print(len(paint(program_memory)))
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     program_memory = utils.get_input(__file__)[0]
     hull = display(paint(program_memory, initial_color=Color.WHITE))

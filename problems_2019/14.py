@@ -80,14 +80,12 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     print(get_ore_required(1))
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     print(argmax(get_ore_required, ONE_TRILLION))
 

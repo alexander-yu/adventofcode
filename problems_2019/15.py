@@ -103,15 +103,13 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     graph, oxygen_position = explore()
     print(len(nx.shortest_path(graph, source=(0, 0), target=oxygen_position)) - 1)
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     graph, oxygen_position = explore()
     print(max(nx.shortest_path_length(graph, source=oxygen_position).values()) - 1)
