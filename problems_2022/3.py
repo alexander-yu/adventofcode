@@ -34,8 +34,8 @@ def cli():
     pass
 
 
-@cli.command()
-@utils.part(__name__, 1)
+@cli.command
+@utils.part
 def part_1():
     data = get_data()
 
@@ -45,8 +45,8 @@ def part_1():
     ))
 
 
-@cli.command()
-@utils.part(__name__, 2)
+@cli.command
+@utils.part
 def part_2():
     data = get_data()
 
