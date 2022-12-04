@@ -38,8 +38,7 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     entries = utils.get_input(__file__, delimiter=' | ', cast=str)
 
@@ -51,8 +50,7 @@ def part_1():
     ]))
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     entries = utils.get_input(__file__, delimiter=' | ', cast=str)
     result = 0

@@ -132,15 +132,13 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     transmission = parse_transmission()
     print(transmission.version_sum())
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     transmission = parse_transmission()
     print(transmission.eval())

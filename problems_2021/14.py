@@ -33,16 +33,14 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     letters = apply_insertions(10)
     most_common = letters.most_common()
     print(most_common[0][1] - most_common[-1][1])
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     letters = apply_insertions(40)
     most_common = letters.most_common()

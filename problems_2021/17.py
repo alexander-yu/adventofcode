@@ -29,8 +29,7 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     *_, y_0, _ = get_trench()
 
@@ -55,8 +54,7 @@ def part_1():
     print(triangular(-y_0 - 1))
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     x_0, x_1, y_0, y_1 = get_trench()
 
@@ -183,8 +181,7 @@ def get_valid_x(steps, x_0, x_1):
     return get_int_range(lower, upper)
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2_algebraic():
     x_0, x_1, y_0, y_1 = get_trench()
 

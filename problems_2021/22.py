@@ -93,8 +93,7 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     steps = get_steps()
     initial_area = Cuboid(
@@ -105,8 +104,7 @@ def part_1():
     print(run_steps(steps, initial_area=initial_area))
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     steps = get_steps()
     print(run_steps(steps))

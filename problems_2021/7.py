@@ -10,8 +10,7 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     positions = utils.get_input(__file__)[0]
 
@@ -24,8 +23,7 @@ def part_1():
     ))
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1_median():
     # For a given list of numbers x_1, ..., x_n, the median is the value y
     # that minimizes |x_1 - y| + ... + |x_n - y|. You can prove this by seeing
@@ -38,8 +36,7 @@ def part_1_median():
     print(sum(abs(position - alignment) for position in positions))
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     positions = utils.get_input(__file__)[0]
 

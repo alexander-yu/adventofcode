@@ -41,16 +41,14 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     dots, folds = get_manual()
     dots = fold_paper(dots, folds[0])
     print(len(dots))
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     dots, folds = get_manual()
 

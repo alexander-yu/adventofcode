@@ -25,16 +25,14 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     edges = utils.get_input(__file__, delimiter='-', cast=str)
     graph = nx.Graph(edges)
     print(path_count(graph, 'start', set(), False))
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     edges = utils.get_input(__file__, delimiter='-', cast=str)
     graph = nx.Graph(edges)

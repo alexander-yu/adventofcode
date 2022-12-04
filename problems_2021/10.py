@@ -56,8 +56,7 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     lines = utils.get_input(__file__, delimiter='', cast=str)
     score_map = {
@@ -76,8 +75,7 @@ def part_1():
     print(score)
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     lines = utils.get_input(__file__, delimiter='', cast=str)
     score_map = {

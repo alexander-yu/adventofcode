@@ -31,15 +31,13 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     grid = utils.get_grid(__file__, grid_cls=utils.DirectedGrid, delimiter='')
     print(get_lowest_risk_path(grid))
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     grid = utils.get_grid(__file__, input_transformer=expand_map, grid_cls=utils.DirectedGrid, delimiter='')
     print(get_lowest_risk_path(grid))

@@ -67,8 +67,7 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     player_1, player_2 = get_players()
     die = Die()
@@ -85,8 +84,7 @@ def part_1():
             break
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     player_1, player_2 = get_players()
     win_counts = quantum_wins(player_1, player_2, 1)
