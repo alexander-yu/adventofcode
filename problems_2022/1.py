@@ -13,15 +13,13 @@ def cli():
     pass
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_1():
     calories = get_calories_by_elf()
     print(max(calories))
 
 
-@cli.command
-@utils.part
+@utils.part(cli)
 def part_2():
     calories = get_calories_by_elf()
     top_3 = sorted(calories, reverse=True)[:3]
