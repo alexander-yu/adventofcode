@@ -1,4 +1,3 @@
-import click
 import networkx as nx
 
 import utils
@@ -11,19 +10,14 @@ def get_graph():
     return graph
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     graph = get_graph()
     source = 'COM'
     print(sum(nx.shortest_path_length(graph, source=source).values()))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     graph = get_graph()
     # YOU and SAN are not orbited by any other object, meaning that their only edge for each of them

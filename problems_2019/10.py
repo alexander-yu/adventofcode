@@ -2,7 +2,6 @@ import collections
 import enum
 import fractions
 
-import click
 import numpy as np
 
 import utils
@@ -72,19 +71,14 @@ def get_sightlines(station, asteroids):
     return sightlines
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     asteroid_map = utils.get_input(__file__, delimiter='', cast=str)
     asteroids = get_asteroids(asteroid_map)
     print(max(len(list(get_sightlines(station, asteroids).keys())) for station in asteroids))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     asteroid_map = utils.get_input(__file__, delimiter='', cast=str)
     asteroids = get_asteroids(asteroid_map)

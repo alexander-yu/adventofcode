@@ -1,17 +1,11 @@
 import functools
 
-import click
 import numpy as np
 
 import utils
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     image = np.array(utils.get_input(__file__, delimiter='')[0]).reshape((-1, 6, 25))
     layer = min(image, key=lambda layer: np.sum(layer == 0))
@@ -22,7 +16,7 @@ def part_1():
     print(ones * twos)
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     image = np.array(utils.get_input(__file__, delimiter='')[0]).reshape((-1, 6, 25))
     decode = np.vectorize(lambda a, b: a if a != 2 else b)

@@ -1,7 +1,5 @@
 import itertools
 
-import click
-
 import utils
 
 from problems_2019 import intcode
@@ -26,12 +24,7 @@ def run_thrusters(memory, phase_settings, loop):
     return signal
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     memory = utils.get_input(__file__)[0]
     print(max(
@@ -41,7 +34,7 @@ def part_1():
     ))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     memory = utils.get_input(__file__)[0]
     print(max(

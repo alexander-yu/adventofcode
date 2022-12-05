@@ -1,8 +1,6 @@
 import enum
 import itertools
 
-import click
-
 import utils
 
 from problems_2019 import intcode
@@ -91,18 +89,13 @@ def play(quarters=0):
     return game
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     game = play()
     print(len([tile_id for tile_id in game.tiles.values() if tile_id == TileID.BLOCK]))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     game = play(quarters=2)
     print(game.score)

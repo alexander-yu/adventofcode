@@ -2,7 +2,6 @@ import collections
 import enum
 import itertools
 
-import click
 import numpy as np
 
 import utils
@@ -127,12 +126,7 @@ def bugs(grid):
     return n
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     grid = Grid(utils.get_input(__file__, delimiter='', cast=str), recursive=False)
     hashes = set([grid.hash(0)])
@@ -151,7 +145,7 @@ def part_1():
         grid = new_grid
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     grid = Grid(utils.get_input(__file__, delimiter='', cast=str))
 

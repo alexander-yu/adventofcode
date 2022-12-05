@@ -1,5 +1,3 @@
-import click
-
 import utils
 
 from problems_2019 import intcode
@@ -27,12 +25,7 @@ def run(commands=None):
             raise Exception(f'Unexpected return signal {return_signal}')
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     commands = [
         'south',

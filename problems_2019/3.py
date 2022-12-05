@@ -1,6 +1,5 @@
 import enum
 
-import click
 import numpy as np
 
 import utils
@@ -50,12 +49,7 @@ def get_intersections(points_1, points_2):
     return set(points_1.keys()) & set(points_2.keys())
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     path_1, path_2 = utils.get_input(__file__, cast=str)
     print(min(
@@ -64,7 +58,7 @@ def part_1():
     ))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     path_1, path_2 = utils.get_input(__file__, cast=str)
     points_1, points_2 = points(path_1), points(path_2)

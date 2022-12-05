@@ -2,8 +2,6 @@ import functools
 import itertools
 import re
 
-import click
-
 from sympy.core import numbers
 
 import utils
@@ -66,15 +64,11 @@ def shuffle(n, card, rounds=1, reverse=False):
     ) % n
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     print(shuffle(10007, 2019))
 
-@utils.part(cli)
+
+@utils.part
 def part_2():
     print(shuffle(119315717514047, 2020, rounds=101741582076661, reverse=True))

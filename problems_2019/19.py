@@ -1,5 +1,3 @@
-import click
-
 import utils
 
 from problems_2019 import intcode
@@ -11,12 +9,7 @@ def get_output(memory, x, y):
     return output
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     memory = utils.get_input(__file__)[0]
     beam = 0
@@ -31,7 +24,7 @@ def part_1():
     print(beam)
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     memory = utils.get_input(__file__)[0]
     # Start from here because there is an empty initial stem of the beam

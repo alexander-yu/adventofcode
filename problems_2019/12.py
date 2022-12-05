@@ -3,7 +3,6 @@ import itertools
 import math
 import re
 
-import click
 import numpy as np
 
 import utils
@@ -110,18 +109,13 @@ def lcm(a, b):
     return a * b // math.gcd(a, b)
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     moons = get_moons()
     simulate_motion(moons, 1000)
     print(sum(moon.energy() for moon in moons))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     print(functools.reduce(lcm, [get_axis_cycle(axis) for axis in [0, 1, 2]]))

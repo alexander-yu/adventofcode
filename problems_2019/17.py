@@ -1,8 +1,5 @@
-import collections
 import enum
-import itertools
 
-import click
 import numpy as np
 
 import utils
@@ -74,12 +71,7 @@ def get_view(program):
     return view
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     memory = utils.get_input(__file__)[0]
     program = intcode.Program(memory, output_mode=intcode.OutputMode.BUFFER)
@@ -95,7 +87,7 @@ def part_1():
     print(alignment)
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     # Designed by inspection; look at the full path (or at least what seems like the
     # reasonable full path), and do substring matching to try and get 3 substrings that

@@ -1,9 +1,3 @@
-import collections
-import fractions
-import itertools
-import re
-
-import click
 import networkx as nx
 
 import utils
@@ -75,16 +69,11 @@ def argmax(f, limit):
             return x
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     print(get_ore_required(1))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     print(argmax(get_ore_required, ONE_TRILLION))

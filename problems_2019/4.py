@@ -1,7 +1,5 @@
 from collections import defaultdict
 
-import click
-
 import utils
 
 
@@ -34,12 +32,7 @@ def get_digit_adjacencies(num):
     return adjacencies
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     start, end = utils.get_input(__file__, delimiter='-')[0]
 
@@ -50,7 +43,7 @@ def part_1():
     ]))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     start, end = utils.get_input(__file__, delimiter='-')[0]
 

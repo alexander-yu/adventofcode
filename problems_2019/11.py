@@ -1,6 +1,5 @@
 import enum
 
-import click
 import numpy as np
 
 import utils
@@ -119,18 +118,13 @@ def display(painted_panels):
     return hull[::-1]
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     program_memory = utils.get_input(__file__)[0]
     print(len(paint(program_memory)))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     program_memory = utils.get_input(__file__)[0]
     hull = display(paint(program_memory, initial_color=Color.WHITE))

@@ -1,5 +1,3 @@
-import click
-
 import utils
 
 from problems_2019 import intcode
@@ -14,17 +12,12 @@ def run_program(noun, verb):
     return program.memory[0]
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     print(run_program(12, 2))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     for noun in range(100):
         for verb in range(100):

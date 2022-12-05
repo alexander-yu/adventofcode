@@ -1,7 +1,7 @@
-import click
 import numpy as np
 
 import utils
+
 
 # TODO: fix for offsets
 def interpolate(signal, offset=0):
@@ -29,12 +29,7 @@ def interpolate(signal, offset=0):
     return new_signal
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     signal = utils.get_input(__file__, delimiter='', cast=int)[0]
 
@@ -44,7 +39,7 @@ def part_1():
     print(''.join(str(digit) for digit in signal))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     signal = utils.get_input(__file__, delimiter=None, cast=str)[0]
     signal *= 10000
@@ -64,7 +59,7 @@ def part_2():
         # At each offset the computations required are N, N/2, N/3, etc. leading to a total
         # O(n log n) complexity for each phase.
         signal = (np.cumsum(signal[::-1]) % 10)[::-1]
-        #signal = interpolate(signal, offset=offset)
+        # signal = interpolate(signal, offset=offset)
         print(i)
 
     print(''.join(str(digit) for digit in signal[:8]))

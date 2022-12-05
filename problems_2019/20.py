@@ -2,7 +2,6 @@ import collections
 import itertools
 import string
 
-import click
 import networkx as nx
 import numpy as np
 
@@ -153,18 +152,13 @@ def get_graph(levels=1):
     return graph, start, end
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     graph, start, end = get_graph()
     print(nx.shortest_path_length(graph, source=start, target=end))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     max_recursion_depth = 30
     graph, start, end = get_graph(levels=max_recursion_depth)

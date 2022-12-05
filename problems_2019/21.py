@@ -1,5 +1,3 @@
-import click
-
 import utils
 
 from problems_2019 import intcode
@@ -20,12 +18,7 @@ def run_commands(commands):
             print(output)
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     run_commands([
         'OR A T',
@@ -38,7 +31,7 @@ def part_1():
     ])
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     run_commands([
         'OR A T',

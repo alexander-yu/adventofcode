@@ -4,7 +4,6 @@ import heapq
 import string
 
 import cachetools
-import click
 import networkx as nx
 import numpy as np
 
@@ -134,18 +133,13 @@ def get_distance(graph, entrances, bots=1):
                 heapq.heappush(heap, (moves + distance, tuple(new_position), keys | 1 << graph.key_map[key]))
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     graph, entrances = get_graph()
     print(get_distance(graph, entrances))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     graph, entrances = get_graph(single_bot=False)
     print(get_distance(graph, entrances, bots=4))

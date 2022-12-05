@@ -1,7 +1,5 @@
 import itertools
 
-import click
-
 import utils
 
 
@@ -18,18 +16,13 @@ def fuel_total(n):
     return total
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     module_masses = itertools.chain.from_iterable(utils.get_input(__file__))
     print(sum(fuel(module_mass) for module_mass in module_masses))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     module_masses = itertools.chain.from_iterable(utils.get_input(__file__))
     print(sum(fuel_total(module_mass) for module_mass in module_masses))
