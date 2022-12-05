@@ -1,61 +1,71 @@
+import dataclasses
+import re
+
+import parse
+
 import utils
 
 
-REAL_STACKS = [
-    ['Q', 'W', 'P', 'S', 'Z', 'R', 'H', 'D'],
-    ['V', 'B', 'R', 'W', 'Q', 'H', 'F'],
-    ['C', 'V', 'S', 'H'],
-    ['H', 'F', 'G'],
-    ['P', 'G', 'J', ' B', 'Z'],
-    ['Q', 'T', 'J', 'H', 'W', 'F', 'L'],
-    ['Z', 'T', 'W', 'D', 'L', 'V', 'J', 'N'],
-    ['D', 'T', 'Z', 'C', 'J', 'G', 'H', 'F'],
-    ['W', 'P', 'V', 'M', 'B', 'H'],
-]
-TEST_STACKS = [
-    ['Z', 'N'],
-    ['M', 'C', 'D'],
-    ['P'],
-]
+@dataclasses.dataclass
+class Move:
+    size: int
+    start: list
+    end: list
 
-stacks = TEST_STACKS if utils.IS_TEST else REAL_STACKS
+
+def get_initial_stacks(stack_rows, stack_labels):
+    num_stacks = len(re.findall(r'\d+', stack_labels))
+    stacks = [[] for _ in range(num_stacks)]
+
+    for stack_row in reversed(stack_rows):
+        for idx, crate in enumerate(stack_row[1::4]):
+            if crate.isalpha():
+                stacks[idx].append(crate)
+
+    return stacks
+
+
+def get_moves(stacks, moves):
+    for move in moves:
+        size, start, end = parse.parse('move {:d} from {:d} to {:d}', move)
+        yield Move(size, stacks[start - 1], stacks[end - 1])
 
 
 def get_data():
-    return utils.get_input(__file__, cast=str, delimiter='\n', line_delimiter='\n\n')
+    stack_data, moves = utils.get_input(__file__, cast=str, delimiter='\n', line_delimiter='\n\n')
+
+    stacks = get_initial_stacks(stack_data[:-1], stack_data[-1])
+    moves = get_moves(stacks, moves)
+
+    return stacks, moves
 
 
-def exec_move(move, stacks, crane=False):
-    _, n, _, stack_1, _, stack_2 = move.split(' ')
-    n = int(n)
-    stack_1, stack_2 = int(stack_1), int(stack_2)
+def exec_move(move, crane=False):
+    crates = []
 
-    if not crane:
-        for _ in range(n):
-            stacks[stack_2 - 1].append(stacks[stack_1 - 1].pop())
-    else:
-        crates = []
-        for _ in range(n):
-            crates.append(stacks[stack_1 - 1].pop())
+    for _ in range(move.size):
+        crates.append(move.start.pop())
 
-        stacks[stack_2 - 1].extend(crates[::-1])
+    if crane:
+        crates = crates[::-1]
+
+    move.end.extend(crates)
+
+
+def run(crane=False):
+    stacks, moves = get_data()
+
+    for move in moves:
+        exec_move(move, crane=crane)
+
+    print(''.join(stack[-1] for stack in stacks))
 
 
 @utils.part
 def part_1():
-    _, moves = get_data()
-
-    for move in moves:
-        exec_move(move, stacks)
-
-    print(''.join(stack[-1] for stack in stacks))
+    run()
 
 
 @utils.part
 def part_2():
-    _, moves = get_data()
-
-    for move in moves:
-        exec_move(move, stacks, crane=True)
-
-    print(''.join(stack[-1] for stack in stacks))
+    run(crane=True)
