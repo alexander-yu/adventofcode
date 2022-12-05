@@ -24,7 +24,3 @@ def part_2():
     calories = get_calories_by_elf()
     top_3 = sorted(calories, reverse=True)[:3]
     print(sum(top_3))
-
-
-if __name__ == '__main__':
-    cli()

@@ -80,7 +80,3 @@ def part_2_interval():
             count += 1
 
     print(count)
-
-
-if __name__ == '__main__':
-    cli()

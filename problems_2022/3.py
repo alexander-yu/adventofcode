@@ -52,7 +52,3 @@ def part_2():
         PRIORITIES[get_badge(sacks)]
         for sacks in iterutils.chunked(data, 3)
     ))
-
-
-if __name__ == '__main__':
-    cli()

@@ -72,7 +72,3 @@ def part_2():
         score(HANDS[opponent], HAND_FROM_OUTCOME[(opponent, me)])
         for opponent, me in data
     ))
-
-
-if __name__ == '__main__':
-    cli()
