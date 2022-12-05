@@ -17,6 +17,7 @@ import networkx as nx
 import numpy as np
 
 
+CLI_REGISTRY = {}
 PART_REGISTRY = collections.defaultdict(dict)
 ORIGIN = np.array([
     [0],
@@ -297,14 +298,20 @@ class Part:
     cmd: Callable
 
 
-def part(cli: click.Command):
+def part(func):
     calling_frame = inspect.currentframe().f_back
     calling_module = inspect.getmodule(calling_frame)
+    path = calling_module.__name__
 
-    def wrapper(func):
-        path = calling_module.__name__
-        part_id = func.__name__.removeprefix('part_')
-        PART_REGISTRY[path][str(part_id)] = Part(part_id, func)
-        return cli.command(func)
+    if path not in CLI_REGISTRY:
+        @click.group()
+        def cli():
+            pass
 
-    return wrapper
+        CLI_REGISTRY[path] = cli
+    else:
+        cli = CLI_REGISTRY[path]
+
+    part_id = func.__name__.removeprefix('part_')
+    PART_REGISTRY[path][str(part_id)] = Part(part_id, func)
+    return cli.command(func)
