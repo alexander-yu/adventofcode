@@ -19,7 +19,7 @@ def get_all_available_days(year):
     return [
         file.removesuffix('.py')
         for file in os.listdir(f'problems_{year}')
-        if re.match(r'[0-9]+\.py', file)
+        if re.match(r'\d+\.py', file)
     ]
 
 
