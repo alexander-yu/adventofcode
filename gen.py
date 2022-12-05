@@ -31,11 +31,6 @@ def part_2():
     data = get_data()
 """
 
-MAIN = """
-if __name__ == '__main__':
-    cli()
-"""
-
 
 def gen_file(path, content, exists_ok=False):
     if os.path.exists(path):
@@ -55,9 +50,9 @@ def gen_file(path, content, exists_ok=False):
 
 def get_template(problem):
     if problem == 25:
-        chunks = [PRE_PART_2, MAIN]
+        chunks = [PRE_PART_2]
     else:
-        chunks = [PRE_PART_2, PART_2, MAIN]
+        chunks = [PRE_PART_2, PART_2]
 
     return '\n\n'.join(chunk.lstrip() for chunk in chunks)
 
