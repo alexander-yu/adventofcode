@@ -16,7 +16,6 @@ import networkx as nx
 import numpy as np
 
 
-CLI_REGISTRY = {}
 PART_REGISTRY = collections.defaultdict(dict)
 ORIGIN = np.array([
     [0],
