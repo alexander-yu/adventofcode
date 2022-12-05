@@ -48,10 +48,10 @@ def get_parts_by_day(year, problems):
     return parts_by_day
 
 
-def execute_day(context, parts):
+def execute_day(parts):
     for part in sorted(parts, key=lambda part: part.id):
         print(f'--- PART {part.id} ---')
-        context.invoke(part.cmd)
+        part.cmd()
         print()
 
 
@@ -60,8 +60,7 @@ def execute_day(context, parts):
 @click.option('-y', '--year', nargs=1, type=int, default=datetime.datetime.now().year, show_default=True)
 @click.option('-t', '--test', is_flag=True, default=False)
 @click.option('-a', '--all', 'run_all', is_flag=True, default=False)
-@click.pass_context
-def cli(context, problems, year, test, run_all):
+def cli(problems, year, test, run_all):
     utils.IS_TEST = test
 
     if run_all:
@@ -75,7 +74,7 @@ def cli(context, problems, year, test, run_all):
         if len(parts_by_day) > 1:
             print(f'========== DAY {day} ==========\n')
 
-        execute_day(context, parts)
+        execute_day(parts)
 
 
 if __name__ == '__main__':

@@ -12,7 +12,6 @@ import re
 
 from boltons import iterutils
 
-import click
 import networkx as nx
 import numpy as np
 
@@ -302,16 +301,7 @@ def part(func):
     calling_frame = inspect.currentframe().f_back
     calling_module = inspect.getmodule(calling_frame)
     path = calling_module.__name__
-
-    if path not in CLI_REGISTRY:
-        @click.group()
-        def cli():
-            pass
-
-        CLI_REGISTRY[path] = cli
-    else:
-        cli = CLI_REGISTRY[path]
-
     part_id = func.__name__.removeprefix('part_')
+
     PART_REGISTRY[path][str(part_id)] = Part(part_id, func)
-    return cli.command(func)
+    return func
