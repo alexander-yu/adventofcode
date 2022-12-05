@@ -71,7 +71,3 @@ def part_2():
     numbers = utils.get_input(__file__, delimiter=None)
     subarray = get_subarray_sum(numbers, 104054607)
     print(min(subarray) + max(subarray))
-
-
-if __name__ == '__main__':
-    cli()

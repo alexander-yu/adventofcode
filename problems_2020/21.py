@@ -159,7 +159,3 @@ def part_2_z3():
         matches.append((allergens[assignment], ingredients[i]))
 
     print(','.join(ingredient for _, ingredient in sorted(matches)))
-
-
-if __name__ == '__main__':
-    cli()

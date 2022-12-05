@@ -60,7 +60,3 @@ def part_2():
     pocket_dimension = get_pocket_dimension(4)
     pocket_dimension.boot_up()
     print(len(pocket_dimension.active_points))
-
-
-if __name__ == '__main__':
-    cli()

@@ -55,7 +55,3 @@ def part_1():
 def part_2():
     graph = get_graph()
     print(get_size(graph, 'shiny gold'))
-
-
-if __name__ == '__main__':
-    cli()

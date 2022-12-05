@@ -108,7 +108,3 @@ def part_2():
         else:
             print(program.accumulator)
             return
-
-
-if __name__ == '__main__':
-    cli()

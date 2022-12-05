@@ -29,7 +29,3 @@ def part_2():
         combinations[adapter] = combinations[adapter - 1] + combinations[adapter - 2] + combinations[adapter - 3]
 
     print(combinations[adapters[-1]])
-
-
-if __name__ == '__main__':
-    cli()

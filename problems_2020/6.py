@@ -34,7 +34,3 @@ def part_2():
         for group in groups
     )
     print(counts)
-
-
-if __name__ == '__main__':
-    cli()

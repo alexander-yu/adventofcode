@@ -39,7 +39,3 @@ def part_2():
     ])
 
     print(crt(buses, offsets)[0])
-
-
-if __name__ == '__main__':
-    cli()

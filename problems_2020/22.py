@@ -74,7 +74,3 @@ def part_2():
     decks = get_decks()
     winner = play(decks, recursive=True)
     print(get_score(decks[winner]))
-
-
-if __name__ == '__main__':
-    cli()

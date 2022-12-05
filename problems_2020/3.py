@@ -44,7 +44,3 @@ def part_2():
     ]
     grid = utils.get_grid(__file__, grid_cls=Grid, delimiter='', cast=str)
     print(math.prod(get_trees_encountered(grid, slope) for slope in slopes))
-
-
-if __name__ == '__main__':
-    cli()

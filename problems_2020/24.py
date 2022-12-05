@@ -93,7 +93,3 @@ def part_2():
                 floor[position] = Color.flip(color)
 
     print(list(floor.values()).count(Color.BLACK))
-
-
-if __name__ == '__main__':
-    cli()

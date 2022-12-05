@@ -215,7 +215,3 @@ def part_2():
         if sea_monsters:
             print((new_image == '#').sum() - SEA_MONSTER_SIZE * sea_monsters)
             break
-
-
-if __name__ == '__main__':
-    cli()

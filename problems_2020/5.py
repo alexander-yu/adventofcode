@@ -37,7 +37,3 @@ def part_2():
     assert len(missing_seat_id) == 1
 
     print(missing_seat_id.pop())
-
-
-if __name__ == '__main__':
-    cli()

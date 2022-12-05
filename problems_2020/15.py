@@ -39,7 +39,3 @@ def part_1():
 @utils.part(cli)
 def part_2():
     play(30000000)
-
-
-if __name__ == '__main__':
-    cli()

@@ -108,8 +108,3 @@ def part_2():
             if field.startswith('departure')
         )
     )
-
-
-
-if __name__ == '__main__':
-    cli()

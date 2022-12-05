@@ -87,7 +87,3 @@ def part_1():
 def part_2():
     expressions = utils.get_input(__file__, delimiter='', cast=str)
     print(sum([eval_expression(expression, advanced=True) for expression in expressions]))
-
-
-if __name__ == '__main__':
-    cli()

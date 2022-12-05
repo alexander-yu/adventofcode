@@ -119,7 +119,3 @@ def part_2():
     cups = play(cups, 10_000_000)
     cup_1, cup_2 = cups.values(1)[1:3]
     print(cup_1 * cup_2)
-
-
-if __name__ == '__main__':
-    cli()

@@ -65,7 +65,3 @@ def part_1():
 @utils.part(cli)
 def part_2():
     print(get_valid_passwords(PasswordPolicyType.POSITION))
-
-
-if __name__ == '__main__':
-    cli()

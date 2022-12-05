@@ -105,7 +105,3 @@ def part_1():
 def part_2():
     memory = run_program(2)
     print(sum(memory.values()))
-
-
-if __name__ == '__main__':
-    cli()

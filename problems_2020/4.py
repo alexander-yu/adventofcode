@@ -87,7 +87,3 @@ def part_1():
 @utils.part(cli)
 def part_2():
     print(get_valid_passports(strict=True))
-
-
-if __name__ == '__main__':
-    cli()

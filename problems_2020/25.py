@@ -29,7 +29,3 @@ def part_1():
     card_loop = get_loop(subject, card_key, mod)
     door_loop = get_loop(subject, door_key, mod)
     print(pow(subject, card_loop * door_loop, mod=mod))
-
-
-if __name__ == '__main__':
-    cli()

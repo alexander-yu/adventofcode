@@ -80,7 +80,3 @@ def part_2():
     # Use a recursive regex here
     rule_0 = fr'(?:{rule_42})+((?:{rule_42})(|(?1))(?:{rule_31}))'
     print(len([message for message in messages if regex.fullmatch(rule_0, message)]))
-
-
-if __name__ == '__main__':
-    cli()

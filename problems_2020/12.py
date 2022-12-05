@@ -97,7 +97,3 @@ def part_2():
     ship = Ship(waypoint=True)
     position = navigate_ship(ship)
     print(manhattan_distance(utils.ORIGIN, position))
-
-
-if __name__ == '__main__':
-    cli()

@@ -112,7 +112,3 @@ def part_2():
         if not changes:
             print(len(grid.get_occupied_seats()))
             return
-
-
-if __name__ == '__main__':
-    cli()

@@ -39,7 +39,3 @@ def part_2():
             continue
 
     raise ValueError('Could not find three entries that sum to 2020')
-
-
-if __name__ == '__main__':
-    cli()
