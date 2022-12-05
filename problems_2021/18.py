@@ -4,8 +4,6 @@ import itertools
 import math
 import typing
 
-import click
-
 import utils
 
 
@@ -144,18 +142,13 @@ def get_numbers():
     ]
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     numbers = get_numbers()
     print(abs(sum(numbers, start=Node())))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     numbers = get_numbers()
     print(max(

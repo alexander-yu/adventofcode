@@ -2,7 +2,6 @@ import dataclasses
 import heapq
 import typing
 
-import click
 import numpy as np
 
 import utils
@@ -160,12 +159,7 @@ def get_best_path(initial_state):
                     heapq.heappush(heap, new_state)
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     energy = get_best_path(State(
         0,
@@ -180,7 +174,7 @@ def part_1():
     print(energy)
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     energy = get_best_path(State(
         0,

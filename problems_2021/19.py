@@ -2,7 +2,6 @@ import dataclasses
 import itertools
 import typing
 
-import click
 import numpy as np
 
 import utils
@@ -91,19 +90,14 @@ def get_scanners():
     return scanners
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     scanners = get_scanners()
     oriented, _ = orient(scanners)
     print(len(set(itertools.chain.from_iterable(oriented))))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     scanners = get_scanners()
     _, positions = orient(scanners)

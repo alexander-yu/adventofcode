@@ -1,6 +1,5 @@
 from scipy import signal
 
-import click
 import numpy as np
 
 import utils
@@ -29,18 +28,13 @@ def enhance_image(iterations):
     return image
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     image = enhance_image(2)
     print(image.sum())
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     image = enhance_image(50)
     print(image.sum())

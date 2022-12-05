@@ -1,7 +1,5 @@
 import collections
 
-import click
-
 import utils
 
 
@@ -20,16 +18,11 @@ def get_total_fish(days):
     return sum(timers.values())
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     print(get_total_fish(80))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     print(get_total_fish(256))

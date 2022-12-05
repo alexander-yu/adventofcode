@@ -1,5 +1,3 @@
-import click
-
 import utils
 
 
@@ -39,12 +37,7 @@ class Position:
             raise ValueError(f'Unsupported command {command}')
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     instructions = utils.get_input(__file__, delimiter=' ', cast=str)
     position = Position(1)
@@ -55,7 +48,7 @@ def part_1():
     print(position.horizontal_position * position.depth)
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     instructions = utils.get_input(__file__, delimiter=' ', cast=str)
     position = Position(2)

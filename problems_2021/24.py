@@ -1,6 +1,5 @@
 import itertools
 
-import click
 import z3
 
 import utils
@@ -79,26 +78,21 @@ def valid_numbers_z3(optimize_method):
     return optimizer.model().eval(number)
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     print(max(valid_numbers()))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     print(min(valid_numbers()))
 
 
-@utils.part(cli)
+@utils.part
 def part_1_z3():
     print(valid_numbers_z3('maximize'))
 
 
-@utils.part(cli)
+@utils.part
 def part_2_z3():
     print(valid_numbers_z3('minimize'))

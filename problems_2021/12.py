@@ -1,4 +1,3 @@
-import click
 import networkx as nx
 
 import utils
@@ -20,19 +19,14 @@ def path_count(graph, start, visited, can_visit_dupe):
     return count
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     edges = utils.get_input(__file__, delimiter='-', cast=str)
     graph = nx.Graph(edges)
     print(path_count(graph, 'start', set(), False))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     edges = utils.get_input(__file__, delimiter='-', cast=str)
     graph = nx.Graph(edges)

@@ -3,8 +3,6 @@ import itertools
 import math
 import re
 
-import click
-
 import utils
 
 
@@ -24,12 +22,7 @@ def triangular(n):
     return n * (n + 1) // 2
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     *_, y_0, _ = get_trench()
 
@@ -54,7 +47,7 @@ def part_1():
     print(triangular(-y_0 - 1))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     x_0, x_1, y_0, y_1 = get_trench()
 
@@ -181,7 +174,7 @@ def get_valid_x(steps, x_0, x_1):
     return get_int_range(lower, upper)
 
 
-@utils.part(cli)
+@utils.part
 def part_2_algebraic():
     x_0, x_1, y_0, y_1 = get_trench()
 

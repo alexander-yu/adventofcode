@@ -1,5 +1,3 @@
-import click
-
 import utils
 
 
@@ -47,16 +45,11 @@ def get_intersections(straight_only=False):
     return intersections
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     print(len(get_intersections(straight_only=True)))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     print(len(get_intersections()))

@@ -1,16 +1,9 @@
 import statistics
 
-import click
-
 import utils
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     positions = utils.get_input(__file__)[0]
 
@@ -23,7 +16,7 @@ def part_1():
     ))
 
 
-@utils.part(cli)
+@utils.part
 def part_1_median():
     # For a given list of numbers x_1, ..., x_n, the median is the value y
     # that minimizes |x_1 - y| + ... + |x_n - y|. You can prove this by seeing
@@ -36,7 +29,7 @@ def part_1_median():
     print(sum(abs(position - alignment) for position in positions))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     positions = utils.get_input(__file__)[0]
 

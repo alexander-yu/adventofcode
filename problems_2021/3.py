@@ -1,7 +1,5 @@
 import collections
 
-import click
-
 import utils
 
 
@@ -23,12 +21,7 @@ def get_rating(numbers, zero_bit_criteria):
     return int(numbers[0], 2)
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     numbers = utils.get_input(__file__, delimiter=None, cast=str)
     bit_length = len(numbers[0])
@@ -45,7 +38,7 @@ def part_1():
     print(gamma * epsilon)
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     numbers = utils.get_input(__file__, delimiter=None, cast=str)
     oxygen = get_rating(numbers, 0)

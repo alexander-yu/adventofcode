@@ -1,5 +1,3 @@
-import click
-
 import utils
 
 
@@ -33,12 +31,7 @@ def solve(digits, output):
     ))
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     entries = utils.get_input(__file__, delimiter=' | ', cast=str)
 
@@ -50,7 +43,7 @@ def part_1():
     ]))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     entries = utils.get_input(__file__, delimiter=' | ', cast=str)
     result = 0

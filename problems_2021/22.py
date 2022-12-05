@@ -3,8 +3,6 @@ import dataclasses
 import math
 import re
 
-import click
-
 import utils
 
 
@@ -88,12 +86,7 @@ def run_steps(steps, initial_area=None):
     return sum(len(cuboid) * sign for cuboid, sign in cuboid_signs.items())
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     steps = get_steps()
     initial_area = Cuboid(
@@ -104,7 +97,7 @@ def part_1():
     print(run_steps(steps, initial_area=initial_area))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     steps = get_steps()
     print(run_steps(steps))

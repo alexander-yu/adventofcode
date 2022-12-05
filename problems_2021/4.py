@@ -1,7 +1,5 @@
 import collections
 
-import click
-
 import utils
 
 
@@ -55,12 +53,7 @@ def get_initial_state():
     return numbers, [Board.parse(board) for board in lines[1:]]
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     numbers, boards = get_initial_state()
 
@@ -72,7 +65,7 @@ def part_1():
                 return
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     numbers, boards = get_initial_state()
     won_boards = []

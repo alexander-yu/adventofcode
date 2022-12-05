@@ -1,5 +1,3 @@
-import click
-
 import utils
 
 
@@ -35,12 +33,7 @@ def move_south(grid):
     )
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     grid = utils.get_grid(__file__, delimiter='', cast=str)
     step = 0

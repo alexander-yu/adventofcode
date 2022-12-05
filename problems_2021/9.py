@@ -1,7 +1,6 @@
 import collections
 import math
 
-import click
 import networkx as nx
 
 import utils
@@ -16,18 +15,13 @@ def get_low_points(grid):
             yield point
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     grid = utils.get_grid(__file__, delimiter='')
     print(sum(grid[point] + 1 for point in get_low_points(grid)))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     grid = utils.get_grid(__file__, delimiter='')
 
@@ -43,7 +37,7 @@ def part_2():
     print(math.prod(len(basin) for basin in top_3))
 
 
-@utils.part(cli)
+@utils.part
 def part_2_bfs():
     grid = utils.get_grid(__file__, delimiter='')
 
@@ -75,7 +69,7 @@ def part_2_bfs():
     print(math.prod(len(basin) for basin in top_3))
 
 
-@utils.part(cli)
+@utils.part
 def part_2_dag():
     grid = utils.get_grid(__file__, delimiter='')
 

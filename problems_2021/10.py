@@ -2,8 +2,6 @@ import enum
 import itertools
 import statistics
 
-import click
-
 import utils
 
 
@@ -51,12 +49,7 @@ def evaluate(line):
     return completion, Status.INCOMPLETE
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     lines = utils.get_input(__file__, delimiter='', cast=str)
     score_map = {
@@ -75,7 +68,7 @@ def part_1():
     print(score)
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     lines = utils.get_input(__file__, delimiter='', cast=str)
     score_map = {

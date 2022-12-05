@@ -1,4 +1,3 @@
-import click
 import networkx as nx
 import numpy as np
 
@@ -26,18 +25,13 @@ def expand_map(points):
     ])
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     grid = utils.get_grid(__file__, grid_cls=utils.DirectedGrid, delimiter='')
     print(get_lowest_risk_path(grid))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     grid = utils.get_grid(__file__, input_transformer=expand_map, grid_cls=utils.DirectedGrid, delimiter='')
     print(get_lowest_risk_path(grid))

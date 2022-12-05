@@ -1,7 +1,5 @@
 import dataclasses
 
-import click
-
 import utils
 
 
@@ -36,19 +34,14 @@ def get_manual():
     return dots, folds
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     dots, folds = get_manual()
     dots = fold_paper(dots, folds[0])
     print(len(dots))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     dots, folds = get_manual()
 

@@ -2,8 +2,6 @@ import dataclasses
 import enum
 import math
 
-import click
-
 import utils
 
 
@@ -127,18 +125,13 @@ def parse_transmission():
     return packet
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     transmission = parse_transmission()
     print(transmission.version_sum())
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     transmission = parse_transmission()
     print(transmission.eval())

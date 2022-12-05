@@ -1,14 +1,7 @@
-import click
-
 import utils
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     depths = utils.get_input(__file__, delimiter=None)
 
@@ -20,7 +13,7 @@ def part_1():
     print(increases)
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     depths = utils.get_input(__file__, delimiter=None)
 

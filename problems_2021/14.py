@@ -1,7 +1,5 @@
 import collections
 
-import click
-
 import utils
 
 
@@ -28,19 +26,14 @@ def apply_insertions(steps):
     return letters
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     letters = apply_insertions(10)
     most_common = letters.most_common()
     print(most_common[0][1] - most_common[-1][1])
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     letters = apply_insertions(40)
     most_common = letters.most_common()

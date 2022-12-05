@@ -4,8 +4,6 @@ import functools
 import itertools
 import re
 
-import click
-
 import utils
 
 
@@ -62,12 +60,7 @@ def get_players():
     ]
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     player_1, player_2 = get_players()
     die = Die()
@@ -84,7 +77,7 @@ def part_1():
             break
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     player_1, player_2 = get_players()
     win_counts = quantum_wins(player_1, player_2, 1)
