@@ -1,5 +1,3 @@
-import click
-
 import utils
 
 
@@ -15,19 +13,14 @@ def get_expense_sum_pair(expenses, total):
     raise ValueError(f'Could not find two entries that sum to {total}')
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     expenses = get_expenses()
     expense_1, expense_2 = get_expense_sum_pair(expenses, 2020)
     print(expense_1 * expense_2)
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     expenses = get_expenses()
     for expense_1 in expenses:

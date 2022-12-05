@@ -1,7 +1,6 @@
 import functools
 import re
 
-import click
 import marshmallow
 
 from marshmallow import fields, validate
@@ -74,16 +73,11 @@ def get_valid_passports(strict=False):
     return [is_valid_passport(line, strict) for line in lines].count(True)
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     print(get_valid_passports())
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     print(get_valid_passports(strict=True))

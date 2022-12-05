@@ -1,7 +1,5 @@
 import collections
 
-import click
-
 import utils
 
 
@@ -47,12 +45,7 @@ def get_subarray_sum(arr, target_sum):
     raise ValueError(f'Could not find contiguous subarray that sums to {target_sum}')
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     numbers = utils.get_input(__file__, delimiter=None)
     queue = Queue(25)
@@ -66,7 +59,7 @@ def part_1():
         queue.enqueue(number)
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     numbers = utils.get_input(__file__, delimiter=None)
     subarray = get_subarray_sum(numbers, 104054607)

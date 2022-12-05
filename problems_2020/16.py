@@ -3,8 +3,6 @@ import typing
 
 from dataclasses import dataclass
 
-import click
-
 import utils
 
 
@@ -49,12 +47,7 @@ def parse_notes():
     return rules, my_ticket, nearby_tickets
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     rules, _, nearby_tickets = parse_notes()
     error_rate = 0
@@ -65,7 +58,7 @@ def part_1():
     print(error_rate)
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     rules, my_ticket, nearby_tickets = parse_notes()
     field_candidates = {

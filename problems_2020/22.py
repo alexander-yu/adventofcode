@@ -1,8 +1,6 @@
 import collections
 import itertools
 
-import click
-
 import utils
 
 
@@ -57,19 +55,14 @@ def get_score(deck):
     return sum((len(deck) - i) * card for i, card in enumerate(deck))
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     decks = get_decks()
     winner = play(decks)
     print(get_score(decks[winner]))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     decks = get_decks()
     winner = play(decks, recursive=True)

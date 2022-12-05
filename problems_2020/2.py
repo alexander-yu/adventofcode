@@ -1,8 +1,6 @@
 import enum
 import re
 
-import click
-
 import utils
 
 
@@ -52,16 +50,11 @@ def get_valid_passwords(policy_type):
     return valid_passwords
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     print(get_valid_passwords(PasswordPolicyType.FREQUENCY))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     print(get_valid_passwords(PasswordPolicyType.POSITION))

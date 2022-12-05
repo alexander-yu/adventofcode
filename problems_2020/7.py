@@ -1,7 +1,6 @@
 import re
 
 import cachetools
-import click
 import networkx as nx
 
 import utils
@@ -40,18 +39,13 @@ def get_size(graph, bag):
     ])
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     graph = get_graph()
     print(len(nx.single_target_shortest_path(graph, 'shiny gold')) - 1)
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     graph = get_graph()
     print(get_size(graph, 'shiny gold'))

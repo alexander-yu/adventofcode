@@ -1,16 +1,9 @@
 import collections
 
-import click
-
 import utils
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     adapters = sorted(utils.get_input(__file__, delimiter=None))
     inputs = [0] + adapters
@@ -20,7 +13,7 @@ def part_1():
     print(counts[1] * counts[3])
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     adapters = sorted(utils.get_input(__file__, delimiter=None))
 

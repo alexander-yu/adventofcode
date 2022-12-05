@@ -3,8 +3,6 @@ import enum
 
 from dataclasses import dataclass
 
-import click
-
 import utils
 
 
@@ -70,12 +68,7 @@ def get_instructions():
     ]
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     program = Program(get_instructions())
     try:
@@ -84,7 +77,7 @@ def part_1():
         print(exc.program.accumulator)
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     instructions = get_instructions()
 

@@ -1,6 +1,5 @@
 import re
 
-import click
 import numpy as np
 
 import utils
@@ -80,19 +79,14 @@ def navigate_ship(ship):
     return ship.position
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     ship = Ship()
     position = navigate_ship(ship)
     print(manhattan_distance(utils.ORIGIN, position))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     ship = Ship(waypoint=True)
     position = navigate_ship(ship)

@@ -1,7 +1,5 @@
 import math
 
-import click
-
 import utils
 
 
@@ -22,18 +20,13 @@ def get_trees_encountered(grid, slope):
     return trees
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     grid = utils.get_grid(__file__, grid_cls=Grid, delimiter='', cast=str)
     print(get_trees_encountered(grid, (1, 3)))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     slopes = [
         (1, 1),

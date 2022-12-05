@@ -1,5 +1,3 @@
-import click
-
 import utils
 
 
@@ -16,17 +14,12 @@ def get_seat_ids():
     return [seat_id(seating) for seating in seatings]
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     print(max(get_seat_ids()))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     seat_ids = get_seat_ids()
 

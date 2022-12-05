@@ -4,7 +4,6 @@ import typing
 
 from dataclasses import dataclass
 
-import click
 import z3
 
 from boltons import iterutils
@@ -53,12 +52,7 @@ def get_hypoallergenic_ingredients(foods):
     return hypoallergenic
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     foods = get_foods()
     hypoallergenic = get_hypoallergenic_ingredients(foods)
@@ -69,7 +63,7 @@ def part_1():
     print(hypoallergenic_occurrences)
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     foods = get_foods()
     hypoallergenic = get_hypoallergenic_ingredients(foods)
@@ -106,7 +100,7 @@ def part_2():
     print(','.join(allergen_map[allergen] for allergen in allergens))
 
 
-@utils.part(cli)
+@utils.part
 def part_2_z3():
     foods = get_foods()
     hypoallergenic = get_hypoallergenic_ingredients(foods)

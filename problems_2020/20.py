@@ -5,7 +5,6 @@ import re
 
 from dataclasses import dataclass
 
-import click
 import networkx as nx
 import numpy as np
 
@@ -189,19 +188,14 @@ def get_sea_monsters(image):
     return sea_monsters
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     graph = get_tile_graph(get_tiles())
     corners = [node for node in graph.nodes if graph.degree(node) == 2]
     print(math.prod(corners))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     graph = get_tile_graph(get_tiles())
     image = assemble_tiles(graph)

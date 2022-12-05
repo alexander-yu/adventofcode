@@ -1,7 +1,5 @@
 import math
 
-import click
-
 from sympy.ntheory.modular import crt
 
 import utils
@@ -11,12 +9,7 @@ def min_departure(min_timestamp, bus):
     return bus * math.ceil(min_timestamp / bus)
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     min_timestamp, buses = utils.get_input(__file__, delimiter=None, cast=str)
     min_timestamp = int(min_timestamp)
@@ -28,7 +21,7 @@ def part_1():
     print(bus * (departure - min_timestamp))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     _, buses = utils.get_input(__file__, delimiter=None, cast=str)
 

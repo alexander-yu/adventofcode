@@ -1,7 +1,5 @@
 import collections
 
-import click
-
 import utils
 
 
@@ -43,19 +41,14 @@ def get_pocket_dimension(dims):
     return PocketDimension(active_points)
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     pocket_dimension = get_pocket_dimension(3)
     pocket_dimension.boot_up()
     print(len(pocket_dimension.active_points))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     pocket_dimension = get_pocket_dimension(4)
     pocket_dimension.boot_up()

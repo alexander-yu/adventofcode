@@ -1,8 +1,6 @@
 import collections
 import enum
 
-import click
-
 from sly import Lexer
 
 import utils
@@ -55,18 +53,13 @@ def get_initial_floor():
     return floor
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     floor = get_initial_floor()
     print(list(floor.values()).count(Color.BLACK))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     floor = get_initial_floor()
 

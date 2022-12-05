@@ -1,8 +1,6 @@
 import itertools
 import re
 
-import click
-
 import utils
 
 
@@ -90,18 +88,13 @@ def run_program(version):
     return memory
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     memory = run_program(1)
     print(sum(memory.values()))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     memory = run_program(2)
     print(sum(memory.values()))

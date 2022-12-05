@@ -1,7 +1,5 @@
 import collections
 
-import click
-
 import utils
 
 
@@ -26,16 +24,11 @@ def play(last_round):
     print(last_number)
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     play(2020)
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     play(30000000)

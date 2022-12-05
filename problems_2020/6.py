@@ -1,5 +1,3 @@
-import click
-
 import utils
 
 
@@ -7,12 +5,7 @@ def get_group_answers():
     return utils.get_input(__file__, delimiter='\n', line_delimiter='\n\n', cast=str)
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     groups = get_group_answers()
     counts = sum(
@@ -24,7 +17,7 @@ def part_1():
     print(counts)
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     groups = get_group_answers()
     counts = sum(
