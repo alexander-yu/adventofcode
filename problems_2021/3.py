@@ -51,7 +51,3 @@ def part_2():
     oxygen = get_rating(numbers, 0)
     co2 = get_rating(numbers, 1)
     print(oxygen * co2)
-
-
-if __name__ == '__main__':
-    cli()

@@ -197,7 +197,3 @@ def part_2_algebraic():
         ))
 
     print(len(solutions))
-
-
-if __name__ == '__main__':
-    cli()

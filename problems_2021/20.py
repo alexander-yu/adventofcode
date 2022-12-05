@@ -44,7 +44,3 @@ def part_1():
 def part_2():
     image = enhance_image(50)
     print(image.sum())
-
-
-if __name__ == '__main__':
-    cli()

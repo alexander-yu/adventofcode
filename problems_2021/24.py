@@ -102,7 +102,3 @@ def part_1_z3():
 @utils.part(cli)
 def part_2_z3():
     print(valid_numbers_z3('minimize'))
-
-
-if __name__ == '__main__':
-    cli()

@@ -89,7 +89,3 @@ def part_2():
     player_1, player_2 = get_players()
     win_counts = quantum_wins(player_1, player_2, 1)
     print(win_counts.most_common()[0][1])
-
-
-if __name__ == '__main__':
-    cli()

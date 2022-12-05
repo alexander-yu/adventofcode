@@ -98,7 +98,3 @@ def part_2():
             scores.append(score)
 
     print(statistics.median(scores))
-
-
-if __name__ == '__main__':
-    cli()

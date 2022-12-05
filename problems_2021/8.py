@@ -61,7 +61,3 @@ def part_2():
         result += solve(digits, output)
 
     print(result)
-
-
-if __name__ == '__main__':
-    cli()

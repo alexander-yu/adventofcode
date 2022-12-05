@@ -30,7 +30,3 @@ def part_2():
     )
 
     print(increases)
-
-
-if __name__ == '__main__':
-    cli()

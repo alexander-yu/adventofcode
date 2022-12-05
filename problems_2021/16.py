@@ -142,7 +142,3 @@ def part_1():
 def part_2():
     transmission = parse_transmission()
     print(transmission.eval())
-
-
-if __name__ == '__main__':
-    cli()

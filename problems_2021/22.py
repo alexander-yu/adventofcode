@@ -108,7 +108,3 @@ def part_1():
 def part_2():
     steps = get_steps()
     print(run_steps(steps))
-
-
-if __name__ == '__main__':
-    cli()

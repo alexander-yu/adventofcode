@@ -193,7 +193,3 @@ def part_2():
         Hallway(),
     ))
     print(energy)
-
-
-if __name__ == '__main__':
-    cli()

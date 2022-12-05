@@ -64,7 +64,3 @@ def part_2():
         position.run_instruction(command, int(value))
 
     print(position.horizontal_position * position.depth)
-
-
-if __name__ == '__main__':
-    cli()

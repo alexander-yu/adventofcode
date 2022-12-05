@@ -68,7 +68,3 @@ def part_2():
                 print(' ', end='')
 
         print('\n')
-
-
-if __name__ == '__main__':
-    cli()

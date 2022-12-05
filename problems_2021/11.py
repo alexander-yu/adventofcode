@@ -56,7 +56,3 @@ def part_2():
         if len(flashed) == len(grid):
             print(step)
             break
-
-
-if __name__ == '__main__':
-    cli()

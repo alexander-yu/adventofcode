@@ -162,7 +162,3 @@ def part_2():
         abs(number_1 + number_2)
         for number_1, number_2 in itertools.permutations(numbers, 2)
     ))
-
-
-if __name__ == '__main__':
-    cli()

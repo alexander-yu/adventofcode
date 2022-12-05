@@ -111,7 +111,3 @@ def part_2():
         sum(abs(x - y) for x, y in zip(position_1, position_2))
         for position_1, position_2 in itertools.combinations(positions)
     ))
-
-
-if __name__ == '__main__':
-    cli()

@@ -92,7 +92,3 @@ def part_2():
 
     board, number = won_boards[-1]
     print(board.unmarked_sum() * number)
-
-
-if __name__ == '__main__':
-    cli()

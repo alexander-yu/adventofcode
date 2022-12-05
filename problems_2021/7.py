@@ -47,7 +47,3 @@ def part_2():
         )
         for alignment in range(min(positions), max(positions) + 1)
     ))
-
-
-if __name__ == '__main__':
-    cli()

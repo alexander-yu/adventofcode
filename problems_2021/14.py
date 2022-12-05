@@ -45,7 +45,3 @@ def part_2():
     letters = apply_insertions(40)
     most_common = letters.most_common()
     print(most_common[0][1] - most_common[-1][1])
-
-
-if __name__ == '__main__':
-    cli()

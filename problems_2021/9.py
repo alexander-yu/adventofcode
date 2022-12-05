@@ -101,7 +101,3 @@ def part_2_dag():
 
     top_3 = sorted(basins, key=len, reverse=True)[:3]
     print(math.prod(len(basin) for basin in top_3))
-
-
-if __name__ == '__main__':
-    cli()
