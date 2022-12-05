@@ -1,5 +1,3 @@
-import click
-
 import utils
 
 
@@ -29,12 +27,7 @@ def get_intervals(interval_pairs):
         )
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     data = get_data()
     count = 0
@@ -46,7 +39,7 @@ def part_1():
     print(count)
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     data = get_data()
     count = 0
@@ -58,7 +51,7 @@ def part_2():
     print(count)
 
 
-@utils.part(cli)
+@utils.part
 def part_1_interval():
     data = get_data()
     count = 0
@@ -70,7 +63,7 @@ def part_1_interval():
     print(count)
 
 
-@utils.part(cli)
+@utils.part
 def part_2_interval():
     data = get_data()
     count = 0

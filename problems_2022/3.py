@@ -2,8 +2,6 @@ import string
 
 from boltons import iterutils
 
-import click
-
 import utils
 
 
@@ -29,12 +27,7 @@ def get_badge(sacks):
     return (set.intersection(*[set(sack) for sack in sacks])).pop()
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     data = get_data()
 
@@ -44,7 +37,7 @@ def part_1():
     ))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     data = get_data()
 

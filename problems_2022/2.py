@@ -1,5 +1,3 @@
-import click
-
 import utils
 
 
@@ -51,12 +49,7 @@ def get_data():
     return utils.get_input(__file__, cast=str, delimiter=' ', line_delimiter='\n')
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     data = get_data()
     print(sum(
@@ -65,7 +58,7 @@ def part_1():
     ))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     data = get_data()
     print(sum(

@@ -1,5 +1,3 @@
-import click
-
 import utils
 
 
@@ -43,12 +41,7 @@ def exec_move(move, stacks, crane=False):
         stacks[stack_2 - 1].extend(crates[::-1])
 
 
-@click.group()
-def cli():
-    pass
-
-
-@utils.part(cli)
+@utils.part
 def part_1():
     _, moves = get_data()
 
@@ -58,7 +51,7 @@ def part_1():
     print(''.join(stack[-1] for stack in stacks))
 
 
-@utils.part(cli)
+@utils.part
 def part_2():
     _, moves = get_data()
 
