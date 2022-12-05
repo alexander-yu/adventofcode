@@ -53,7 +53,3 @@ def part_2():
         'AND T J',
         'RUN',
     ])
-
-
-if __name__ == '__main__':
-    cli()

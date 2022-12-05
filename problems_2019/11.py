@@ -136,7 +136,3 @@ def part_2():
     hull = display(paint(program_memory, initial_color=Color.WHITE))
     for line in hull:
         print(''.join(line))
-
-
-if __name__ == '__main__':
-    cli()

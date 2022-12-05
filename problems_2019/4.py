@@ -59,7 +59,3 @@ def part_2():
         for num in range(start, end + 1)
         if is_nondecreasing(num) and 2 in get_digit_adjacencies(num).values()
     ]))
-
-
-if __name__ == '__main__':
-    cli()

@@ -65,7 +65,3 @@ def part_1():
 def part_2():
     computers = [get_computer(i) for i in range(50)]
     print(run(computers)[1])
-
-
-if __name__ == '__main__':
-    cli()

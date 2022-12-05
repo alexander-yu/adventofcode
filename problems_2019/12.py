@@ -125,7 +125,3 @@ def part_1():
 @utils.part(cli)
 def part_2():
     print(functools.reduce(lcm, [get_axis_cycle(axis) for axis in [0, 1, 2]]))
-
-
-if __name__ == '__main__':
-    cli()

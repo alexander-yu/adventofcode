@@ -76,7 +76,3 @@ def part_2():
     ]
 
     print(min(steps))
-
-
-if __name__ == '__main__':
-    cli()

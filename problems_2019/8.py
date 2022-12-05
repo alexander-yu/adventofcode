@@ -31,7 +31,3 @@ def part_2():
     display = np.vectorize(lambda a: '#' if a == 0 else '.')
     for layer in display(decoded_image):
         print(''.join(layer))
-
-
-if __name__ == '__main__':
-    cli()

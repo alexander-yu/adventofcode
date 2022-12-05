@@ -31,7 +31,3 @@ def part_2():
     source = next(iter(graph['YOU']))
     target = next(iter(graph['SAN']))
     print(nx.shortest_path_length(graph, source=source, target=target))
-
-
-if __name__ == '__main__':
-    cli()

@@ -88,7 +88,3 @@ def part_1():
 @utils.part(cli)
 def part_2():
     print(argmax(get_ore_required, ONE_TRILLION))
-
-
-if __name__ == '__main__':
-    cli()

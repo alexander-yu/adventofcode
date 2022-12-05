@@ -33,7 +33,3 @@ def part_1():
 def part_2():
     module_masses = itertools.chain.from_iterable(utils.get_input(__file__))
     print(sum(fuel_total(module_mass) for module_mass in module_masses))
-
-
-if __name__ == '__main__':
-    cli()

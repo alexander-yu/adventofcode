@@ -105,7 +105,3 @@ def part_2():
             counter += 1
 
     print(100 * last_asteroid[0] + last_asteroid[1])
-
-
-if __name__ == '__main__':
-    cli()

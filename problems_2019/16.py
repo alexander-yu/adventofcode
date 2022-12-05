@@ -68,7 +68,3 @@ def part_2():
         print(i)
 
     print(''.join(str(digit) for digit in signal[:8]))
-
-
-if __name__ == '__main__':
-    cli()

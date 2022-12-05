@@ -20,7 +20,3 @@ def part_1():
 def part_2():
     memory = utils.get_input(__file__)[0]
     intcode.Program(memory).run(5)
-
-
-if __name__ == '__main__':
-    cli()

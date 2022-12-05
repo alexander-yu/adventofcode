@@ -167,7 +167,3 @@ def part_2():
 
         grid = new_grid
     print(bugs(grid))
-
-
-if __name__ == '__main__':
-    cli()

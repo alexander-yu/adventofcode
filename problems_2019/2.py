@@ -31,7 +31,3 @@ def part_2():
             if run_program(noun, verb) == 19690720:
                 print(100 * noun + verb)
                 break
-
-
-if __name__ == '__main__':
-    cli()

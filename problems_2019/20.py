@@ -169,7 +169,3 @@ def part_2():
     max_recursion_depth = 30
     graph, start, end = get_graph(levels=max_recursion_depth)
     print(nx.shortest_path_length(graph, source=start, target=end))
-
-
-if __name__ == '__main__':
-    cli()

@@ -60,7 +60,3 @@ def part_1():
         'south',
     ]
     run(commands=commands)
-
-
-if __name__ == '__main__':
-    cli()

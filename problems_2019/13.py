@@ -106,7 +106,3 @@ def part_1():
 def part_2():
     game = play(quarters=2)
     print(game.score)
-
-
-if __name__ == '__main__':
-    cli()

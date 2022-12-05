@@ -149,7 +149,3 @@ def part_1():
 def part_2():
     graph, entrances = get_graph(single_bot=False)
     print(get_distance(graph, entrances, bots=4))
-
-
-if __name__ == '__main__':
-    cli()

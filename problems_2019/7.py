@@ -49,7 +49,3 @@ def part_2():
         for phase_settings
         in itertools.permutations(range(5, 10))
     ))
-
-
-if __name__ == '__main__':
-    cli()

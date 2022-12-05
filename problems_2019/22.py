@@ -78,7 +78,3 @@ def part_1():
 @utils.part(cli)
 def part_2():
     print(shuffle(119315717514047, 2020, rounds=101741582076661, reverse=True))
-
-
-if __name__ == '__main__':
-    cli()

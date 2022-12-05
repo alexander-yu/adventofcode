@@ -113,7 +113,3 @@ def part_1():
 def part_2():
     graph, oxygen_position = explore()
     print(max(nx.shortest_path_length(graph, source=oxygen_position).values()) - 1)
-
-
-if __name__ == '__main__':
-    cli()

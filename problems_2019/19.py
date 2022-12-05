@@ -47,7 +47,3 @@ def part_2():
         if get_output(memory, x + 99, y - 99):
             print(x, y - 99)
             break
-
-
-if __name__ == '__main__':
-    cli()
