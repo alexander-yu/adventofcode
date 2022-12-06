@@ -1,3 +1,4 @@
+from boltons import iterutils
 from cytoolz import itertoolz
 
 import utils
@@ -15,6 +16,14 @@ def get_marker_end(signal, size):
             return i + size
 
     raise ValueError('No marker found')
+
+
+def get_marker_end_boltons(signal, size):
+    return iterutils.first(
+        i + size
+        for i, packet in enumerate(iterutils.windowed(signal, size))
+        if not iterutils.redundant(packet)
+    )
 
 
 def get_marker_end_cytoolz(signal, size):
@@ -35,6 +44,18 @@ def part_1():
 def part_2():
     signal = get_signal()
     print(get_marker_end(signal, 14))
+
+
+@utils.part
+def part_1_boltons():
+    signal = get_signal()
+    print(get_marker_end_boltons(signal, 4))
+
+
+@utils.part
+def part_2_boltons():
+    signal = get_signal()
+    print(get_marker_end_boltons(signal, 14))
 
 
 @utils.part
