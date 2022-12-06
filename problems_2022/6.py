@@ -1,3 +1,5 @@
+from cytoolz import itertoolz
+
 import utils
 
 
@@ -15,6 +17,14 @@ def get_marker_end(signal, size):
     raise ValueError('No marker found')
 
 
+def get_marker_end_cytoolz(signal, size):
+    return itertoolz.first(
+        i + size
+        for i, packet in enumerate(itertoolz.sliding_window(size, signal))
+        if itertoolz.isdistinct(packet)
+    )
+
+
 @utils.part
 def part_1():
     signal = get_signal()
@@ -25,3 +35,15 @@ def part_1():
 def part_2():
     signal = get_signal()
     print(get_marker_end(signal, 14))
+
+
+@utils.part
+def part_1_cytoolz():
+    signal = get_signal()
+    print(get_marker_end_cytoolz(signal, 4))
+
+
+@utils.part
+def part_2_cytoolz():
+    signal = get_signal()
+    print(get_marker_end_cytoolz(signal, 14))

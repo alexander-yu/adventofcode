@@ -1,6 +1,7 @@
 boltons
 cachetools
 click
+cytoolz
 marshmallow
 networkx
 numpy
