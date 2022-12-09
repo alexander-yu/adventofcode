@@ -60,6 +60,12 @@ class Vector(tuple):
     def sign(self):
         return self.__class__(sign(x) for x in self)
 
+    def dist(self, metric='manhattan'):
+        if metric == 'manhattan':
+            return sum(self.abs())
+
+        raise ValueError(f'Unsupported distance metric {metric}')
+
 
 class Vector2D(Vector):
     DIRECTION_ALIASES = {
