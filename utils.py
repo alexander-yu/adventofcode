@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any, Callable, Dict, Optional, Tuple, Type, Union
 
 import collections
@@ -35,22 +37,58 @@ class Vector(tuple):
         return super().__new__(cls, args[0])
 
     def __add__(self, other):
-        return add_vector(self, other)
+        return self.__class__(x + y for x, y in zip(self, other))
 
     def __radd__(self, other):
-        return add_vector(other, self)
+        return self.__class__(x + y for x, y in zip(other, self))
 
     def __sub__(self, other):
-        return subtract_vector(self, other)
+        return self.__class__(x - y for x, y in zip(self, other))
 
     def __rsub__(self, other):
-        return subtract_vector(other, self)
+        return self.__class__(x - y for x, y in zip(other, self))
+
+    def __mul__(self, other):
+        return self.__class__(x * other for x in self)
+
+    def __rmul__(self, other):
+        return self.__class__(other * x for x in self)
 
     def abs(self):
-        return tuple(abs(x) for x in self)
+        return self.__class__(abs(x) for x in self)
 
     def sign(self):
-        return tuple(sign(x) for x in self)
+        return self.__class__(sign(x) for x in self)
+
+
+class Vector2D(Vector):
+    DIRECTION_ALIASES = {
+        **dict.fromkeys([Direction.NORTH, 'N', 'U', 'n', 'u', 'north', 'NORTH', 'up',  'UP'], Direction.NORTH),
+        **dict.fromkeys([Direction.EAST, 'E', 'R', 'e', 'r', 'east', 'EAST', 'right',  'RIGHT'], Direction.EAST),
+        **dict.fromkeys([Direction.SOUTH, 'S', 'D', 's', 'd', 'south', 'SOUTH', 'down',  'DOWN'], Direction.SOUTH),
+        **dict.fromkeys([Direction.WEST, 'W', 'L', 'w', 'l', 'west', 'WEST', 'left',  'LEFT'], Direction.WEST),
+    }
+
+    def __new__(cls, *args):
+        vector = super().__new__(cls, *args)
+        assert len(vector) == 2
+        return vector
+
+    def rot90(self, k: int = 1):
+        k %= 4
+        x, y = self
+
+        if k == 1:
+            return Vector2D(-y, x)
+        if k == 2:
+            return Vector2D(-x, -y)
+        if k == 3:
+            return Vector2D(y, -x)
+
+        return self
+
+    def shift(self, direction: str) -> Vector2D:
+        return self + DIRECTIONS[self.DIRECTION_ALIASES[direction]]
 
 
 NP_ORIGIN = np.array([
@@ -77,13 +115,13 @@ NP_DIRECTIONS = {
     ]),
 }
 
-ORIGIN = Vector(0, 0)
+ORIGIN = Vector2D(0, 0)
 
 DIRECTIONS = {
-    'R': Vector(1, 0),
-    'L': Vector(-1, 0),
-    'U': Vector(0, 1),
-    'D': Vector(0, -1),
+    Direction.NORTH: Vector2D(0, 1),
+    Direction.EAST: Vector2D(1, 0),
+    Direction.SOUTH: Vector2D(0, -1),
+    Direction.WEST: Vector2D(-1, 0),
 }
 
 
@@ -201,11 +239,11 @@ def get_input(
 
 
 def add_vector(position: tuple, vector: tuple):
-    return Vector(x + y for x, y in zip(position, vector))
+    return tuple(x + y for x, y in zip(position, vector))
 
 
 def subtract_vector(position: tuple, vector: tuple):
-    return Vector(x - y for x, y in zip(position, vector))
+    return tuple(x - y for x, y in zip(position, vector))
 
 
 def sign(x: Union[float, int]) -> int:

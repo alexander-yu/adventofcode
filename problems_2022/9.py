@@ -21,7 +21,7 @@ def get_tail_positions(num_knots):
 
     for d, n in moves:
         for _ in range(n):
-            knots[0] += utils.DIRECTIONS[d]
+            knots[0] = knots[0].shift(d)
 
             for i in range(1, len(knots)):
                 knots[i] = shift_knot(knots[i - 1], knots[i])
