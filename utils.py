@@ -47,33 +47,37 @@ class Vector(tuple):
         return tuple(sign(x) for x in self)
 
 
-ORIGIN = np.array([
+NP_ORIGIN = np.array([
     [0],
-    [0],
-])
-NORTH = np.array([
-    [0],
-    [1],
-])
-EAST = np.array([
-    [1],
-    [0],
-])
-SOUTH = np.array([
-    [0],
-    [-1],
-])
-WEST = np.array([
-    [-1],
     [0],
 ])
 
+NP_DIRECTIONS = {
+    Direction.NORTH: np.array([
+        [0],
+        [1],
+    ]),
+    Direction.EAST: np.array([
+        [1],
+        [0],
+    ]),
+    Direction.SOUTH: np.array([
+        [0],
+        [-1],
+    ]),
+    Direction.WEST: np.array([
+        [-1],
+        [0],
+    ]),
+}
+
+ORIGIN = Vector(0, 0)
 
 DIRECTIONS = {
-    Direction.NORTH: NORTH,
-    Direction.EAST: EAST,
-    Direction.SOUTH: SOUTH,
-    Direction.WEST: WEST,
+    'R': Vector(1, 0),
+    'L': Vector(-1, 0),
+    'U': Vector(0, 1),
+    'D': Vector(0, -1),
 }
 
 

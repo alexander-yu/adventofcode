@@ -1,18 +1,8 @@
-from utils import Vector
-
 import utils
 
 
 def get_data():
     return utils.get_input(__file__, cast=str, delimiter=' ', line_delimiter='\n')
-
-
-DIRECTIONS = {
-    'R': Vector(1, 0),
-    'L': Vector(-1, 0),
-    'U': Vector(0, 1),
-    'D': Vector(0, -1),
-}
 
 
 def shift_tail(head, tail):
@@ -31,7 +21,7 @@ def shift_tail(head, tail):
 @utils.part
 def part_1():
     data = get_data()
-    head = tail = Vector(0, 0)
+    head = tail = utils.ORIGIN
     positions = set([tail])
 
     for move in data:
@@ -39,7 +29,7 @@ def part_1():
         n = int(n)
 
         for _ in range(n):
-            head += DIRECTIONS[d]
+            head += utils.DIRECTIONS[d]
             tail = shift_tail(head, tail)
             positions.add(tail)
 
@@ -49,7 +39,7 @@ def part_1():
 @utils.part
 def part_2():
     data = get_data()
-    knots = [Vector(0, 0) for _ in range(10)]
+    knots = [utils.ORIGIN for _ in range(10)]
     positions = set([knots[-1]])
 
     for move in data:
@@ -57,7 +47,7 @@ def part_2():
         n = int(n)
 
         for _ in range(n):
-            knots[0] += DIRECTIONS[d]
+            knots[0] += utils.DIRECTIONS[d]
 
             for i in range(1, 10):
                 knots[i] = shift_tail(knots[i - 1], knots[i])

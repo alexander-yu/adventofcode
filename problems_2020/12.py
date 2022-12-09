@@ -26,8 +26,8 @@ ROTATION_ACTIONS = {
 
 class Ship:
     def __init__(self, waypoint=False):
-        self.position = np.copy(utils.ORIGIN)
-        self.direction = utils.DIRECTIONS[utils.Direction.EAST]
+        self.position = np.copy(utils.NP_ORIGIN)
+        self.direction = utils.NP_DIRECTIONS[utils.Direction.EAST]
         self.waypoint_delta = WAYPOINT_DELTA if waypoint else None
         self.waypoint = waypoint
 
@@ -49,7 +49,7 @@ class Ship:
 
     def execute(self, action, value):
         if action in DIRECTION_ACTIONS:
-            direction = utils.DIRECTIONS[DIRECTION_ACTIONS[action]]
+            direction = utils.NP_DIRECTIONS[DIRECTION_ACTIONS[action]]
             self._move(direction, value, waypoint=self.waypoint)
         elif action in ROTATION_ACTIONS:
             rotation = ROTATION_ACTIONS[action]
@@ -83,11 +83,11 @@ def navigate_ship(ship):
 def part_1():
     ship = Ship()
     position = navigate_ship(ship)
-    print(manhattan_distance(utils.ORIGIN, position))
+    print(manhattan_distance(utils.NP_ORIGIN, position))
 
 
 @utils.part
 def part_2():
     ship = Ship(waypoint=True)
     position = navigate_ship(ship)
-    print(manhattan_distance(utils.ORIGIN, position))
+    print(manhattan_distance(utils.NP_ORIGIN, position))
