@@ -1,3 +1,4 @@
+from collections import abc
 from typing import Any, Callable, Dict, Optional, Tuple, Type, Union
 
 import collections
@@ -17,10 +18,6 @@ import numpy as np
 
 
 PART_REGISTRY = collections.defaultdict(dict)
-ORIGIN = np.array([
-    [0],
-    [0],
-])
 IS_TEST = False
 
 
@@ -31,6 +28,29 @@ class Direction(enum.Enum):
     WEST = 3
 
 
+class Vector(tuple):
+    def __new__(cls, *args):
+        if len(args) > 1:
+            return super().__new__(cls, args)
+        return super().__new__(cls, args[0])
+
+    def __add__(self, other):
+        return add_vector(self, other)
+
+    def __sub__(self, other):
+        return subtract_vector(self, other)
+
+    def abs(self):
+        return tuple(abs(x) for x in self)
+
+    def sign(self):
+        return tuple(sign(x) for x in self)
+
+
+ORIGIN = np.array([
+    [0],
+    [0],
+])
 NORTH = np.array([
     [0],
     [1],
@@ -54,14 +74,6 @@ DIRECTIONS = {
     Direction.EAST: EAST,
     Direction.SOUTH: SOUTH,
     Direction.WEST: WEST,
-    'N': NORTH,
-    'E': EAST,
-    'S': SOUTH,
-    'W': WEST,
-    'U': NORTH,
-    'R': EAST,
-    'D': SOUTH,
-    'L': WEST,
 }
 
 
@@ -173,11 +185,11 @@ def get_input(
 
 
 def add_vector(position: tuple, vector: tuple):
-    return tuple(x + y for x, y in zip(position, vector))
+    return Vector(x + y for x, y in zip(position, vector))
 
 
 def subtract_vector(position: tuple, vector: tuple):
-    return tuple(x - y for x, y in zip(position, vector))
+    return Vector(x - y for x, y in zip(position, vector))
 
 
 def sign(x: Union[float, int]) -> int:
