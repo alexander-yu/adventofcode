@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Optional, Tuple, Type
+from typing import Any, Callable, Dict, Optional, Tuple, Type, Union
 
 import collections
 import copy
@@ -31,23 +31,37 @@ class Direction(enum.Enum):
     WEST = 3
 
 
+NORTH = np.array([
+    [0],
+    [1],
+])
+EAST = np.array([
+    [1],
+    [0],
+])
+SOUTH = np.array([
+    [0],
+    [-1],
+])
+WEST = np.array([
+    [-1],
+    [0],
+])
+
+
 DIRECTIONS = {
-    Direction.NORTH: np.array([
-        [0],
-        [1],
-    ]),
-    Direction.EAST: np.array([
-        [1],
-        [0],
-    ]),
-    Direction.SOUTH: np.array([
-        [0],
-        [-1],
-    ]),
-    Direction.WEST: np.array([
-        [-1],
-        [0],
-    ]),
+    Direction.NORTH: NORTH,
+    Direction.EAST: EAST,
+    Direction.SOUTH: SOUTH,
+    Direction.WEST: WEST,
+    'N': NORTH,
+    'E': EAST,
+    'S': SOUTH,
+    'W': WEST,
+    'U': NORTH,
+    'R': EAST,
+    'D': SOUTH,
+    'L': WEST,
 }
 
 
@@ -160,6 +174,20 @@ def get_input(
 
 def add_vector(position: tuple, vector: tuple):
     return tuple(x + y for x, y in zip(position, vector))
+
+
+def subtract_vector(position: tuple, vector: tuple):
+    return tuple(x - y for x, y in zip(position, vector))
+
+
+def sign(x: Union[float, int]) -> int:
+    if x > 0:
+        return 1
+
+    if x < 0:
+        return -1
+
+    return 0
 
 
 def get_neighbors(point: tuple, include_diagonals: bool = False):
