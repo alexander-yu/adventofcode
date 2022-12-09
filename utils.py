@@ -37,8 +37,14 @@ class Vector(tuple):
     def __add__(self, other):
         return add_vector(self, other)
 
+    def __radd__(self, other):
+        return add_vector(other, self)
+
     def __sub__(self, other):
         return subtract_vector(self, other)
+
+    def __rsub__(self, other):
+        return subtract_vector(other, self)
 
     def abs(self):
         return tuple(abs(x) for x in self)

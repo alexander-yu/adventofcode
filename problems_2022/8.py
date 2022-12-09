@@ -23,10 +23,9 @@ def visibility_score(grid, i, j):
     height = grid[i, j]
     score = 1
 
-    for direction in utils.NP_DIRECTIONS.values():
-        direction = tuple(direction.flatten())
+    for direction in utils.DIRECTIONS.values():
         distance = 0
-        current = utils.add_vector((i, j), direction)
+        current = (i, j) + direction
 
         while 0 <= current[0] < rows and 0 <= current[1] < columns:
             distance += 1
@@ -34,7 +33,7 @@ def visibility_score(grid, i, j):
             if grid[current] >= height:
                 break
 
-            current = utils.add_vector(current, direction)
+            current += direction
 
         score *= distance
 
