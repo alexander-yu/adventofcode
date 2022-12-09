@@ -1,8 +1,8 @@
 import utils
 
 
-def get_data():
-    return utils.get_input(__file__, cast=str, delimiter=' ', line_delimiter='\n')
+def get_moves():
+    return utils.get_input(__file__, format='{} {:d}', line_delimiter='\n')
 
 
 def shift_tail(head, tail):
@@ -20,13 +20,12 @@ def shift_tail(head, tail):
 
 @utils.part
 def part_1():
-    data = get_data()
+    data = get_moves()
     head = tail = utils.ORIGIN
     positions = set([tail])
 
     for move in data:
         d, n = move
-        n = int(n)
 
         for _ in range(n):
             head += utils.DIRECTIONS[d]
@@ -38,13 +37,12 @@ def part_1():
 
 @utils.part
 def part_2():
-    data = get_data()
+    data = get_moves()
     knots = [utils.ORIGIN for _ in range(10)]
     positions = set([knots[-1]])
 
     for move in data:
         d, n = move
-        n = int(n)
 
         for _ in range(n):
             knots[0] += utils.DIRECTIONS[d]

@@ -1,4 +1,3 @@
-from collections import abc
 from typing import Any, Callable, Dict, Optional, Tuple, Type, Union
 
 import collections
@@ -15,6 +14,7 @@ from boltons import iterutils
 
 import networkx as nx
 import numpy as np
+import parse as parselib
 
 
 PART_REGISTRY = collections.defaultdict(dict)
@@ -145,6 +145,7 @@ def parse(
     rstrip: str = '',
     remove_suffix: str = '',
     remove_prefix: str = '',
+    format: Optional[str] = None,
 ):
     lines = content.rstrip().split(line_delimiter)
     lines = [
@@ -154,6 +155,9 @@ def parse(
         .removesuffix(remove_suffix)
         for line in lines
     ]
+
+    if format:
+        return [parselib.parse(format, line) for line in lines]
 
     return [
         _split_line(line, delimiter, cast)
@@ -170,6 +174,7 @@ def get_input(
     rstrip: Optional[str] = None,
     remove_suffix: str = '',
     remove_prefix: str = '',
+    format: Optional[str] = None,
 ):
     problem_path = pathlib.Path(problem_file).resolve()
     problem_number = problem_path.stem
@@ -185,6 +190,7 @@ def get_input(
             rstrip=rstrip,
             remove_suffix=remove_suffix,
             remove_prefix=remove_prefix,
+            format=format,
         )
 
 
