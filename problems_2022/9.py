@@ -15,13 +15,11 @@ def shift_knot(parent, knot):
 
 
 def get_tail_positions(num_knots):
-    data = get_moves()
+    moves = get_moves()
     knots = [utils.ORIGIN for _ in range(num_knots)]
     positions = set([knots[-1]])
 
-    for move in data:
-        d, n = move
-
+    for d, n in moves:
         for _ in range(n):
             knots[0] += utils.DIRECTIONS[d]
 
