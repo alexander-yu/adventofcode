@@ -5,40 +5,18 @@ def get_moves():
     return utils.get_input(__file__, format='{} {:d}', line_delimiter='\n')
 
 
-def shift_tail(head, tail):
-    delta = head - tail
-    dist = sum(delta.abs())
+def shift_knot(parent, knot):
+    delta = parent - knot
 
-    if (
-        (not all(delta)) and dist == 2 or
-        dist >= 3
-    ):
-        tail += delta.sign()
+    if any(d >= 2 for d in delta.abs()):
+        knot += delta.sign()
 
-    return tail
+    return knot
 
 
-@utils.part
-def part_1():
+def get_tail_positions(num_knots):
     data = get_moves()
-    head = tail = utils.ORIGIN
-    positions = set([tail])
-
-    for move in data:
-        d, n = move
-
-        for _ in range(n):
-            head += utils.DIRECTIONS[d]
-            tail = shift_tail(head, tail)
-            positions.add(tail)
-
-    print(len(positions))
-
-
-@utils.part
-def part_2():
-    data = get_moves()
-    knots = [utils.ORIGIN for _ in range(10)]
+    knots = [utils.ORIGIN for _ in range(num_knots)]
     positions = set([knots[-1]])
 
     for move in data:
@@ -47,9 +25,19 @@ def part_2():
         for _ in range(n):
             knots[0] += utils.DIRECTIONS[d]
 
-            for i in range(1, 10):
-                knots[i] = shift_tail(knots[i - 1], knots[i])
+            for i in range(1, len(knots)):
+                knots[i] = shift_knot(knots[i - 1], knots[i])
 
             positions.add(knots[-1])
 
-    print(len(positions))
+    return len(positions)
+
+
+@utils.part
+def part_1():
+    print(get_tail_positions(2))
+
+
+@utils.part
+def part_2():
+    print(get_tail_positions(10))
