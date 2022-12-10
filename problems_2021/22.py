@@ -57,7 +57,7 @@ def get_cuboid(cuboid_str):
 
 
 def get_steps():
-    steps = utils.get_input(__file__, delimiter=' ', cast=str)
+    steps = utils.get_input(delimiter=' ', cast=str)
     return [(step[0], get_cuboid(step[1])) for step in steps]
 
 

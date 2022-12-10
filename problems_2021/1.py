@@ -3,7 +3,7 @@ import utils
 
 @utils.part
 def part_1():
-    depths = utils.get_input(__file__, delimiter=None)
+    depths = utils.get_input(delimiter=None)
 
     increases = sum(
         depths[i] - depths[i - 1] > 0
@@ -15,7 +15,7 @@ def part_1():
 
 @utils.part
 def part_2():
-    depths = utils.get_input(__file__, delimiter=None)
+    depths = utils.get_input(delimiter=None)
 
     increases = sum(
         depths[i] - depths[i - 3] > 0

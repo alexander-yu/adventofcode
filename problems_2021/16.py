@@ -120,7 +120,7 @@ def hex_to_bin(hex_string):
 
 
 def parse_transmission():
-    transmission = hex_to_bin(utils.get_input(__file__, delimiter=None, cast=str)[0])
+    transmission = hex_to_bin(utils.get_input(delimiter=None, cast=str)[0])
     packet, _ = parse_packet(transmission)
     return packet
 

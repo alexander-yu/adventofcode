@@ -39,7 +39,7 @@ class Position:
 
 @utils.part
 def part_1():
-    instructions = utils.get_input(__file__, delimiter=' ', cast=str)
+    instructions = utils.get_input(delimiter=' ', cast=str)
     position = Position(1)
 
     for command, value in instructions:
@@ -50,7 +50,7 @@ def part_1():
 
 @utils.part
 def part_2():
-    instructions = utils.get_input(__file__, delimiter=' ', cast=str)
+    instructions = utils.get_input(delimiter=' ', cast=str)
     position = Position(2)
 
     for command, value in instructions:

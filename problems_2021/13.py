@@ -24,7 +24,7 @@ def fold_paper(dots, fold):
 
 
 def get_manual():
-    dots, folds = utils.get_input(__file__, delimiter=None, line_delimiter='\n\n', cast=str)
+    dots, folds = utils.get_input(delimiter=None, line_delimiter='\n\n', cast=str)
     dots = set(tuple(dot) for dot in utils.parse(dots))
     folds = [
         Fold(axis, int(value))

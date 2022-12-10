@@ -4,7 +4,7 @@ import utils
 
 
 def apply_insertions(steps):
-    polymer, rules = utils.get_input(__file__, delimiter=None, line_delimiter='\n\n', cast=str)
+    polymer, rules = utils.get_input(delimiter=None, line_delimiter='\n\n', cast=str)
     rules = dict(utils.parse(rules, delimiter=' -> ', cast=str))
 
     pairs = collections.Counter(polymer[i:i + 2] for i in range(len(polymer) - 1))

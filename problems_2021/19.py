@@ -75,7 +75,7 @@ def orient(scanners):
 
 
 def get_scanners():
-    scanner_entries = utils.get_input(__file__, delimiter=None, line_delimiter='\n\n', cast=str)
+    scanner_entries = utils.get_input(delimiter=None, line_delimiter='\n\n', cast=str)
     scanners = []
     for i, scanner_entry in enumerate(scanner_entries):
         coordinates = utils.parse(scanner_entry, delimiter=None, cast=str)[1:]

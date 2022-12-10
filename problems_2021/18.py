@@ -138,7 +138,7 @@ class Node:
 def get_numbers():
     return [
         Node.from_number(number)
-        for number in utils.get_input(__file__, delimiter=None, cast=ast.literal_eval)
+        for number in utils.get_input(delimiter=None, cast=ast.literal_eval)
     ]
 
 

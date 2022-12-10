@@ -35,7 +35,7 @@ def move_south(grid):
 
 @utils.part
 def part_1():
-    grid = utils.get_grid(__file__, delimiter='', cast=str)
+    grid = utils.get_grid(delimiter='', cast=str)
     step = 0
 
     while True:

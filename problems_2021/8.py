@@ -33,7 +33,7 @@ def solve(digits, output):
 
 @utils.part
 def part_1():
-    entries = utils.get_input(__file__, delimiter=' | ', cast=str)
+    entries = utils.get_input(delimiter=' | ', cast=str)
 
     print(len([
         digit
@@ -45,7 +45,7 @@ def part_1():
 
 @utils.part
 def part_2():
-    entries = utils.get_input(__file__, delimiter=' | ', cast=str)
+    entries = utils.get_input(delimiter=' | ', cast=str)
     result = 0
 
     for digits, output in entries:

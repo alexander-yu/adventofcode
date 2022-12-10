@@ -23,7 +23,7 @@ def get_rating(numbers, zero_bit_criteria):
 
 @utils.part
 def part_1():
-    numbers = utils.get_input(__file__, delimiter=None, cast=str)
+    numbers = utils.get_input(delimiter=None, cast=str)
     bit_length = len(numbers[0])
 
     gamma = [
@@ -40,7 +40,7 @@ def part_1():
 
 @utils.part
 def part_2():
-    numbers = utils.get_input(__file__, delimiter=None, cast=str)
+    numbers = utils.get_input(delimiter=None, cast=str)
     oxygen = get_rating(numbers, 0)
     co2 = get_rating(numbers, 1)
     print(oxygen * co2)

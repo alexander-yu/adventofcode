@@ -4,7 +4,7 @@ import utils
 
 
 def get_total_fish(days):
-    timers = collections.Counter(utils.get_input(__file__)[0])
+    timers = collections.Counter(utils.get_input()[0])
 
     for _ in range(days):
         birthing = timers[0]

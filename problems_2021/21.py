@@ -53,7 +53,7 @@ def quantum_wins(player_1, player_2, current_player):
 
 
 def get_players():
-    players = utils.get_input(__file__, delimiter=None, cast=str)
+    players = utils.get_input(delimiter=None, cast=str)
     return [
         Player(int(re.match(PLAYER_REGEX, player).group('position')))
         for player in players

@@ -48,7 +48,7 @@ class Board:
 
 
 def get_initial_state():
-    lines = utils.get_input(__file__, delimiter=None, cast=str, line_delimiter='\n\n')
+    lines = utils.get_input(delimiter=None, cast=str, line_delimiter='\n\n')
     numbers = [int(val) for val in lines[0].split(',')]
     return numbers, [Board.parse(board) for board in lines[1:]]
 

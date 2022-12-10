@@ -27,11 +27,11 @@ def expand_map(points):
 
 @utils.part
 def part_1():
-    grid = utils.get_grid(__file__, grid_cls=utils.DirectedGrid, delimiter='')
+    grid = utils.get_grid(grid_cls=utils.DirectedGrid, delimiter='')
     print(get_lowest_risk_path(grid))
 
 
 @utils.part
 def part_2():
-    grid = utils.get_grid(__file__, input_transformer=expand_map, grid_cls=utils.DirectedGrid, delimiter='')
+    grid = utils.get_grid(input_transformer=expand_map, grid_cls=utils.DirectedGrid, delimiter='')
     print(get_lowest_risk_path(grid))

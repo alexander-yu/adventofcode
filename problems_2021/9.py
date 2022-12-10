@@ -17,13 +17,13 @@ def get_low_points(grid):
 
 @utils.part
 def part_1():
-    grid = utils.get_grid(__file__, delimiter='')
+    grid = utils.get_grid(delimiter='')
     print(sum(grid[point] + 1 for point in get_low_points(grid)))
 
 
 @utils.part
 def part_2():
-    grid = utils.get_grid(__file__, delimiter='')
+    grid = utils.get_grid(delimiter='')
 
     # We remove all nodes of maximal height from the original graph. This will partition
     # the grid into connected components, where the connected components are precisely
@@ -39,7 +39,7 @@ def part_2():
 
 @utils.part
 def part_2_bfs():
-    grid = utils.get_grid(__file__, delimiter='')
+    grid = utils.get_grid(delimiter='')
 
     # We find all low points like in part 1, but perform a classic flood fill algorithm
     # via BFS starting from low points, and filling it upwards.
@@ -71,7 +71,7 @@ def part_2_bfs():
 
 @utils.part
 def part_2_dag():
-    grid = utils.get_grid(__file__, delimiter='')
+    grid = utils.get_grid(delimiter='')
 
     # We find all low points like in part 1, but create a directed downflow graph,
     # where u -> v is a directed edge if there is downwards flow from u to v, and u

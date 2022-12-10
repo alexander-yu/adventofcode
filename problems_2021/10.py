@@ -51,7 +51,7 @@ def evaluate(line):
 
 @utils.part
 def part_1():
-    lines = utils.get_input(__file__, delimiter='', cast=str)
+    lines = utils.get_input(delimiter='', cast=str)
     score_map = {
         ')': 3,
         ']': 57,
@@ -70,7 +70,7 @@ def part_1():
 
 @utils.part
 def part_2():
-    lines = utils.get_input(__file__, delimiter='', cast=str)
+    lines = utils.get_input(delimiter='', cast=str)
     score_map = {
         ')': 1,
         ']': 2,

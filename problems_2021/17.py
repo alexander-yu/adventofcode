@@ -10,7 +10,7 @@ TRENCH_REGEX = r'target area: x=(\d+)\.\.(\d+), y=(-\d+)\.\.(-\d+)'
 
 
 def get_trench():
-    trench = utils.get_input(__file__, delimiter=None, cast=str)[0]
+    trench = utils.get_input(delimiter=None, cast=str)[0]
     match = re.match(TRENCH_REGEX, trench)
     coords = tuple(int(match.group(i)) for i in range(1, 5))
     assert coords[0] > 0 and coords[1] > 0

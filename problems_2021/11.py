@@ -27,7 +27,7 @@ def run_step(grid):
 
 @utils.part
 def part_1():
-    grid = utils.get_grid(__file__, grid_cls=utils.DiagonalGrid, delimiter='')
+    grid = utils.get_grid(grid_cls=utils.DiagonalGrid, delimiter='')
     flash_count = 0
 
     for _ in range(100):
@@ -39,7 +39,7 @@ def part_1():
 
 @utils.part
 def part_2():
-    grid = utils.get_grid(__file__, grid_cls=utils.DiagonalGrid, delimiter='')
+    grid = utils.get_grid(grid_cls=utils.DiagonalGrid, delimiter='')
     step = 0
 
     while True:

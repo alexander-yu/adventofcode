@@ -17,7 +17,7 @@ def get_void(enhancement, iteration):
 
 
 def enhance_image(iterations):
-    enhancement, image = utils.get_input(__file__, delimiter=None, line_delimiter='\n\n', cast=str)
+    enhancement, image = utils.get_input(delimiter=None, line_delimiter='\n\n', cast=str)
     image = utils.parse(image, delimiter='', cast=lambda pixel: int(pixel == '#'))
     light = [i for i, ch in enumerate(enhancement) if ch == '#']
 

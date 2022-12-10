@@ -5,7 +5,7 @@ import utils
 
 @utils.part
 def part_1():
-    positions = utils.get_input(__file__)[0]
+    positions = utils.get_input()[0]
 
     print(min(
         sum(
@@ -22,7 +22,7 @@ def part_1_median():
     # that minimizes |x_1 - y| + ... + |x_n - y|. You can prove this by seeing
     # what happens if you shift y by some epsilon, and how the sum changes depending
     # on the number of values to the left and right of y.
-    positions = utils.get_input(__file__)[0]
+    positions = utils.get_input()[0]
     alignment = statistics.median(positions)
     assert alignment.is_integer()
     alignment = int(alignment)
@@ -31,7 +31,7 @@ def part_1_median():
 
 @utils.part
 def part_2():
-    positions = utils.get_input(__file__)[0]
+    positions = utils.get_input()[0]
 
     print(min(
         sum(
