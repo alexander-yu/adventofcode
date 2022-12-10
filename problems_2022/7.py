@@ -23,7 +23,7 @@ class Node:
 
 
 def get_tree():
-    data = utils.get_input(__file__, cast=str, delimiter='\n', line_delimiter='\n$ ', remove_prefix='$ ')
+    data = utils.get_input(cast=str, delimiter='\n', line_delimiter='\n$ ', remove_prefix='$ ')
     root = Node('/', None)
     pointer = root
 

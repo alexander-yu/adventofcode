@@ -32,7 +32,7 @@ def get_moves(stacks, moves):
 
 
 def get_data():
-    stack_data, moves = utils.get_input(__file__, cast=str, delimiter='\n', line_delimiter='\n\n')
+    stack_data, moves = utils.get_input(cast=str, delimiter='\n', line_delimiter='\n\n')
 
     stacks = get_initial_stacks(stack_data[:-1], stack_data[-1])
     moves = get_moves(stacks, moves)

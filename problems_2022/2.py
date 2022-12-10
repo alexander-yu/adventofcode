@@ -46,7 +46,7 @@ def score(opponent, me):
 
 
 def get_data():
-    return utils.get_input(__file__, cast=str, delimiter=' ', line_delimiter='\n')
+    return utils.get_input(cast=str, delimiter=' ', line_delimiter='\n')
 
 
 @utils.part

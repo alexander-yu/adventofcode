@@ -2,7 +2,7 @@ import utils
 
 
 def get_calories_by_elf():
-    calories_list = utils.get_input(__file__, delimiter='\n', line_delimiter='\n\n')
+    calories_list = utils.get_input(delimiter='\n', line_delimiter='\n\n')
     return [sum(calories) for calories in calories_list]
 
 

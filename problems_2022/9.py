@@ -2,7 +2,7 @@ import utils
 
 
 def get_moves():
-    return utils.get_input(__file__, format='{} {:d}', line_delimiter='\n')
+    return utils.get_input(format='{} {:d}', line_delimiter='\n')
 
 
 def shift_knot(parent, knot):

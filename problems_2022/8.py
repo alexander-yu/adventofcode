@@ -4,7 +4,7 @@ import utils
 
 
 def get_data():
-    return np.array(utils.get_input(__file__, cast=int, delimiter='', line_delimiter='\n'))
+    return np.array(utils.get_input(cast=int, delimiter='', line_delimiter='\n'))
 
 
 def is_visible(grid, i, j):
