@@ -60,7 +60,7 @@ def cli(problem, year):
     gen_file(os.path.join(directory, '__init__.py'), '', exists_ok=True)
     gen_file(os.path.join(directory, f'{problem}.py'), get_template(problem))
 
-    input_directory = os.path.join('inputs', directory)
+    input_directory = os.path.join(os.getcwd(), 'inputs', f'problems_{year}')
     os.makedirs(input_directory, exist_ok=True)
 
     gen_file(os.path.join(input_directory, f'{problem}.txt'), '')
