@@ -227,11 +227,12 @@ def get_input(
     format: Optional[str] = None,
 ):
     problem_path = pathlib.Path(problem_file).resolve()
+    module = problem_path.parent.stem
     problem_number = problem_path.stem
     test_prefix = '_test' if IS_TEST else ''
     input_file_name = f'{problem_number}{test_prefix}.txt'
 
-    with open(os.path.join(problem_path.parent, 'inputs', input_file_name), 'r') as f:
+    with open(os.path.join(problem_path.parent.parent, 'inputs', module, input_file_name), 'r') as f:
         return parse(
             f.read(),
             delimiter=delimiter,
