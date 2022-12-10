@@ -217,7 +217,6 @@ def parse(
 
 # pylint: disable=too-many-arguments
 def get_input(
-    problem_file: str,
     delimiter: Optional[str] = ',',
     cast: Callable[[str], Any] = int,
     line_delimiter: str = '\n',
@@ -226,7 +225,9 @@ def get_input(
     remove_prefix: str = '',
     format: Optional[str] = None,
 ):
-    problem_path = pathlib.Path(problem_file).resolve()
+    calling_frame = inspect.currentframe().f_back
+    calling_module = inspect.getmodule(calling_frame)
+    problem_path = pathlib.Path(calling_module.__file__).resolve()
     module = problem_path.parent.stem
     problem_number = problem_path.stem
     test_prefix = '_test' if IS_TEST else ''
