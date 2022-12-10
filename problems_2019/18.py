@@ -70,7 +70,7 @@ def get_graph(single_bot=True):
     entrance = None
     x, y = 0, 0
 
-    for line in utils.get_input(__file__, delimiter='', cast=str):
+    for line in utils.get_input(delimiter='', cast=str):
         for point in line:
             points[(x, y)] = point
 

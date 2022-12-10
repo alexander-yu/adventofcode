@@ -82,7 +82,7 @@ class Game:
 
 
 def play(quarters=0):
-    memory = utils.get_input(__file__)[0]
+    memory = utils.get_input()[0]
     program = intcode.Program(memory, output_mode=intcode.OutputMode.BUFFER)
     game = Game(program)
     game.play(quarters=quarters)

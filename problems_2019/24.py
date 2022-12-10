@@ -128,7 +128,7 @@ def bugs(grid):
 
 @utils.part
 def part_1():
-    grid = Grid(utils.get_input(__file__, delimiter='', cast=str), recursive=False)
+    grid = Grid(utils.get_input(delimiter='', cast=str), recursive=False)
     hashes = set([grid.hash(0)])
 
     while True:
@@ -147,7 +147,7 @@ def part_1():
 
 @utils.part
 def part_2():
-    grid = Grid(utils.get_input(__file__, delimiter='', cast=str))
+    grid = Grid(utils.get_input(delimiter='', cast=str))
 
     for i in range(200):
         new_grid = Grid(recursive=True)

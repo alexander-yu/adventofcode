@@ -82,7 +82,7 @@ def get_moons():
     return [
         parse_moon(moon)
         for moon in
-        utils.get_input(__file__, delimiter=None, cast=str)
+        utils.get_input(delimiter=None, cast=str)
     ]
 
 

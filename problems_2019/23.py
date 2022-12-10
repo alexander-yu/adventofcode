@@ -6,7 +6,7 @@ from problems_2019 import intcode
 
 
 def get_computer(i):
-    memory = utils.get_input(__file__)[0]
+    memory = utils.get_input()[0]
     # Bootstrap computers with initial input of -1, since no packets
     # are received prior to the first round
     program = intcode.Program(memory, initial_inputs=[i, -1], output_mode=intcode.OutputMode.BUFFER)

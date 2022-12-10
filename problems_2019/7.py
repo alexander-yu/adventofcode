@@ -26,7 +26,7 @@ def run_thrusters(memory, phase_settings, loop):
 
 @utils.part
 def part_1():
-    memory = utils.get_input(__file__)[0]
+    memory = utils.get_input()[0]
     print(max(
         run_thrusters(memory, phase_settings, False)
         for phase_settings
@@ -36,7 +36,7 @@ def part_1():
 
 @utils.part
 def part_2():
-    memory = utils.get_input(__file__)[0]
+    memory = utils.get_input()[0]
     print(max(
         run_thrusters(memory, phase_settings, True)
         for phase_settings

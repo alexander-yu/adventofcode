@@ -86,7 +86,7 @@ def get_graph(levels=1):
     x, y = 0, 0
     width, height = 0, 0
 
-    for line in utils.get_input(__file__, delimiter='', cast=str):
+    for line in utils.get_input(delimiter='', cast=str):
         for point in line:
             points[(x, y)] = point
             if PointType(point) == PointType.LETTER:

@@ -11,7 +11,7 @@ def get_output(memory, x, y):
 
 @utils.part
 def part_1():
-    memory = utils.get_input(__file__)[0]
+    memory = utils.get_input()[0]
     beam = 0
     points = {}
     for x in range(50):
@@ -26,7 +26,7 @@ def part_1():
 
 @utils.part
 def part_2():
-    memory = utils.get_input(__file__)[0]
+    memory = utils.get_input()[0]
     # Start from here because there is an empty initial stem of the beam
     x, y, = 5, 4
     assert get_output(memory, x, y) == 1

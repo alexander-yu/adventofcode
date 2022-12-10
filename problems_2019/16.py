@@ -31,7 +31,7 @@ def interpolate(signal, offset=0):
 
 @utils.part
 def part_1():
-    signal = utils.get_input(__file__, delimiter='', cast=int)[0]
+    signal = utils.get_input(delimiter='', cast=int)[0]
 
     for _ in range(100):
         signal = interpolate(signal)
@@ -41,7 +41,7 @@ def part_1():
 
 @utils.part
 def part_2():
-    signal = utils.get_input(__file__, delimiter=None, cast=str)[0]
+    signal = utils.get_input(delimiter=None, cast=str)[0]
     signal *= 10000
     offset = int(signal[:7])
     signal = [int(c) for c in signal]

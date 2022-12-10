@@ -120,13 +120,13 @@ def display(painted_panels):
 
 @utils.part
 def part_1():
-    program_memory = utils.get_input(__file__)[0]
+    program_memory = utils.get_input()[0]
     print(len(paint(program_memory)))
 
 
 @utils.part
 def part_2():
-    program_memory = utils.get_input(__file__)[0]
+    program_memory = utils.get_input()[0]
     hull = display(paint(program_memory, initial_color=Color.WHITE))
     for line in hull:
         print(''.join(line))

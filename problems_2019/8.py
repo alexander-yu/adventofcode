@@ -7,7 +7,7 @@ import utils
 
 @utils.part
 def part_1():
-    image = np.array(utils.get_input(__file__, delimiter='')[0]).reshape((-1, 6, 25))
+    image = np.array(utils.get_input(delimiter='')[0]).reshape((-1, 6, 25))
     layer = min(image, key=lambda layer: np.sum(layer == 0))
 
     ones = np.sum(layer == 1)
@@ -18,7 +18,7 @@ def part_1():
 
 @utils.part
 def part_2():
-    image = np.array(utils.get_input(__file__, delimiter='')[0]).reshape((-1, 6, 25))
+    image = np.array(utils.get_input(delimiter='')[0]).reshape((-1, 6, 25))
     decode = np.vectorize(lambda a, b: a if a != 2 else b)
     decoded_image = functools.reduce(decode, image)
 

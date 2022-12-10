@@ -73,14 +73,14 @@ def get_sightlines(station, asteroids):
 
 @utils.part
 def part_1():
-    asteroid_map = utils.get_input(__file__, delimiter='', cast=str)
+    asteroid_map = utils.get_input(delimiter='', cast=str)
     asteroids = get_asteroids(asteroid_map)
     print(max(len(list(get_sightlines(station, asteroids).keys())) for station in asteroids))
 
 
 @utils.part
 def part_2():
-    asteroid_map = utils.get_input(__file__, delimiter='', cast=str)
+    asteroid_map = utils.get_input(delimiter='', cast=str)
     asteroids = get_asteroids(asteroid_map)
 
     best_station = np.array([20, 18])

@@ -73,7 +73,7 @@ def get_view(program):
 
 @utils.part
 def part_1():
-    memory = utils.get_input(__file__)[0]
+    memory = utils.get_input()[0]
     program = intcode.Program(memory, output_mode=intcode.OutputMode.BUFFER)
     program.run_until_halt()
     view = get_view(program)
@@ -103,7 +103,7 @@ def part_2():
     commands = main_routine + function_a + function_b + function_c + print_output
     assert max(len(command) for command in commands) <= MAX_ROUTINE_SIZE
 
-    memory = utils.get_input(__file__)[0]
+    memory = utils.get_input()[0]
     memory[0] = 2
     program = intcode.Program(
         memory,

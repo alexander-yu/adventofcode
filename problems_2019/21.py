@@ -4,7 +4,7 @@ from problems_2019 import intcode
 
 
 def run_commands(commands):
-    memory = utils.get_input(__file__)[0]
+    memory = utils.get_input()[0]
     program = intcode.Program(
         memory,
         initial_inputs=intcode.commands_to_input(commands),

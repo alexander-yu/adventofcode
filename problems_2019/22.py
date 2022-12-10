@@ -56,7 +56,7 @@ def get_coeffs(n, techniques, reverse=False):
 
 
 def shuffle(n, card, rounds=1, reverse=False):
-    techniques = utils.get_input(__file__, delimiter=None, cast=str)
+    techniques = utils.get_input(delimiter=None, cast=str)
     a, b = get_coeffs(n, techniques, reverse=reverse)
     return (
         pow(a, rounds, n) * card +

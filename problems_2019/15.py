@@ -62,7 +62,7 @@ def display(graph):
 
 
 def explore():
-    memory = utils.get_input(__file__)[0]
+    memory = utils.get_input()[0]
     droid = intcode.Program(memory, output_mode=intcode.OutputMode.PIPE)
 
     oxygen = None
