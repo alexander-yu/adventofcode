@@ -10,7 +10,7 @@ import utils
 
 
 def get_data():
-    return utils.get_input(__file__, cast=int, delimiter=',', line_delimiter='\\n')
+    return utils.get_input(cast=int, delimiter=',', line_delimiter='\\n')
 
 
 @utils.part
