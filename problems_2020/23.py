@@ -100,14 +100,14 @@ def play(cups, rounds):
 
 @utils.part
 def part_1():
-    cups = utils.get_input(__file__, delimiter='')[0]
+    cups = utils.get_input(delimiter='')[0]
     cups = play(cups, 100)
     print(''.join(str(value) for value in cups.values(1)[1:]))
 
 
 @utils.part
 def part_2():
-    cups = utils.get_input(__file__, delimiter='')[0]
+    cups = utils.get_input(delimiter='')[0]
     cups += list(range(max(cups) + 1, 1_000_001))
     cups = play(cups, 10_000_000)
     cup_1, cup_2 = cups.values(1)[1:3]

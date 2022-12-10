@@ -73,7 +73,7 @@ class Mask:
 
 
 def run_program(version):
-    instructions = utils.get_input(__file__, delimiter=' = ', cast=str)
+    instructions = utils.get_input(delimiter=' = ', cast=str)
     memory = {}
     mask = None
 

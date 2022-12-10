@@ -89,7 +89,7 @@ def apply_visibility_rules(grid):
 
 @utils.part
 def part_1():
-    grid = utils.get_grid(__file__, grid_cls=Grid, value_transformer=PointType, delimiter='', cast=str)
+    grid = utils.get_grid(grid_cls=Grid, value_transformer=PointType, delimiter='', cast=str)
     while True:
         grid, changes = apply_adjacency_rules(grid)
         if not changes:
@@ -99,7 +99,7 @@ def part_1():
 
 @utils.part
 def part_2():
-    grid = utils.get_grid(__file__, grid_cls=Grid, value_transformer=PointType, delimiter='', cast=str)
+    grid = utils.get_grid(grid_cls=Grid, value_transformer=PointType, delimiter='', cast=str)
     while True:
         grid, changes = apply_visibility_rules(grid)
         if not changes:

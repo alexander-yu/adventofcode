@@ -17,7 +17,7 @@ def get_loop(subject, key, mod):
 
 @utils.part
 def part_1():
-    card_key, door_key = utils.get_input(__file__, delimiter=None)
+    card_key, door_key = utils.get_input(delimiter=None)
     subject, mod = 7, 20201227
     card_loop = get_loop(subject, card_key, mod)
     door_loop = get_loop(subject, door_key, mod)

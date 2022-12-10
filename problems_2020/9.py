@@ -47,7 +47,7 @@ def get_subarray_sum(arr, target_sum):
 
 @utils.part
 def part_1():
-    numbers = utils.get_input(__file__, delimiter=None)
+    numbers = utils.get_input(delimiter=None)
     queue = Queue(25)
     for i, number in enumerate(numbers):
         if i >= 25:
@@ -61,6 +61,6 @@ def part_1():
 
 @utils.part
 def part_2():
-    numbers = utils.get_input(__file__, delimiter=None)
+    numbers = utils.get_input(delimiter=None)
     subarray = get_subarray_sum(numbers, 104054607)
     print(min(subarray) + max(subarray))

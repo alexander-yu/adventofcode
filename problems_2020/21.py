@@ -25,7 +25,6 @@ def get_foods():
     return [
         Food.parse(*food)
         for food in utils.get_input(
-            __file__,
             delimiter=' (contains ',
             cast=str,
             rstrip=')',

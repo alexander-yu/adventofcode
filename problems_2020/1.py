@@ -2,7 +2,7 @@ import utils
 
 
 def get_expenses():
-    return set(utils.get_input(__file__, delimiter=None))
+    return set(utils.get_input(delimiter=None))
 
 
 def get_expense_sum_pair(expenses, total):

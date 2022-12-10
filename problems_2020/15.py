@@ -4,7 +4,7 @@ import utils
 
 
 def play(last_round):
-    numbers = utils.get_input(__file__)[0]
+    numbers = utils.get_input()[0]
 
     occurrences = collections.defaultdict(list, {number: [i] for i, number in enumerate(numbers)})
     last_number = numbers[-1]

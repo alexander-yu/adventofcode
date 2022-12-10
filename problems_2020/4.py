@@ -65,7 +65,6 @@ def is_valid_passport(line, strict):
 
 def get_valid_passports(strict=False):
     lines = utils.get_input(
-        __file__,
         line_delimiter='\n\n',
         delimiter=[' ', '\n'],
         cast=str,

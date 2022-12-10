@@ -29,7 +29,7 @@ class PocketDimension:
 
 
 def get_pocket_dimension(dims):
-    points = utils.get_input(__file__, delimiter='', cast=str)
+    points = utils.get_input(delimiter='', cast=str)
     active_points = set()
 
     for i, row in enumerate(points):

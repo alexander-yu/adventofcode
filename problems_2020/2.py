@@ -40,7 +40,7 @@ class PasswordPolicy:
 
 
 def get_valid_passwords(policy_type):
-    passwords = utils.get_input(__file__, delimiter=': ', cast=str)
+    passwords = utils.get_input(delimiter=': ', cast=str)
     valid_passwords = 0
 
     for policy_str, password in passwords:

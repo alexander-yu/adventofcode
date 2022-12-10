@@ -35,7 +35,7 @@ def get_invalid_numbers(ticket, rules):
 
 
 def parse_notes():
-    rules, my_ticket, nearby_tickets = utils.get_input(__file__, delimiter='\n', cast=str, line_delimiter='\n\n')
+    rules, my_ticket, nearby_tickets = utils.get_input(delimiter='\n', cast=str, line_delimiter='\n\n')
 
     rules = [parse_rule(rule) for rule in rules]
     my_ticket = [int(number) for number in my_ticket[1].split(',')]

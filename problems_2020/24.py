@@ -39,7 +39,7 @@ class TileLexer(Lexer):
 
 
 def get_initial_floor():
-    tiles = utils.get_input(__file__, delimiter=None, cast=str)
+    tiles = utils.get_input(delimiter=None, cast=str)
     lexer = TileLexer()
     floor = collections.defaultdict(lambda: Color.WHITE)
 

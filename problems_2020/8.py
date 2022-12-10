@@ -64,7 +64,7 @@ class Program:
 def get_instructions():
     return [
         Instruction(InstructionType(instruction_type), int(arg))
-        for instruction_type, arg in utils.get_input(__file__, delimiter=' ', cast=str)
+        for instruction_type, arg in utils.get_input(delimiter=' ', cast=str)
     ]
 
 

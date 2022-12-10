@@ -72,11 +72,11 @@ def eval_expression(expression, advanced=False):
 
 @utils.part
 def part_1():
-    expressions = utils.get_input(__file__, delimiter='', cast=str)
+    expressions = utils.get_input(delimiter='', cast=str)
     print(sum([eval_expression(expression) for expression in expressions]))
 
 
 @utils.part
 def part_2():
-    expressions = utils.get_input(__file__, delimiter='', cast=str)
+    expressions = utils.get_input(delimiter='', cast=str)
     print(sum([eval_expression(expression, advanced=True) for expression in expressions]))

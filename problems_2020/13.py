@@ -11,7 +11,7 @@ def min_departure(min_timestamp, bus):
 
 @utils.part
 def part_1():
-    min_timestamp, buses = utils.get_input(__file__, delimiter=None, cast=str)
+    min_timestamp, buses = utils.get_input(delimiter=None, cast=str)
     min_timestamp = int(min_timestamp)
     buses = [int(bus) for bus in buses.split(',') if bus != 'x']
 
@@ -23,7 +23,7 @@ def part_1():
 
 @utils.part
 def part_2():
-    _, buses = utils.get_input(__file__, delimiter=None, cast=str)
+    _, buses = utils.get_input(delimiter=None, cast=str)
 
     buses, offsets = zip(*[
         (int(bus), -1 * i)

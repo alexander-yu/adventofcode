@@ -10,7 +10,7 @@ def seat_id(seating):
 
 
 def get_seat_ids():
-    seatings = utils.get_input(__file__, delimiter=None, cast=str)
+    seatings = utils.get_input(delimiter=None, cast=str)
     return [seat_id(seating) for seating in seatings]
 
 

@@ -76,7 +76,6 @@ def get_tiles():
             np.array([list(row) for row in tile[1:]]),
         )
         for tile in utils.get_input(
-            __file__,
             cast=str,
             delimiter='\n',
             line_delimiter='\n\n',

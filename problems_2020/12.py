@@ -72,7 +72,7 @@ def manhattan_distance(x, y):
 
 
 def navigate_ship(ship):
-    for instruction in utils.get_input(__file__, delimiter=None, cast=str):
+    for instruction in utils.get_input(delimiter=None, cast=str):
         action, value = parse_instruction(instruction)
         ship.execute(action, value)
 

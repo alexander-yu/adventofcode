@@ -22,7 +22,7 @@ def get_trees_encountered(grid, slope):
 
 @utils.part
 def part_1():
-    grid = utils.get_grid(__file__, grid_cls=Grid, delimiter='', cast=str)
+    grid = utils.get_grid(grid_cls=Grid, delimiter='', cast=str)
     print(get_trees_encountered(grid, (1, 3)))
 
 
@@ -35,5 +35,5 @@ def part_2():
         (1, 7),
         (2, 1),
     ]
-    grid = utils.get_grid(__file__, grid_cls=Grid, delimiter='', cast=str)
+    grid = utils.get_grid(grid_cls=Grid, delimiter='', cast=str)
     print(math.prod(get_trees_encountered(grid, slope) for slope in slopes))

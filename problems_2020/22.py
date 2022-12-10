@@ -5,7 +5,7 @@ import utils
 
 
 def get_decks():
-    decks = utils.get_input(__file__, cast=str, delimiter='\n', line_delimiter='\n\n')
+    decks = utils.get_input(cast=str, delimiter='\n', line_delimiter='\n\n')
     decks = [[int(card) for card in deck[1:]] for deck in decks]
     return [collections.deque(deck) for deck in decks]
 

@@ -22,7 +22,7 @@ def add_rule(graph, bag, components):
 
 
 def get_graph():
-    rules = utils.get_input(__file__, delimiter=' contain ', cast=str, rstrip='.')
+    rules = utils.get_input(delimiter=' contain ', cast=str, rstrip='.')
     graph = nx.DiGraph()
     for bag, components in rules:
         bag = re.match(BAG_REGEX, bag).group('color')

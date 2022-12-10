@@ -2,7 +2,7 @@ import utils
 
 
 def get_group_answers():
-    return utils.get_input(__file__, delimiter='\n', line_delimiter='\n\n', cast=str)
+    return utils.get_input(delimiter='\n', line_delimiter='\n\n', cast=str)
 
 
 @utils.part

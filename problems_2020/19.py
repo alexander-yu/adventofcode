@@ -45,7 +45,7 @@ def resolve(graph):
 
 @utils.part
 def part_1():
-    rules, messages = utils.get_input(__file__, cast=str, delimiter='\n', line_delimiter='\n\n')
+    rules, messages = utils.get_input(cast=str, delimiter='\n', line_delimiter='\n\n')
     graph = nx.DiGraph()
 
     for rule in rules:
@@ -59,7 +59,7 @@ def part_1():
 
 @utils.part
 def part_2():
-    rules, messages = utils.get_input(__file__, cast=str, delimiter='\n', line_delimiter='\n\n')
+    rules, messages = utils.get_input(cast=str, delimiter='\n', line_delimiter='\n\n')
     graph = nx.DiGraph()
 
     for rule in rules:
