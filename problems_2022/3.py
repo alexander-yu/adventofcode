@@ -14,7 +14,7 @@ PRIORITIES = {
 
 
 def get_data():
-    return utils.get_input(cast=str, delimiter='', line_delimiter='\n')
+    return utils.get_input(cast=str, delimiter='')
 
 
 def get_duplicate(sack):

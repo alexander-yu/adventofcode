@@ -5,7 +5,7 @@ import utils
 
 
 def get_signal():
-    return utils.get_input(cast=str, delimiter='', line_delimiter='\n')[0]
+    return utils.get_input(cast=str, delimiter='')[0]
 
 
 def get_marker_end(signal, size):

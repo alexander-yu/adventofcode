@@ -32,7 +32,7 @@ class State:
 
 
 def execute_instructions():
-    instructions = utils.get_input(cast=str, delimiter=' ', line_delimiter='\n')
+    instructions = utils.get_input(cast=str, delimiter=' ')
     state = State()
 
     for instruction in instructions:

@@ -2,7 +2,7 @@ import utils
 
 
 def get_data():
-    return utils.get_input(cast=str, delimiter=',', line_delimiter='\n')
+    return utils.get_input(cast=str)
 
 
 def get_sections(interval_pairs):
