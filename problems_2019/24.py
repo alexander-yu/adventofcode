@@ -2,16 +2,16 @@ import collections
 import enum
 import itertools
 
-import numpy as np
+from utils import Vector
 
 import utils
 
 
 VECTORS = [
-    np.array([0, 1, 0]),
-    np.array([0, -1, 0]),
-    np.array([1, 0, 0]),
-    np.array([-1, 0, 0]),
+    Vector(0, 1, 0),
+    Vector(0, -1, 0),
+    Vector(1, 0, 0),
+    Vector(-1, 0, 0),
 ]
 
 CENTER = (2, 2)
@@ -55,7 +55,7 @@ class Grid:
     def neighbors(self, coordinate):
         neighbors = []
         for vector in VECTORS:
-            neighbor = utils.add_vector(coordinate, vector)
+            neighbor = coordinate + vector
             val = self.get(neighbor)
             if val is not None:
                 neighbors.append(val)
@@ -149,7 +149,7 @@ def part_1():
 def part_2():
     grid = Grid(utils.get_input(delimiter='', cast=str))
 
-    for i in range(200):
+    for _ in range(200):
         new_grid = Grid(recursive=True)
         min_level = min(grid.levels.keys())
         max_level = max(grid.levels.keys())
