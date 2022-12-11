@@ -10,14 +10,16 @@ import numpy as np
 
 from boltons import iterutils
 
+from utils import Vector
+
 import utils
 
 
 EDGE_TO_VECTOR = {
-    0: (0, -1),  # left
-    1: (-1, 0),  # top
-    2: (0, 1),  # right
-    3: (1, 0),  # bottom
+    0: Vector(0, -1),  # left
+    1: Vector(-1, 0),  # top
+    2: Vector(0, 1),  # right
+    3: Vector(1, 0),  # bottom
 }
 
 SEA_MONSTER_REGEXES = [
@@ -141,7 +143,7 @@ def orient_tile_to_edge(tile_1, edge_1, tile_2):
 
 def assemble_tiles(graph):
     corner = set_top_left_corner(graph)
-    positions = {corner: (0, 0)}
+    positions = {corner: Vector(0, 0)}
 
     for edge in nx.bfs_edges(graph, corner):
         # pylint: disable=cell-var-from-loop
@@ -153,11 +155,11 @@ def assemble_tiles(graph):
 
         tile_1_edges = tile_1.edges()
         edge_1 = iterutils.first(range(4), key=lambda i: tile_1_edges[i] in edges)
-        positions[tile_id_2] = utils.add_vector(positions[tile_id_1], EDGE_TO_VECTOR[edge_1])
+        positions[tile_id_2] = positions[tile_id_1] + EDGE_TO_VECTOR[edge_1]
         orient_tile_to_edge(tile_1, edge_1, tile_2)
 
     # Now that positions have been determined, form grid of sub-images
-    dims = utils.add_vector(max(positions.values()), (1, 1))
+    dims = max(positions.values()) + Vector(1, 1)
     grid = [
         [None for _ in range(dims[1])]
         for _ in range(dims[0])
