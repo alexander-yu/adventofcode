@@ -3,16 +3,18 @@ import enum
 
 from sly import Lexer
 
+from utils import Vector
+
 import utils
 
 
 VECTORS = {
-    'sw': (-1, 0, -1),
-    'se': (0, -1, -1),
-    'nw': (0, 1, 1),
-    'ne': (1, 0, 1),
-    'w': (-1, 1, 0),
-    'e': (1, -1, 0),
+    'sw': Vector(-1, 0, -1),
+    'se': Vector(0, -1, -1),
+    'nw': Vector(0, 1, 1),
+    'ne': Vector(1, 0, 1),
+    'w': Vector(-1, 1, 0),
+    'e': Vector(1, -1, 0),
 }
 
 
@@ -46,7 +48,7 @@ def get_initial_floor():
     for tile in tiles:
         position = (0, 0, 0)
         for token in lexer.tokenize(tile):
-            position = utils.add_vector(position, VECTORS[token.value])
+            position = position + VECTORS[token.value]
 
         floor[position] = Color.flip(floor[position])
 
@@ -71,7 +73,7 @@ def part_2():
                 neighbor_colors = []
 
                 for vector in VECTORS.values():
-                    neighbor = utils.add_vector(position, vector)
+                    neighbor = position + vector
                     neighbor_colors.append(floor.get(neighbor, Color.WHITE))
                     black_neighbors[neighbor] += 1
 
