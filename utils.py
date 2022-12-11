@@ -71,6 +71,14 @@ class Vector(tuple):
 
         raise ValueError(f'Unsupported distance metric {metric}')
 
+    def neighbors(self, include_diagonals: bool = False):
+        dims = len(self)
+        zero = Vector(0 for _ in range(dims))
+
+        for vector in itertools.product([-1, 0, 1], repeat=dims):
+            if vector != zero and (include_diagonals or sum(vector) == 1):
+                yield self + vector
+
 
 class Vector2D(Vector):
     DIRECTION_ALIASES = {
@@ -220,8 +228,15 @@ def parse(
     ]
 
 
+def _get_calling_module():
+    calling_frame = inspect.currentframe().f_back.f_back
+    calling_module = inspect.getmodule(calling_frame)
+    return calling_module
+
+
 # pylint: disable=too-many-arguments
 def get_input(
+    problem_file: Optional[str] = None,
     delimiter: Optional[str] = ',',
     cast: Callable[[str], Any] = int,
     line_delimiter: str = '\n',
@@ -230,9 +245,8 @@ def get_input(
     remove_prefix: str = '',
     format: Optional[str] = None,
 ):
-    calling_frame = inspect.currentframe().f_back
-    calling_module = inspect.getmodule(calling_frame)
-    problem_path = pathlib.Path(calling_module.__file__).resolve()
+    problem_file = problem_file or _get_calling_module().__file__
+    problem_path = pathlib.Path(problem_file).resolve()
     module = problem_path.parent.stem
     problem_number = problem_path.stem
     test_prefix = '_test' if IS_TEST else ''
@@ -296,7 +310,7 @@ class MultiValueEnum(enum.Enum):
 class Grid:
     def __init__(
         self,
-        points: Dict[Tuple[int, int], Any],
+        points: Dict[Vector2D, Any],
         rows: int,
         columns: int,
     ):
@@ -305,10 +319,10 @@ class Grid:
         self.columns = columns
         self.graph = self.to_graph()
 
-    def __getitem__(self, point: Tuple[int, int]):
+    def __getitem__(self, point: Vector2D):
         return self.points[point]
 
-    def __setitem__(self, point: Tuple[int, int], value):
+    def __setitem__(self, point: Vector2D, value):
         self.points[point] = value
 
     def __iter__(self):
@@ -322,7 +336,7 @@ class Grid:
         for point, value in self.points.items():
             yield point, value
 
-    def neighbors(self, point: Tuple[int, int]):
+    def neighbors(self, point: Vector2D):
         for neighbor in self.graph.neighbors(point):
             yield neighbor
 
@@ -335,7 +349,7 @@ class Grid:
             graph.add_node(point, value=value)
 
         for point in self.points:
-            for neighbor in get_neighbors(point):
+            for neighbor in point.neighbors():
                 if neighbor in self.points:
                     graph.add_edge(point, neighbor)
 
@@ -372,7 +386,6 @@ class DirectedGrid(Grid):
 
 
 def get_grid(
-    problem_file: str,
     input_transformer: Callable[[Any], Any] = lambda x: x,
     grid_cls: Type[Grid] = Grid,
     value_transformer: Callable[[Any], Any] = lambda x: x,
@@ -382,11 +395,14 @@ def get_grid(
     rows = 0
     columns = 0
 
-    for i, row in enumerate(input_transformer(get_input(problem_file, **get_input_kwargs))):
+    for i, row in enumerate(input_transformer(get_input(
+        problem_file=_get_calling_module().__file__,
+        **get_input_kwargs
+    ))):
         rows = i + 1
         for j, value in enumerate(row):
             columns = j + 1
-            points[(i, j)] = value_transformer(value)
+            points[Vector2D(i, j)] = value_transformer(value)
 
     return grid_cls(points, rows, columns)
 
@@ -417,9 +433,7 @@ def timed(func):
 
 
 def part(func):
-    calling_frame = inspect.currentframe().f_back
-    calling_module = inspect.getmodule(calling_frame)
-    path = calling_module.__name__
+    path = _get_calling_module().__name__
     part_id = func.__name__.removeprefix('part_')
 
     if IS_TIMED:
