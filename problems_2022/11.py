@@ -51,16 +51,13 @@ def get_monkey_business(num_rounds, relief=True):
                 else:
                     worry %= mod_lcm
 
-                if worry % monkey.mod == 0:
-                    monkeys[monkey.test_true].items.append(worry)
-                else:
-                    monkeys[monkey.test_false].items.append(worry)
-
+                destination = monkey.test_true if worry % monkey.mod == 0 else monkey.test_false
+                monkeys[destination].items.append(worry)
                 monkey.inspect_count += 1
                 monkey.items = []
 
-    top_monkeys = sorted(monkeys, key=lambda monkey: monkey.inspect_count, reverse=True)
-    return top_monkeys[0].inspect_count * top_monkeys[1].inspect_count
+    x, y, *_ = sorted([monkey.inspect_count for monkey in monkeys], reverse=True)
+    return x * y
 
 
 @utils.part
