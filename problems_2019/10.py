@@ -43,19 +43,13 @@ def get_asteroids(asteroid_map):
     return coordinates
 
 
-def sign(x):
-    if x < 0:
-        return -1
-    return 1
-
-
 def sightline(coord_1, coord_2):
     dx, dy = coord_2 - coord_1
     dx, dy = dx.item(), dy.item()
 
     if dx == 0:
-        return Sightline(Direction(-1 * sign(dy)), float('-inf'))
-    return Sightline(Direction(sign(dx)), fractions.Fraction(dy, dx))
+        return Sightline(Direction(-1 * utils.sign(dy)), float('-inf'))
+    return Sightline(Direction(utils.sign(dx)), fractions.Fraction(dy, dx))
 
 
 def squared_dist(coord_1, coord_2):
