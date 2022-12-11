@@ -363,7 +363,7 @@ class DiagonalGrid(Grid):
             graph.add_node(point, value=value)
 
         for point in self.points:
-            for neighbor in get_neighbors(point, include_diagonals=True):
+            for neighbor in point.neighbors(include_diagonals=True):
                 if neighbor in self.points:
                     graph.add_edge(point, neighbor)
 
@@ -377,7 +377,7 @@ class DirectedGrid(Grid):
             graph.add_node(point, value=value)
 
         for point in self.points:
-            for neighbor in get_neighbors(point):
+            for neighbor in point.neighbors():
                 if neighbor in self.points:
                     graph.add_edge(point, neighbor)
                     graph.add_edge(neighbor, point)
