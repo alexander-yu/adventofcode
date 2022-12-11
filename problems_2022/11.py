@@ -15,7 +15,7 @@ class Monkey:
     mod: int
     test_true: int
     test_false: int
-    inspect_count: int = 0
+    inspects: int = 0
 
     @staticmethod
     def parse(lines):
@@ -53,10 +53,10 @@ def get_monkey_business(num_rounds, relief=True):
 
                 destination = monkey.test_true if worry % monkey.mod == 0 else monkey.test_false
                 monkeys[destination].items.append(worry)
-                monkey.inspect_count += 1
+                monkey.inspects += 1
                 monkey.items = []
 
-    x, y, *_ = sorted([monkey.inspect_count for monkey in monkeys], reverse=True)
+    x, y, *_ = sorted([monkey.inspects for monkey in monkeys], reverse=True)
     return x * y
 
 
