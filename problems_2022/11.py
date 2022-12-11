@@ -11,7 +11,7 @@ import utils
 @dataclasses.dataclass
 class Monkey:
     items: list
-    operation: Callable
+    inspect: Callable
     mod: int
     test_true: int
     test_false: int
@@ -24,12 +24,12 @@ class Monkey:
                 'Starting items: {}', lines[1]
             )[0].split(', ')
         ]
-        operation_expr = parse.parse('Operation: new = {}', lines[2])[0]
-        operation = eval(f'lambda old: {operation_expr}')
+        inspect_expr = parse.parse('Operation: new = {}', lines[2])[0]
+        inspect = eval(f'lambda old: {inspect_expr}')
         mod = parse.parse('Test: divisible by {:d}', lines[3])[0]
         test_true = parse.parse('If true: throw to monkey {:d}', lines[4])[0]
         test_false = parse.parse('If false: throw to monkey {:d}', lines[5])[0]
-        return Monkey(items, operation, mod, test_true, test_false)
+        return Monkey(items, inspect, mod, test_true, test_false)
 
 
 def get_monkeys():
@@ -44,7 +44,7 @@ def get_monkey_business(num_rounds, relief=True):
     for _ in range(num_rounds):
         for monkey in monkeys:
             for item in monkey.items:
-                worry = monkey.operation(item)
+                worry = monkey.inspect(item)
 
                 if relief:
                     worry //= 3
