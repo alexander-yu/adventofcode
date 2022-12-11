@@ -73,10 +73,9 @@ class Vector(tuple):
 
     def neighbors(self, include_diagonals: bool = False):
         dims = len(self)
-        zero = Vector(0 for _ in range(dims))
 
         for vector in itertools.product([-1, 0, 1], repeat=dims):
-            if vector != zero and (include_diagonals or len([x for x in vector if x]) == 1):
+            if any(vector) and (include_diagonals or len([x for x in vector if x]) == 1):
                 yield self + vector
 
 
