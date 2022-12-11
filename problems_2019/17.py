@@ -1,6 +1,6 @@
 import enum
 
-import numpy as np
+from utils import Vector
 
 import utils
 
@@ -12,12 +12,6 @@ NEWLINE = '\n'
 SCAFFOLD = '#'
 CURSORS = ['^', '>', '<', 'V', 'X']
 MAX_ROUTINE_SIZE = 20
-VECTORS = [
-    np.array([0, 1]),
-    np.array([0, -1]),
-    np.array([1, 0]),
-    np.array([-1, 0]),
-]
 
 
 class Rotation(enum.Enum):
@@ -40,10 +34,6 @@ class View:
         print()
 
 
-def get_neighbors(point):
-    return [tuple(np.array(point) + vector) for vector in VECTORS]
-
-
 def get_alignment(point):
     return abs(point[0]) * abs(point[1])
 
@@ -58,7 +48,7 @@ def get_view(program):
         view.points[(x, y)] = output
 
         if output == SCAFFOLD:
-            view.scaffolds.add((x, y))
+            view.scaffolds.add(Vector(x, y))
 
         if output == NEWLINE:
             view.width = max(view.width, x + 1)
@@ -81,7 +71,7 @@ def part_1():
 
     alignment = 0
     for scaffold in view.scaffolds:
-        if all(neighbor in view.scaffolds for neighbor in get_neighbors(scaffold)):
+        if all(neighbor in view.scaffolds for neighbor in scaffold.neighbors()):
             alignment += get_alignment(scaffold)
 
     print(alignment)

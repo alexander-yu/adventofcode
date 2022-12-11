@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Callable, Dict, Optional, Tuple, Type, Union
+from typing import Any, Callable, Dict, Optional, Type, Union
 
 import collections
 import copy
@@ -8,7 +8,6 @@ import dataclasses
 import datetime
 import enum
 import functools
-import humanize
 import inspect
 import itertools
 import os
@@ -18,6 +17,7 @@ import timeit
 
 from boltons import iterutils
 
+import humanize
 import networkx as nx
 import numpy as np
 import parse as parselib
@@ -76,7 +76,7 @@ class Vector(tuple):
         zero = Vector(0 for _ in range(dims))
 
         for vector in itertools.product([-1, 0, 1], repeat=dims):
-            if vector != zero and (include_diagonals or sum(vector) == 1):
+            if vector != zero and (include_diagonals or len([x for x in vector if x]) == 1):
                 yield self + vector
 
 
@@ -265,14 +265,6 @@ def get_input(
         )
 
 
-def add_vector(position: tuple, vector: tuple):
-    return tuple(x + y for x, y in zip(position, vector))
-
-
-def subtract_vector(position: tuple, vector: tuple):
-    return tuple(x - y for x, y in zip(position, vector))
-
-
 def sign(x: Union[float, int]) -> int:
     if x > 0:
         return 1
@@ -281,15 +273,6 @@ def sign(x: Union[float, int]) -> int:
         return -1
 
     return 0
-
-
-def get_neighbors(point: tuple, include_diagonals: bool = False):
-    dims = len(point)
-    zero = tuple(0 for _ in range(dims))
-
-    for vector in itertools.product([-1, 0, 1], repeat=dims):
-        if vector != zero and (include_diagonals or sum(vector) == 1):
-            yield add_vector(point, vector)
 
 
 class MultiValueEnum(enum.Enum):
