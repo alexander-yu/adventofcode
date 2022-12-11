@@ -2,6 +2,7 @@ boltons
 cachetools
 click
 cytoolz
+humanize
 marshmallow
 networkx
 numpy

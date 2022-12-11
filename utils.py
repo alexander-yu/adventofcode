@@ -5,12 +5,16 @@ from typing import Any, Callable, Dict, Optional, Tuple, Type, Union
 import collections
 import copy
 import dataclasses
+import datetime
 import enum
+import functools
+import humanize
 import inspect
 import itertools
 import os
 import pathlib
 import re
+import timeit
 
 from boltons import iterutils
 
@@ -21,6 +25,7 @@ import parse as parselib
 
 PART_REGISTRY = collections.defaultdict(dict)
 IS_TEST = False
+IS_TIMED = False
 
 
 class Direction(enum.Enum):
@@ -398,11 +403,27 @@ class Part:
     cmd: Callable
 
 
+def timed(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        start = timeit.default_timer()
+        func(*args, **kwargs)
+        elapsed = humanize.precisedelta(
+            datetime.timedelta(seconds=timeit.default_timer() - start),
+            minimum_unit='milliseconds',
+        )
+        print(f'[{elapsed}]')
+    return wrapper
+
+
 def part(func):
     calling_frame = inspect.currentframe().f_back
     calling_module = inspect.getmodule(calling_frame)
     path = calling_module.__name__
     part_id = func.__name__.removeprefix('part_')
+
+    if IS_TIMED:
+        func = timed(func)
 
     PART_REGISTRY[path][str(part_id)] = Part(part_id, func)
     return func

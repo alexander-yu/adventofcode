@@ -59,9 +59,11 @@ def execute_day(parts):
 @click.argument('problems', nargs=-1)
 @click.option('-y', '--year', nargs=1, type=int, default=datetime.datetime.now().year, show_default=True)
 @click.option('-t', '--test', is_flag=True, default=False)
+@click.option('-p', '--profile', is_flag=True, default=False)
 @click.option('-a', '--all', 'run_all', is_flag=True, default=False)
-def cli(problems, year, test, run_all):
+def cli(problems, year, test, profile, run_all):
     utils.IS_TEST = test
+    utils.IS_TIMED = profile
 
     if run_all:
         if problems:
