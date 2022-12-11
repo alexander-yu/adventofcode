@@ -1,5 +1,7 @@
 import math
 
+from utils import Vector
+
 import utils
 
 
@@ -10,12 +12,12 @@ class Grid(utils.Grid):
 
 
 def get_trees_encountered(grid, slope):
-    position = (0, 0)
+    position = Vector(0, 0)
     trees = 0
 
     while position[0] < grid.rows:
         trees += grid[position] == '#'
-        position = utils.add_vector(position, slope)
+        position += slope
 
     return trees
 
@@ -29,11 +31,11 @@ def part_1():
 @utils.part
 def part_2():
     slopes = [
-        (1, 1),
-        (1, 3),
-        (1, 5),
-        (1, 7),
-        (2, 1),
+        Vector(1, 1),
+        Vector(1, 3),
+        Vector(1, 5),
+        Vector(1, 7),
+        Vector(2, 1),
     ]
     grid = utils.get_grid(grid_cls=Grid, delimiter='', cast=str)
     print(math.prod(get_trees_encountered(grid, slope) for slope in slopes))
