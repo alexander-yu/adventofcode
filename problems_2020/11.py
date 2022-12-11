@@ -1,5 +1,7 @@
 import enum
 
+from utils import Vector
+
 import utils
 
 
@@ -35,12 +37,12 @@ class Grid(utils.Grid):
 
         for i in [-1, 0, 1]:
             for j in [-1, 0, 1]:
-                vector = (i, j)
+                vector = Vector(i, j)
                 if vector != (0, 0):
-                    visible_point = utils.add_vector(point, vector)
+                    visible_point = point + vector
 
                     while self.points.get(visible_point) == PointType.FLOOR:
-                        visible_point = utils.add_vector(visible_point, vector)
+                        visible_point = visible_point + vector
 
                     if self.points.get(visible_point) == PointType.OCCUPIED_SEAT:
                         visible_occupied_seats.append(visible_point)
