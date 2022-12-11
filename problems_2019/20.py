@@ -3,24 +3,25 @@ import itertools
 import string
 
 import networkx as nx
-import numpy as np
 
 from boltons import iterutils
+
+from utils import Vector
 
 import utils
 
 
 VECTORS = [
-    np.array([0, 1, 0]),
-    np.array([0, -1, 0]),
-    np.array([1, 0, 0]),
-    np.array([-1, 0, 0]),
+    Vector(0, 1, 0),
+    Vector(0, -1, 0),
+    Vector(1, 0, 0),
+    Vector(-1, 0, 0),
 ]
 
 
 class Direction(utils.MultiValueEnum):
-    HORIZONTAL = tuple(VECTORS[0]), tuple(VECTORS[1])
-    VERTICAL = tuple(VECTORS[2]), tuple(VECTORS[3])
+    HORIZONTAL = VECTORS[0], VECTORS[1]
+    VERTICAL = VECTORS[2], VECTORS[3]
 
 
 class PointType(utils.MultiValueEnum):
@@ -60,12 +61,12 @@ def get_label(graph, first_letter):
     ]
 
     for vector in second_letter_vectors:
-        neighbor = utils.add_vector(first_letter, vector)
+        neighbor = first_letter + vector
         if is_letter(graph, neighbor):
             label_position = None
             candidate_positions = [
-                utils.add_vector(first_letter, -1 * vector),
-                utils.add_vector(neighbor, vector),
+                first_letter - vector,
+                neighbor + vector,
             ]
             for position in candidate_positions:
                 if is_empty(graph, position):
@@ -113,7 +114,6 @@ def get_graph(levels=1):
             # This is not actually a first letter
             continue
 
-        second_letter = label.name[1]
         labels[label.name].append(label.position)
 
         for letter_position in label.letter_positions:
@@ -143,7 +143,7 @@ def get_graph(levels=1):
 
     for coordinate in graph.nodes:
         for vector in VECTORS:
-            neighbor = tuple(np.array(coordinate) + vector)
+            neighbor = Vector(coordinate + vector)
             if neighbor in graph.nodes:
                 graph.add_edge(coordinate, neighbor)
 
