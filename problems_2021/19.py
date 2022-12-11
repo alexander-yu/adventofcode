@@ -4,13 +4,15 @@ import typing
 
 import numpy as np
 
+from utils import Vector
+
 import utils
 
 
 @dataclasses.dataclass(frozen=True)
 class Scanner:
     id: int
-    points: typing.FrozenSet[tuple]
+    points: typing.FrozenSet[Vector]
 
     def __iter__(self):
         return iter(self.points)
@@ -18,10 +20,10 @@ class Scanner:
 
 def rotated_match(scanner_1, scanner_2):
     for point_1, point_2 in itertools.product(scanner_1, scanner_2):
-        diff = tuple(x - y for x, y in zip(point_1, point_2))
+        diff = point_1 - point_2
         oriented_scanner_2 = Scanner(
             scanner_2.id,
-            frozenset([utils.add_vector(point, diff) for point in scanner_2]),
+            frozenset([point + diff for point in scanner_2]),
         )
         if len(scanner_1.points & oriented_scanner_2.points) >= 12:
             return oriented_scanner_2, diff
@@ -33,7 +35,7 @@ def match(scanner_1, scanner_2):
     for rotation in utils.ROTATIONS_3D:
         rotated_scanner_2 = Scanner(
             scanner_2.id,
-            frozenset(tuple(np.dot(rotation, point)) for point in scanner_2),
+            frozenset(Vector(np.dot(rotation, point)) for point in scanner_2),
         )
         result = rotated_match(scanner_1, rotated_scanner_2)
         if result:
@@ -65,7 +67,7 @@ def orient_one(oriented, unlocated, positions, cache):
 
 def orient(scanners):
     oriented, unlocated = scanners[:1], set(scanners[1:])
-    positions = [(0, 0, 0)]
+    positions = [Vector(0, 0, 0)]
     cache = set()
 
     while unlocated:
@@ -82,7 +84,7 @@ def get_scanners():
         scanners.append(Scanner(
             i,
             frozenset(
-                tuple(utils.parse(coordinate)[0])
+                Vector(utils.parse(coordinate)[0])
                 for coordinate in coordinates
             )
         ))
@@ -102,6 +104,6 @@ def part_2():
     scanners = get_scanners()
     _, positions = orient(scanners)
     print(max(
-        sum(abs(x - y) for x, y in zip(position_1, position_2))
-        for position_1, position_2 in itertools.combinations(positions)
+        position_1.dist(position_2)
+        for position_1, position_2 in itertools.combinations(positions, 2)
     ))

@@ -65,9 +65,9 @@ class Vector(tuple):
     def sign(self):
         return self.__class__(sign(x) for x in self)
 
-    def dist(self, metric='manhattan'):
+    def dist(self, other, metric='manhattan'):
         if metric == 'manhattan':
-            return sum(self.abs())
+            return sum((self - other).abs())
 
         raise ValueError(f'Unsupported distance metric {metric}')
 
