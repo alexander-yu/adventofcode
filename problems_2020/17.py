@@ -1,5 +1,7 @@
 import collections
 
+from utils import Vector
+
 import utils
 
 
@@ -12,7 +14,7 @@ class PocketDimension:
         active_neighbor_count = collections.defaultdict(int)
 
         for point in self.active_points:
-            for neighbor in utils.get_neighbors(point, include_diagonals=True):
+            for neighbor in point.neighbors(include_diagonals=True):
                 active_neighbor_count[neighbor] += 1
 
         for point, active_neighbors in active_neighbor_count.items():
@@ -36,7 +38,7 @@ def get_pocket_dimension(dims):
         for j, status in enumerate(row):
             if status == '#':
                 point = (i, j) + tuple(0 for _ in range(dims - 2))
-                active_points.add(point)
+                active_points.add(Vector(point))
 
     return PocketDimension(active_points)
 
