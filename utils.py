@@ -413,7 +413,12 @@ def timed(func):
             datetime.timedelta(seconds=timeit.default_timer() - start),
             minimum_unit='milliseconds',
         )
-        print(f'[{elapsed}]')
+
+        if func.__name__.startswith('part_'):
+            print(f'[{elapsed}]')
+        else:
+            print(f'[{func.__name__}: {elapsed}]')
+
         return response
     return wrapper
 
