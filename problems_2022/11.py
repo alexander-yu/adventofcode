@@ -54,7 +54,8 @@ def get_monkey_business(num_rounds, relief=True):
                 destination = monkey.test_true if worry % monkey.mod == 0 else monkey.test_false
                 monkeys[destination].items.append(worry)
                 monkey.inspects += 1
-                monkey.items = []
+
+            monkey.items = []
 
     x, y, *_ = sorted([monkey.inspects for monkey in monkeys], reverse=True)
     return x * y
