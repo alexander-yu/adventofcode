@@ -314,6 +314,9 @@ class Grid:
     def __len__(self):
         return len(self.points)
 
+    def __contains__(self, point):
+        return point in self.points
+
     def items(self):
         for point, value in self.points.items():
             yield point, value
@@ -405,12 +408,13 @@ def timed(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         start = timeit.default_timer()
-        func(*args, **kwargs)
+        response = func(*args, **kwargs)
         elapsed = humanize.precisedelta(
             datetime.timedelta(seconds=timeit.default_timer() - start),
             minimum_unit='milliseconds',
         )
         print(f'[{elapsed}]')
+        return response
     return wrapper
 
 

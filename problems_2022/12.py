@@ -1,3 +1,4 @@
+import collections
 import string
 
 import networkx as nx
@@ -46,3 +47,38 @@ def part_2():
         for point, length in nx.single_target_shortest_path_length(grid.graph, grid.end)
         if grid.graph.nodes[point]['height'] == 0
     ))
+
+
+def shortest_path_bfs(grid, sources, end):
+    seen = set(sources)
+    queue = collections.deque([(point, 0) for point in seen])
+
+    while queue:
+        point, distance = queue.popleft()
+        if point == end:
+            return distance
+
+        for neighbor in point.neighbors():
+            if (
+                neighbor in grid and
+                neighbor not in seen and
+                HEIGHTS[grid[neighbor]] <= HEIGHTS[grid[point]] + 1
+            ):
+                seen.add(neighbor)
+                queue.append((neighbor, distance + 1))
+
+
+@utils.part
+def part_1_bfs():
+    grid = utils.get_grid(cast=str, delimiter='')
+    start, _ = utils.assert_one(grid.items(), key=lambda item: item[1] == 'S')
+    end, _ = utils.assert_one(grid.items(), key=lambda item: item[1] == 'E')
+    print(shortest_path_bfs(grid, [start], end))
+
+
+@utils.part
+def part_2_bfs():
+    grid = utils.get_grid(cast=str, delimiter='')
+    starts = [point for point in grid if grid[point] in {'S', 'a'}]
+    end, _ = utils.assert_one(grid.items(), key=lambda item: item[1] == 'E')
+    print(shortest_path_bfs(grid, starts, end))
