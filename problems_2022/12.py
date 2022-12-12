@@ -49,7 +49,8 @@ def part_2():
     ))
 
 
-def shortest_path_bfs(grid, sources, end):
+def shortest_path_to_end(grid, sources):
+    end, _ = utils.assert_one(grid.items(), key=lambda item: item[1] == 'E')
     seen = set(sources)
     queue = collections.deque([(point, 0) for point in seen])
 
@@ -72,13 +73,11 @@ def shortest_path_bfs(grid, sources, end):
 def part_1_bfs():
     grid = utils.get_grid(cast=str, delimiter='')
     start, _ = utils.assert_one(grid.items(), key=lambda item: item[1] == 'S')
-    end, _ = utils.assert_one(grid.items(), key=lambda item: item[1] == 'E')
-    print(shortest_path_bfs(grid, [start], end))
+    print(shortest_path_to_end(grid, [start]))
 
 
 @utils.part
 def part_2_bfs():
     grid = utils.get_grid(cast=str, delimiter='')
     starts = [point for point in grid if grid[point] in {'S', 'a'}]
-    end, _ = utils.assert_one(grid.items(), key=lambda item: item[1] == 'E')
-    print(shortest_path_bfs(grid, starts, end))
+    print(shortest_path_to_end(grid, starts))
