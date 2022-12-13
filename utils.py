@@ -295,11 +295,12 @@ class Grid:
         points: Dict[Vector2D, Any],
         rows: int,
         columns: int,
+        parse_graph: bool = True,
     ):
         self.points = points
         self.rows = rows
         self.columns = columns
-        self.graph = self.to_graph()
+        self.graph = self.to_graph() if parse_graph else None
 
     def __getitem__(self, point: Vector2D):
         return self.points[point]
@@ -374,6 +375,7 @@ def get_grid(
     input_transformer: Callable[[Any], Any] = lambda x: x,
     grid_cls: Type[Grid] = Grid,
     value_transformer: Callable[[Any], Any] = lambda x: x,
+    parse_graph: bool = True,
     **get_input_kwargs
 ):
     points = {}
@@ -389,7 +391,7 @@ def get_grid(
             columns = j + 1
             points[Vector2D(i, j)] = value_transformer(value)
 
-    return grid_cls(points, rows, columns)
+    return grid_cls(points, rows, columns, parse_graph=parse_graph)
 
 
 def assert_one(iterable, key=None):
