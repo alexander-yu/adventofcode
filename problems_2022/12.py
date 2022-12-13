@@ -71,13 +71,39 @@ def shortest_path_to_end(grid, sources):
 
 @utils.part
 def part_1_bfs():
-    grid = utils.get_grid(cast=str, delimiter='')
+    grid = utils.get_grid(cast=str, delimiter='', parse_graph=False)
     start, _ = utils.assert_one(grid.items(), key=lambda item: item[1] == 'S')
     print(shortest_path_to_end(grid, [start]))
 
 
 @utils.part
 def part_2_bfs():
-    grid = utils.get_grid(cast=str, delimiter='')
+    grid = utils.get_grid(cast=str, delimiter='', parse_graph=False)
     starts = [point for point in grid if grid[point] in {'S', 'a'}]
     print(shortest_path_to_end(grid, starts))
+
+
+def shortest_paths_from_end(grid):
+    end, _ = utils.assert_one(grid.items(), key=lambda item: item[1] == 'E')
+    seen = set([end])
+    queue = collections.deque([(point, 0) for point in seen])
+
+    while queue:
+        point, distance = queue.popleft()
+        if grid[point] in {'S',  'a'}:
+            return distance
+
+        for neighbor in point.neighbors():
+            if (
+                neighbor in grid and
+                neighbor not in seen and
+                HEIGHTS[grid[point]] <= HEIGHTS[grid[neighbor]] + 1
+            ):
+                seen.add(neighbor)
+                queue.append((neighbor, distance + 1))
+
+
+@utils.part
+def part_2_bfs_reverse():
+    grid = utils.get_grid(cast=str, delimiter='', parse_graph=False)
+    print(shortest_paths_from_end(grid))
