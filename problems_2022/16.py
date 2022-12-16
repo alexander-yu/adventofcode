@@ -1,4 +1,8 @@
+import collections
+import itertools
 import re
+
+from boltons import iterutils
 
 import utils
 
@@ -140,3 +144,48 @@ def part_2():
 
     search(1, 'AA', 'AA', 0)
     print(max_so_far)
+
+
+@utils.part
+def part_2_disjoint():
+    neighbors, rates, valves_to_open = get_data()
+    states = {}
+    masks = {valve: 1 << i for i, valve in enumerate(valves_to_open)}
+
+    def next_states(current_states):
+        for me, open_valves, flow, pressure in current_states:
+            candidate_states = []
+
+            if me in masks and ~open_valves & masks[me]:
+                candidate_states.append((me, open_valves | masks[me], flow + rates[me]))
+
+            for neighbor in neighbors[me]:
+                candidate_states.append((neighbor, open_valves, flow))
+
+            for state in candidate_states:
+                if state not in states or states[state] < pressure + flow:
+                    states[state] = pressure + flow
+                    yield (*state, pressure + flow)
+
+    current_states = [('AA', 0, 0, 0)]
+
+    for _ in range(26):
+        current_states = list(next_states(current_states))
+
+    grouped_states = collections.defaultdict(list)
+
+    for state, pressure in states.items():
+        open_valves = state[1]
+        grouped_states[open_valves].append(pressure)
+
+    best_states = {
+        open_valves: max(pressures)
+        for open_valves, pressures in grouped_states.items()
+    }
+
+    print(max(
+        me_pressure + elephant_pressure
+        for (me_open_valves, me_pressure), (elephant_open_valves, elephant_pressure)
+        in itertools.combinations(best_states.items(), 2)
+        if not me_open_valves & elephant_open_valves
+    ))
