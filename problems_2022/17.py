@@ -62,6 +62,8 @@ class Rock:
     def shift(self, direction, tower):
         new_points = [point.shift(direction) for point in self.points]
 
+        # If a shifted point collides with a wall, the floor, or the tower,
+        # reject the shift
         if any(
             point[0] < 0 or
             point[0] > 6 or
