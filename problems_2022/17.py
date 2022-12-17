@@ -146,7 +146,7 @@ def part_1():
 
 
 @dataclasses.dataclass
-class Tracking:
+class Tracker:
     seen: dict = dataclasses.field(default_factory=dict)
     deltas: list = dataclasses.field(default_factory=list)
     window: collections.deque = dataclasses.field(default_factory=collections.deque)
@@ -189,7 +189,7 @@ def part_2():
     rocks = itertools.cycle(enumerate(SHAPES))
     jets = itertools.cycle(enumerate(data))
     tower = Tower()
-    tracking = Tracking()
+    tracker = Tracker()
     num_rocks = 1000000000000
     cycle_length = None
 
@@ -206,7 +206,7 @@ def part_2():
             if not did_fall:
                 delta = tower.add_rock(rock)
                 state = (rock_idx, jet_idx, delta)
-                cycle_length = tracking.track(t, state)
+                cycle_length = tracker.track(t, state)
                 break
 
         # If we've detected a cycle, stop manual rock simulation,
@@ -216,4 +216,4 @@ def part_2():
         if cycle_length:
             break
 
-    print(get_height(num_rocks, cycle_length, tracking.deltas))
+    print(get_height(num_rocks, cycle_length, tracker.deltas))
