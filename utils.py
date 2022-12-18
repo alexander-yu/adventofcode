@@ -203,6 +203,7 @@ def parse(
     content: str,
     delimiter: Optional[str] = ',',
     cast: Callable[[str], Any] = int,
+    line_cast: Callable = lambda line: line,
     line_delimiter: str = '\n',
     rstrip: str = '',
     remove_suffix: str = '',
@@ -222,7 +223,7 @@ def parse(
         return [parselib.parse(format, line) for line in lines]
 
     return [
-        _split_line(line, delimiter, cast)
+        line_cast(_split_line(line, delimiter, cast))
         for line in lines
     ]
 
@@ -238,6 +239,7 @@ def get_input(
     problem_file: Optional[str] = None,
     delimiter: Optional[str] = ',',
     cast: Callable[[str], Any] = int,
+    line_cast: Callable = lambda line: line,
     line_delimiter: str = '\n',
     rstrip: Optional[str] = None,
     remove_suffix: str = '',
@@ -256,6 +258,7 @@ def get_input(
             f.read(),
             delimiter=delimiter,
             cast=cast,
+            line_cast=line_cast,
             line_delimiter=line_delimiter,
             rstrip=rstrip,
             remove_suffix=remove_suffix,
