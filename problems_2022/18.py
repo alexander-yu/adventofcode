@@ -1,21 +1,26 @@
 import collections
 import dataclasses
+import itertools
+
+import networkx as nx
+
+from utils import Vector
 
 import utils
 
 
 def get_data():
-    return utils.get_input(cast=int, line_cast=utils.Vector, delimiter=',', line_delimiter='\n')
+    return utils.get_input(cast=int, line_cast=Vector, delimiter=',', line_delimiter='\n')
 
 
 class Boundary:
-    def __init__(self, points):
-        self.min_x = min(point[0] for point in points)
-        self.min_y = min(point[1] for point in points)
-        self.min_z = min(point[2] for point in points)
-        self.max_x = max(point[0] for point in points)
-        self.max_y = max(point[1] for point in points)
-        self.max_z = max(point[2] for point in points)
+    def __init__(self, cubes):
+        self.min_x = min(point[0] for point in cubes)
+        self.min_y = min(point[1] for point in cubes)
+        self.min_z = min(point[2] for point in cubes)
+        self.max_x = max(point[0] for point in cubes)
+        self.max_y = max(point[1] for point in cubes)
+        self.max_z = max(point[2] for point in cubes)
 
     def contains(self, point):
         x, y, z = point
@@ -32,9 +37,9 @@ class Space:
     exterior: set = dataclasses.field(default_factory=set)
 
 
-def is_exterior(point, points, boundary, space):
+def is_exterior(point, cubes, boundary, space):
     """
-    To check if a point is in the exterior space surrounding the points,
+    To check if a point is in the exterior space surrounding the cubes,
     we perform a floodfill for the point.
 
     We make heavy use of caching here as well: for a given result, if
@@ -42,7 +47,7 @@ def is_exterior(point, points, boundary, space):
     we update our current set of interior/exterior points with all of the
     points seen as part of the current floodfill execution.
     """
-    if point in points or point in space.interior:
+    if point in cubes or point in space.interior:
         return False
 
     if point in space.exterior:
@@ -68,7 +73,7 @@ def is_exterior(point, points, boundary, space):
                 space.interior.update(seen)
                 return False
 
-            if neighbor not in points and neighbor not in seen:
+            if neighbor not in cubes and neighbor not in seen:
                 queue.append(neighbor)
                 seen.add(neighbor)
 
@@ -78,29 +83,61 @@ def is_exterior(point, points, boundary, space):
 
 @utils.part
 def part_1():
-    points = set(get_data())
+    cubes = set(get_data())
 
     print(sum(
         len([
             neighbor
-            for neighbor in point.neighbors()
-            if neighbor not in points
+            for neighbor in cube.neighbors()
+            if neighbor not in cubes
         ])
-        for point in points
+        for cube in cubes
     ))
 
 
 @utils.part
 def part_2():
-    points = frozenset(get_data())
-    boundary = Boundary(points)
+    cubes = set(get_data())
+    boundary = Boundary(cubes)
     space = Space()
 
     print(sum(
         len([
             neighbor
-            for neighbor in point.neighbors()
-            if is_exterior(neighbor, points, boundary, space)
+            for neighbor in cube.neighbors()
+            if is_exterior(neighbor, cubes, boundary, space)
         ])
-        for point in points
+        for cube in cubes
+    ))
+
+
+@utils.part
+def part_2_connected_components():
+    cubes = set(get_data())
+    boundary = Boundary(cubes)
+    graph = nx.Graph()
+
+    # We create a bounding box with at least one layer of space between it and the cubes to make sure that
+    # the exterior completely surrounds the cubes
+    for x, y, z in itertools.product(
+        range(boundary.min_x - 1, boundary.max_x + 2),
+        range(boundary.min_y - 1, boundary.max_y + 2),
+        range(boundary.min_z - 1, boundary.max_z + 2),
+    ):
+        point = Vector(x, y, z)
+        for neighbor in point.neighbors():
+            if point not in cubes and neighbor not in cubes:
+                graph.add_edge(point, neighbor)
+
+    # This is guaranteed to be an exterior point since by definition it's not contained in the set of cubes
+    exterior_corner = Vector(boundary.min_x - 1, boundary.min_y - 1, boundary.min_z - 1)
+    exterior = set(nx.descendants(graph, exterior_corner))
+
+    print(sum(
+        len([
+            neighbor
+            for neighbor in cube.neighbors()
+            if neighbor in exterior
+        ])
+        for cube in cubes
     ))
