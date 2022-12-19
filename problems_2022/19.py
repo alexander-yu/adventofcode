@@ -22,7 +22,7 @@ def get_blueprints():
 
 
 def get_max_geodes(blueprint, total_time):
-    o_o_cost, c_o_cost, ob_o_cost, ob_c_cost, g_o_cost, g_ob_cost = blueprint[1:]
+    blueprint_id, o_o_cost, c_o_cost, ob_o_cost, ob_c_cost, g_o_cost, g_ob_cost = blueprint
     max_o_cost = max(o_o_cost, c_o_cost, ob_o_cost, g_o_cost)
 
     # State is structured as:
@@ -35,12 +35,11 @@ def get_max_geodes(blueprint, total_time):
     max_geodes = 0
 
     while queue:
-        state = queue.popleft()
-        r_o, r_c, r_ob, r_g, o, c, ob, g, time = state
+        r_o, r_c, r_ob, r_g, o, c, ob, g, time = queue.popleft()
 
         if time not in times:
             times.add(time)
-            print(time, len(queue))
+            print(f'[{blueprint_id}] Time left: {time:<2} | Queue size: {len(queue)}')
 
         max_geodes = max(max_geodes, g)
 
