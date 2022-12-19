@@ -47,13 +47,15 @@ def get_max_geodes(blueprint, total_time):
             continue
 
         # If we have more resources than we could possibly need, trim it down to reduce state space.
-        # For example, note that for clay, if we have r_c clay robots and at least t * ob_c_cost - r_c * (t - 1),
-        # then given that we are guaranteed to produce at least r_c * (t - 1) additional clay, then
-        # even if we make a new obsidian robot (which needs clay) every minute, we'll still have extra
-        # clay left over.
-        o = min(o, time * max_o_cost - r_o * (time - 1))
-        c = min(c, time * ob_c_cost - r_c * (time - 1))
-        ob = min(ob, time * g_ob_cost - r_ob * (time - 1))
+        # For example, note that for clay, if we have r_c clay robots and more than
+        # ob_c_cost + (ob_c_cost - r_c) * (t - 1) clay, we can buy a obsidian robot next (which we are guaranteed
+        # to be able to afford since we also make sure that r_c <= ob_c_cost, see below). Then for each
+        # subsequent turn, if we conservatively assume we always buy another obsidian robot, after producing the next
+        # batch of clay we have more than r_c + (ob_c_cost - r_c) * (t - 1) = (ob_c_cost - r_c) * (t - 2) + ob_c_cost,
+        # so inductively we can keep affording to buy obsidian robots, and at the end we're still left over with clay.
+        o = min(o, max_o_cost + (max_o_cost - r_o) * (time - 1))
+        c = min(c, ob_c_cost + (ob_c_cost - r_c) * (time - 1))
+        ob = min(ob, g_ob_cost + (g_ob_cost - r_ob) * (time - 1))
 
         state = (r_o, r_c, r_ob, r_g, o, c, ob, g, time)
 
