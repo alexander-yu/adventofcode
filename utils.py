@@ -345,6 +345,11 @@ class Grid:
         return graph
 
 
+class CircularList(list):
+    def __getitem__(self, key):
+        return super().__getitem__(key % len(self))
+
+
 class DiagonalGrid(Grid):
     def to_graph(self):
         graph = nx.Graph()
