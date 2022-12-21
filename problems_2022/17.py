@@ -149,7 +149,9 @@ def part_1():
 class Tracker:
     seen: dict = dataclasses.field(default_factory=dict)
     deltas: list = dataclasses.field(default_factory=list)
-    window: collections.deque = dataclasses.field(default_factory=collections.deque)
+    window: collections.deque = dataclasses.field(
+        default_factory=lambda: collections.deque(maxlen=10)
+    )
 
     def track(self, time, state):
         delta = state[-1]
@@ -160,15 +162,11 @@ class Tracker:
         if state in self.seen:
             cycle_length = time - self.seen[state]
 
-            if list(self.window) == self.deltas[-cycle_length - 10:-cycle_length]:
+            if list(self.window) == self.deltas[-cycle_length - len(self.window):-cycle_length]:
                 return cycle_length
 
         self.seen[state] = time
         self.deltas.append(delta)
-
-        if len(self.window) >= 10:
-            self.window.popleft()
-
         self.window.append(delta)
         return None
 
