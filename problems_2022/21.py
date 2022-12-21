@@ -62,6 +62,21 @@ def part_2():
 
 
 @utils.part
+def part_1_exec():
+    exprs = utils.get_input(cast=lambda line: line.replace(': ', ' = '), delimiter=None)
+    evaluated = {}
+
+    while 'root' not in evaluated:
+        for expr in exprs:
+            try:
+                exec(expr, None, evaluated)
+            except NameError:
+                continue
+
+    print(int(evaluated['root']))
+
+
+@utils.part
 def part_2_z3():
     jobs = get_jobs()
     monkey_vars = {monkey: z3.Int(monkey) for monkey in jobs}
