@@ -7,11 +7,11 @@ import utils
 
 
 def get_data():
-    points, path = utils.get_input(cast=str, delimiter='\n', line_delimiter='\n\n')
+    *points, _, path = utils.get_input(cast=str, delimiter=None)
     start, grid, points_by_x, points_by_y = get_grid(points)
     path = [
         int(move) if move.isnumeric() else move
-        for move in re.split(r'(L|R)', path[0])
+        for move in re.findall(r'\d+|L|R', path)
     ]
 
     return start, grid, path, points_by_x, points_by_y
