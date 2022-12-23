@@ -17,6 +17,7 @@ import timeit
 
 from boltons import iterutils
 
+import cachetools
 import humanize
 import networkx as nx
 import numpy as np
@@ -72,11 +73,17 @@ class Vector(tuple):
         raise ValueError(f'Unsupported distance metric {metric}')
 
     def neighbors(self, include_diagonals: bool = False):
-        dims = len(self)
+        for vector in self.directions(len(self), include_diagonals=include_diagonals):
+            yield self + vector
 
-        for vector in itertools.product([-1, 0, 1], repeat=dims):
-            if any(vector) and (include_diagonals or len([x for x in vector if x]) == 1):
-                yield self + vector
+    @cachetools.cached({})
+    @staticmethod
+    def directions(dims, include_diagonals: bool = False):
+        return [
+            vector
+            for vector in itertools.product([-1, 0, 1], repeat=dims)
+            if any(vector) and (include_diagonals or len([x for x in vector if x]) == 1)
+        ]
 
 
 class Vector2D(Vector):
@@ -107,6 +114,10 @@ class Vector2D(Vector):
 
     def shift(self, direction: str) -> Vector2D:
         return self + DIRECTIONS[self.DIRECTION_ALIASES[direction]]
+
+    @staticmethod
+    def directions(include_diagonals: bool = False):  # pylint: disable=arguments-differ
+        return Vector.directions(2, include_diagonals=include_diagonals)
 
 
 NP_ORIGIN = np.array([
