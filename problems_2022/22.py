@@ -49,29 +49,24 @@ def part_1():
     curr = start
 
     for move in path:
-        if isinstance(move, int):
-            for _ in range(move):
-                new = curr + direction
-                if new not in grid:
-                    if direction[0] > 0:
-                        new = points_by_y[new[1]][0]
-                    elif direction[0] < 0:
-                        new = points_by_y[new[1]][-1]
-                    elif direction[1] > 0:
-                        new = points_by_x[new[0]][-1]
-                    elif direction[1] < 0:
-                        new = points_by_x[new[0]][0]
-                    else:
-                        raise ValueError(direction)
+        match move:
+            case 'L': direction = direction.rot90(1)
+            case 'R': direction = direction.rot90(3)
+            case _:
+                for _ in range(move):
+                    new = curr + direction
 
-                if grid[new] == '#':
-                    break
+                    if new not in grid:
+                        match direction.sign():
+                            case 1, _: new = points_by_y[new[1]][0]
+                            case -1, _: new = points_by_y[new[1]][-1]
+                            case _, 1: new = points_by_x[new[0]][-1]
+                            case _, -1: new = points_by_x[new[0]][0]
 
-                curr = new
-        elif move == 'L':
-            direction = direction.rot90(1)
-        else:
-            direction = direction.rot90(3)
+                    if grid[new] == '#':
+                        break
+
+                    curr = new
 
     x, y = curr
     row = -y + 1
@@ -104,7 +99,7 @@ def get_face(point):
 
 WRAPS = {
     (1, 0, 1): lambda x, y, points_by_x, points_by_y: (points_by_y[-150 - x][0], Vector2D(1, 0)),
-    (1, -1,  0): lambda x, y, points_by_x, points_by_y: (points_by_y[-150 + y + 1][0], Vector2D(1, 0)),
+    (1, -1, 0): lambda x, y, points_by_x, points_by_y: (points_by_y[-150 + y + 1][0], Vector2D(1, 0)),
     (2, 0, 1): lambda x, y, points_by_x, points_by_y: (points_by_x[x][-1], Vector2D(0, 1)),
     (2, 1, 0): lambda x, y, points_by_x, points_by_y: (points_by_y[-150 + y][-1], Vector2D(-1, 0)),
     (2, 0, -1): lambda x, y, points_by_x, points_by_y: (points_by_y[-50 - x][-1], Vector2D(-1, 0)),
@@ -126,7 +121,7 @@ def wrap(point, direction, points_by_x, points_by_y):
     x, y = point
     x, y = x % 50, 50 - (y % 50)
 
-    return WRAPS[face, utils.sign(direction[0]), utils.sign(direction[1])](x, y, points_by_x, points_by_y)
+    return WRAPS[face, *direction.sign()](x, y, points_by_x, points_by_y)
 
 
 @utils.part
@@ -137,23 +132,22 @@ def part_2():
     curr = start
 
     for move in path:
-        if isinstance(move, int):
-            for _ in range(move):
-                new = curr + direction
-                if new not in grid:
-                    new, new_direction = wrap(curr, direction, points_by_x, points_by_y)
-                else:
-                    new_direction = direction
+        match move:
+            case 'L': direction = direction.rot90(1)
+            case 'R': direction = direction.rot90(3)
+            case _:
+                for _ in range(move):
+                    new = curr + direction
+                    if new not in grid:
+                        new, new_direction = wrap(curr, direction, points_by_x, points_by_y)
+                    else:
+                        new_direction = direction
 
-                if grid[new] == '#':
-                    break
+                    if grid[new] == '#':
+                        break
 
-                curr = new
-                direction = new_direction
-        elif move == 'L':
-            direction = direction.rot90(1)
-        else:
-            direction = direction.rot90(3)
+                    curr = new
+                    direction = new_direction
 
     x, y = curr
     row = -y + 1
