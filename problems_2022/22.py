@@ -41,6 +41,22 @@ def get_grid(point_rows):
     return start, utils.Grid(points, n_rows, n_columns), points_by_x, points_by_y
 
 
+def get_password(point, direction):
+    x, y = point
+
+    row = -y + 1
+    col = x + 1
+
+    facing = {
+        (1, 0): 0,
+        (0, -1): 1,
+        (-1, 0): 2,
+        (0, 1): 3,
+    }[direction]
+
+    return 1000 * row + col + facing
+
+
 @utils.part
 def part_1():
     start, grid, path, points_by_x, points_by_y = get_data()
@@ -68,17 +84,7 @@ def part_1():
 
                     curr = new
 
-    x, y = curr
-    row = -y + 1
-    col = x + 1
-    facing = {
-        (1, 0): 0,
-        (0, -1): 1,
-        (-1, 0): 2,
-        (0, 1): 3,
-    }[direction]
-
-    print(1000 * row + 4 * col + facing)
+    print(get_password(curr, direction))
 
 
 FACES = {
@@ -149,14 +155,4 @@ def part_2():
                     curr = new
                     direction = new_direction
 
-    x, y = curr
-    row = -y + 1
-    col = x + 1
-    facing = {
-        (1, 0): 0,
-        (0, -1): 1,
-        (-1, 0): 2,
-        (0, 1): 3,
-    }[direction]
-
-    print(1000 * row + 4 * col + facing)
+    print(get_password(curr, direction))
