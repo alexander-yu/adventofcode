@@ -253,7 +253,7 @@ def get_input(
     test_prefix = '_test' if IS_TEST else ''
     input_file_name = f'{problem_number}{test_prefix}.txt'
 
-    with open(os.path.join(problem_path.parent.parent, 'inputs', module, input_file_name), 'r') as f:
+    with open(os.path.join(problem_path.parent.parent, 'inputs', module, input_file_name), 'r', encoding='utf-8') as f:
         return parse(
             f.read(),
             delimiter=delimiter,

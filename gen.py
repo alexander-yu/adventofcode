@@ -33,7 +33,7 @@ def gen_file(path, content, exists_ok=False):
             return
         raise Exception(f'File {path} already exists')
 
-    with open(path, 'w') as f:
+    with open(path, 'w', encoding='utf-8') as f:
         f.write(content)
 
     # Open new files in vscode
