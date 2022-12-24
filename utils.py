@@ -76,7 +76,6 @@ class Vector(tuple):
         for vector in self.directions(len(self), include_diagonals=include_diagonals):
             yield self + vector
 
-    @cachetools.cached({})
     @staticmethod
     def directions(dims, include_diagonals: bool = False):
         return [
@@ -114,10 +113,6 @@ class Vector2D(Vector):
 
     def shift(self, direction: str) -> Vector2D:
         return self + DIRECTIONS[self.DIRECTION_ALIASES[direction]]
-
-    @staticmethod
-    def directions(include_diagonals: bool = False):  # pylint: disable=arguments-differ
-        return Vector.directions(2, include_diagonals=include_diagonals)
 
 
 NP_ORIGIN = np.array([

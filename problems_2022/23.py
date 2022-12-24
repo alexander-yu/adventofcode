@@ -1,12 +1,12 @@
 import collections
 import dataclasses
 
-from utils import Vector2D
+from utils import Vector, Vector2D
 
 import utils
 
 
-DIRECTIONS = Vector2D.directions(include_diagonals=True)
+DIRECTIONS = Vector.directions(2, include_diagonals=True)
 
 
 def get_elves():
