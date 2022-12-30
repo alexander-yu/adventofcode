@@ -54,7 +54,7 @@ def get_password(point, direction):
         (0, 1): 3,
     }[direction]
 
-    return 1000 * row + col + facing
+    return 1000 * row + 4 * col + facing
 
 
 @utils.part
